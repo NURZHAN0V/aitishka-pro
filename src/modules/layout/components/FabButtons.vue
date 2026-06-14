@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-import BaseIcon from '@/core/components/BaseIcon.vue'
-import { VK_COMMUNITY_CHAT_URL } from '@/core/constants/vk'
 
 const isScrollVisible = ref(false)
 
@@ -37,24 +35,13 @@ function scrollToTop() {
       Наверх
     </button>
   </Transition>
-
-  <a
-    :href="VK_COMMUNITY_CHAT_URL"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="fab__btn fab__btn--vk"
-    aria-label="Чат сообщества ВК"
-    title="Написать в сообщения"
-  >
-    <BaseIcon name="vk" size="1.25rem" />
-  </a>
 </template>
 
 <style scoped lang="scss">
 .scroll-top {
   position: fixed;
   left: 50%;
-  bottom: 3.75rem;
+  bottom: 2rem;
   z-index: 40;
   transform: translateX(-50%);
   padding: 0.375rem 1rem;
@@ -87,45 +74,10 @@ function scrollToTop() {
   transform: translateX(-50%) translateY(0.75rem);
 }
 
-.fab__btn {
-  position: fixed;
-  right: 2rem;
-  bottom: 2rem;
-  z-index: 40;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem;
-  border: none;
-  border-radius: $radius-md;
-  color: $color-on-primary;
-  background: $color-primary;
-  transition: background-color 0.2s;
-
-  &:active,
-  &:hover {
-    background: $color-primary-hover;
-  }
-
-  &--vk {
-    background: #0077ff;
-
-    &:active,
-    &:hover {
-      background: #0066dd;
-    }
-  }
-}
-
 @media (max-width: $bp-mobile) {
   .scroll-top {
-    bottom: 2.75rem;
-    padding: 0.3125rem 0.875rem;
-  }
-
-  .fab__btn {
-    right: 1rem;
     bottom: 1.25rem;
+    padding: 0.3125rem 0.875rem;
   }
 }
 </style>
