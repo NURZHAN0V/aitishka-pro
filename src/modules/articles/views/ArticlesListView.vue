@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import ArticlesPostGrid from '@/modules/articles/components/ArticlesPostGrid.vue'
 import { usePostsCatalog } from '@/modules/articles/composables/usePostsCatalog'
+import ListPageBanner from '@/modules/layout/components/ListPageBanner.vue'
 import { NEWS_CATEGORY_SLUG } from '@/modules/news/constants'
 
 const { posts, ready, ensureLoaded } = usePostsCatalog()
@@ -27,6 +28,7 @@ const sortedPosts = computed(() =>
 
 <template>
   <div class="articles-list">
+    <ListPageBanner />
     <ArticlesPostGrid
       :posts="sortedPosts"
       :loading="loading"

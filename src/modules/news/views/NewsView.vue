@@ -3,6 +3,7 @@ import type { PostSummary } from '@/index.d'
 import { computed, onMounted, ref } from 'vue'
 import { api } from '@/core/api'
 import ArticleCard from '@/modules/articles/components/ArticleCard.vue'
+import ListPageBanner from '@/modules/layout/components/ListPageBanner.vue'
 import { NEWS_CATEGORY_SLUG } from '@/modules/news/constants'
 
 const posts = ref<PostSummary[]>([])
@@ -28,6 +29,7 @@ onMounted(async () => {
 
 <template>
   <div class="news">
+    <ListPageBanner />
     <p v-if="loading" class="news__status">
       Загрузка…
     </p>

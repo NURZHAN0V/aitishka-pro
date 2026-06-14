@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import ListPageBanner from '@/modules/layout/components/ListPageBanner.vue'
 import VideoCard from '@/modules/media/components/VideoCard.vue'
 import { useVideosCatalog } from '@/modules/media/composables/useVideosCatalog'
 
@@ -36,6 +37,7 @@ onMounted(async () => {
 
 <template>
   <div class="media-view">
+    <ListPageBanner />
     <p v-if="loading" class="media-view__status">
       Загрузка…
     </p>
