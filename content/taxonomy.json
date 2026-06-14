@@ -1,0 +1,45 @@
+{
+  "categories": [
+    {
+      "slug": "git",
+      "name": "Git",
+      "subcategories": [
+        {
+          "slug": "basics",
+          "name": "Основы"
+        },
+        {
+          "slug": "branches",
+          "name": "Ветки"
+        },
+        {
+          "slug": "workflow",
+          "name": "Рабочий процесс"
+        }
+      ]
+    },
+    {
+      "slug": "html-css",
+      "name": "HTML&CSS",
+      "subcategories": [
+        {
+          "slug": "html",
+          "name": "HTML"
+        },
+        {
+          "slug": "css",
+          "name": "CSS"
+        },
+        {
+          "slug": "responsive",
+          "name": "Адаптивность"
+        }
+      ]
+    },
+    {
+      "slug": "javascript",
+      "name": "JavaScript",
+      "subcategories": []
+    }
+  ]
+}

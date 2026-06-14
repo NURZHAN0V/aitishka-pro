@@ -1,0 +1,36 @@
+{
+  "name": "aitishka",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.12.1",
+  "author": "Nurzhanov Oleg",
+  "homepage": "https://aitishka.pro",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node scripts/copy-content.mjs && vite",
+    "build": "node scripts/copy-content.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-build-json.mjs && vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "migrate": "node scripts/migrate-content.mjs",
+    "lint": "eslint .",
+    "check": "eslint . && vue-tsc --build"
+  },
+  "dependencies": {
+    "markdown-it": "^14.1.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.11.0",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^25.9.3",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "eslint": "^9.23.0",
+    "sass": "^1.86.3",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.5",
+    "vue-tsc": "^2.2.8"
+  }
+}

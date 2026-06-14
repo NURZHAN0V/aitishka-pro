@@ -1,0 +1,19 @@
+{
+  "id": "hqh7qz0q0j69tqlcuje7ator",
+  "slug": "kak-ispravit-oshibku-s-npm-v-terminale-vs-code",
+  "title": "Как исправить ошибку с npm в терминале VS Code",
+  "description": "Если вы столкнулись с проблемой, когда терминал Visual Studio Code не распознает команду npm, не спешите паниковать. Чаще всего это связано с политикой выполнения скриптов в PowerShell. Мы покажем простое решение, которое поможет вернуть работоспособность npm.",
+  "body": "Пользователи Visual Studio Code нередко сталкиваются с ситуацией, когда терминал внутри редактора не видит установленные глобальные пакеты, включая `npm`. Это может вызывать ошибки вроде `'npm' is not recognized as an internal or external command`.\n\nЧасто проблема кроется в политике выполнения скриптов PowerShell, особенно если у вас Windows. Чтобы решить эту задачу, достаточно изменить политику выполнения для текущего пользователя.\n\n### Шаг 1: Измените политику выполнения\n\nОткройте терминал в VS Code и выполните следующую команду:\n\n```powershell\nSet-ExecutionPolicy RemoteSigned -Scope CurrentUser\n```\n\nЭта команда разрешает запуск локальных скриптов и загрузку удалённых, но только при наличии цифровой подписи у последних — что безопасно для большинства пользователей.\n\n### Шаг 2: Проверьте изменения\n\nУбедитесь, что политика изменилась корректно:\n\n```powershell\nGet-ExecutionPolicy -Scope CurrentUser\n```\n\nВы должны увидеть в ответе значение `RemoteSigned`.\n\nПосле этого перезапустите терминал или VS Code, и команда `npm` должна заработать. Если проблема сохраняется — проверьте правильность установки Node.js и наличие пути к `npm` в переменной окружения `PATH`.\n\nГотово! Теперь вы можете снова работать с npm без прерываний.",
+  "cover": "/media/aHR0cHM6Ly9jbXMu.jpg",
+  "category": {
+    "slug": "dlya-vzroslyh",
+    "name": "Для взрослых"
+  },
+  "subcategory": {
+    "slug": "instrumenty-i-po",
+    "name": "Инструменты и ПО"
+  },
+  "url": "/articles/dlya-vzroslyh/instrumenty-i-po/kak-ispravit-oshibku-s-npm-v-terminale-vs-code",
+  "publishedAt": "2026-05-18T13:29:10.609Z",
+  "views": 223
+}

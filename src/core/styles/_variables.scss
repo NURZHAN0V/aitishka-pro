@@ -1,0 +1,71 @@
+// Aitishka brand palette (from web/tailwind.config.js)
+$color-primary: #d17d4d;
+$color-primary-hover: #c77343;
+$color-background: #e2e8f0;
+$color-secondary: #4f4f4f;
+$color-default: #0f0f0f;
+
+$color-white: #ffffff;
+$color-gray-200: #e5e7eb;
+$color-gray-300: #d1d5db;
+$color-gray-400: #9ca3af;
+$color-gray-600: #4b5563;
+
+// Tech tag colors
+$color-tech-git: #ef4444;
+$color-tech-html: #fb923c;
+$color-tech-css: #0284c7;
+$color-tech-js: #facc15;
+$color-tech-ts: #2563eb;
+$color-tech-node: #22c55e;
+$color-tech-golang: #00add8;
+$color-tech-flutter: #02569b;
+
+$font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+$radius-sm: 0.75rem;
+$radius-md: 1rem;
+$radius-lg: 1.5rem;
+$radius-xl: 1.5rem;
+$radius-2xl: 1.5rem;
+$radius-3xl: 1.5rem;
+
+$shadow-sm: 0 1px 2px rgb(15 23 42 / 8%);
+$shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
+$shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 10%), 0 8px 10px -6px rgb(0 0 0 / 10%);
+
+$container-max: 80rem;
+
+$bp-sm: 640px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+
+$bp-mobile: 480px;
+$bp-tablet: 767px;
+$bp-notebook: 1199px;
+
+@mixin sm {
+  @media (min-width: $bp-sm) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: $bp-md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: $bp-lg) {
+    @content;
+  }
+}
+
+@mixin focus-ring($offset: 2px) {
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: $offset;
+  }
+}

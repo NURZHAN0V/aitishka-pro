@@ -1,0 +1,19 @@
+{
+  "id": "o5j713vzqm2rvbwj7pts7d2d",
+  "slug": "kak-podklyuchitsya-k-git-hub-po-ssh-poshagovoe-rukovodstvo-dlya-novichkov",
+  "title": "Как подключиться к GitHub по SSH: пошаговое руководство для новичков",
+  "description": "Узнайте, как создать SSH-ключ, подключиться к GitHub и избежать ввода пароля при каждом git push. Простые шаги для Windows, Linux и macOS",
+  "body": "## 🔐 Как подключиться к GitHub по SSH: руководство для новичков\n\nGitHub позволяет работать с репозиториями через SSH — это безопаснее и удобнее, чем HTTPS. Особенно это полезно при регулярных операциях `git push` и `git pull`, ведь вам не придётся вводить логин и пароль при каждом действии. В этом руководстве вы узнаете, как всё настроить на **Windows**, **Linux** и **macOS**.\n\n---\n\n### 🧠 Зачем использовать SSH?\n\n**SSH (Secure Shell)** — это протокол, обеспечивающий защищённую аутентификацию при соединении с удалённым сервером. В контексте GitHub SSH используется для подтверждения вашей личности, избавляя от ручного ввода паролей и повышая безопасность при работе с репозиториями.\n\n---\n\n## 🔧 Шаг 1: Проверка наличия SSH-ключей\n\n### На **Linux/macOS**:\n\n```bash\ncd ~/.ssh\nls id_*\n```\n\nЕсли ключи уже есть (например `id_rsa` и `id_rsa.pub`) — можно переходить к следующему шагу. Иначе — создаём.\n\n### На **Windows**:\n\nОткройте командную строку:\n\n```cmd\ndir .ssh\n```\n\nЕсли `.ssh` не существует, создайте её:\n\n```cmd\nmkdir .ssh\n```\n\n---\n\n## 🛠️ Шаг 2: Создание SSH-ключа\n\n```bash\nssh-keygen -t rsa -b 4096 -C \"ваш_email@example.com\"\n```\n\nПросто нажимайте `Enter` при запросах пути и фразы-пароля, если не хотите их задавать.\n\n---\n\n## 🚀 Шаг 3: Запуск SSH-агента и добавление ключа\n\n```bash\neval \"$(ssh-agent -s)\"\nssh-add ~/.ssh/id_rsa\n```\n\n💡 Если ключ назван иначе — подставьте правильное имя файла.\n\n---\n\n## 📨 Шаг 4: Добавление ключа на GitHub\n\n### 🔹 Windows:\n\n```cmd\nnotepad .ssh/id_rsa.pub\n```\n\n### 🔹 Linux:\n\n```bash\ncat ~/.ssh/id_rsa.pub\n```\n\nИли:\n\n```bash\nxclip -sel clip < ~/.ssh/id_rsa.pub\n```\n\n### 🔹 macOS:\n\n```bash\npbcopy < ~/.ssh/id_rsa.pub\n```\n\nТеперь:\n\n1. Перейдите на [GitHub → Settings → SSH and GPG keys](https://github.com/settings/keys)\n2. Нажмите **New SSH key**\n3. Укажите имя (например: `мой ноутбук`)\n4. Вставьте ключ и сохраните\n\n---\n\n## 🧪 Шаг 5: Проверка подключения\n\n```bash\nssh -T git@github.com\n```\n\n✅ Успешный ответ:\n\n```text\nHi username! You've successfully authenticated, but GitHub does not provide shell access.\n```\n\n---\n\n## ⚠️ Возможные ошибки\n\n### 🔸 Permission denied (publickey)\n\n— Ключ не добавлен в агент или не загружен на GitHub. Проверьте через `ssh-add -l`.\n\n### 🔸 Could not load SSH key\n\n— SSH-агент не запущен или ключ не добавлен. Повторите `ssh-add`.\n\n### 🔸 Host key verification failed\n\n— Добавьте GitHub в доверенные хосты:\n\n```bash\nssh-keyscan github.com >> ~/.ssh/known_hosts\n```\n\n---\n\n## ✅ Заключение\n\nНастроив SSH, вы получаете:\n\n* Защищённое соединение с GitHub\n* Быстрый доступ без ввода логина/пароля\n* Гибкость для автоматизации и CI/CD\n\nТеперь вы можете наслаждаться полноценной работой с репозиториями, не беспокоясь о безопасности и ручном вводе данных.\n\n> 💬 Если вы только начинаете знакомство с Git и GitHub — настройка SSH станет отличным первым шагом к более профессиональной разработке.",
+  "cover": "/media/aHR0cHM6Ly9jbXMu.png",
+  "category": {
+    "slug": "dlya-vzroslyh",
+    "name": "Для взрослых"
+  },
+  "subcategory": {
+    "slug": "git",
+    "name": "Git"
+  },
+  "url": "/articles/dlya-vzroslyh/git/kak-podklyuchitsya-k-git-hub-po-ssh-poshagovoe-rukovodstvo-dlya-novichkov",
+  "publishedAt": "2026-04-26T23:22:17.582Z",
+  "views": 137
+}

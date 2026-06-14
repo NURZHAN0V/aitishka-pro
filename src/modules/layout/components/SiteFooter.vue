@@ -1,0 +1,224 @@
+<script setup lang="ts">
+import { RouterLink } from 'vue-router'
+import BaseIcon from '@/core/components/BaseIcon.vue'
+</script>
+
+<template>
+  <footer class="site-footer">
+    <div class="site-footer__top container">
+      <div class="site-footer__grid">
+        <div class="site-footer__col">
+          <RouterLink to="/" class="site-footer__logo">
+            AITISHKA<span class="site-footer__logo-accent">PRO</span>
+          </RouterLink>
+          <p class="site-footer__text">
+            Образовательная платформа для разработчиков. Статьи, видео и материалы по Git, HTML, CSS и фронтенду.
+          </p>
+          <div class="site-footer__social">
+            <a href="https://t.me/aitishka_pro" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="site-footer__social-link">
+              <BaseIcon name="telegram" />
+            </a>
+            <a href="https://vk.com/aitishka_pro" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" class="site-footer__social-link">
+              <BaseIcon name="links" />
+            </a>
+          </div>
+        </div>
+
+        <div class="site-footer__col">
+          <h3 class="site-footer__heading">
+            Навигация
+          </h3>
+          <div class="site-footer__links-grid">
+            <RouterLink to="/" class="site-footer__link">
+              Главная
+            </RouterLink>
+            <RouterLink to="/news" class="site-footer__link">
+              Новости
+            </RouterLink>
+            <RouterLink to="/articles" class="site-footer__link">
+              Статьи
+            </RouterLink>
+            <RouterLink to="/media" class="site-footer__link">
+              Видео
+            </RouterLink>
+            <RouterLink to="/about" class="site-footer__link">
+              О нас
+            </RouterLink>
+            <RouterLink to="/contact" class="site-footer__link">
+              Контакты
+            </RouterLink>
+          </div>
+        </div>
+
+        <div class="site-footer__col">
+          <h3 class="site-footer__heading">
+            Информация
+          </h3>
+          <ul class="site-footer__info">
+            <li>
+              Телефон:
+              <a href="tel:+79999999999" class="site-footer__link">+7 (999) 999-99-99</a>
+            </li>
+            <li>
+              Email:
+              <a href="mailto:info@aitishka.pro" class="site-footer__link">info@aitishka.pro</a>
+            </li>
+            <li>Адрес: Россия</li>
+          </ul>
+        </div>
+
+        <div class="site-footer__col">
+          <h3 class="site-footer__heading">
+            Документы
+          </h3>
+          <ul class="site-footer__info">
+            <li>
+              <RouterLink to="/privacy" class="site-footer__link">
+                Политика конфиденциальности
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink to="/terms" class="site-footer__link">
+                Пользовательское соглашение
+              </RouterLink>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-footer__divider" />
+
+    <div class="site-footer__bottom container">
+      <p>AITISHKA<span class="site-footer__logo-accent">PRO</span> © 2023 – 2026</p>
+    </div>
+  </footer>
+</template>
+
+<style scoped lang="scss">
+.site-footer {
+  background: $color-default;
+  color: $color-white;
+}
+
+.site-footer__top {
+  padding-block: 1.5rem 2rem;
+
+  @include lg {
+    padding-block: 2rem 2.5rem;
+  }
+}
+
+.site-footer__grid {
+  display: grid;
+  gap: 1.5rem;
+
+  @include sm {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include lg {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+.site-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  text-align: center;
+
+  @include lg {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+.site-footer__logo {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: $color-white;
+}
+
+.site-footer__logo-accent {
+  color: $color-primary;
+}
+
+.site-footer__text {
+  font-size: 0.875rem;
+  color: $color-gray-300;
+  line-height: 1.6;
+  max-width: 18rem;
+}
+
+.site-footer__social {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.site-footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid $color-primary;
+  border-radius: 50%;
+  color: $color-primary;
+  transition: background-color 0.2s, color 0.2s;
+
+  &:hover {
+    background: $color-primary;
+    color: $color-white;
+  }
+}
+
+.site-footer__heading {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $color-gray-400;
+}
+
+.site-footer__links-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1rem;
+}
+
+.site-footer__link {
+  color: $color-primary;
+  text-decoration: underline;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $color-primary-hover;
+  }
+}
+
+.site-footer__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: $color-gray-300;
+}
+
+.site-footer__divider {
+  border-top: 1px solid $color-gray-600;
+}
+
+.site-footer__bottom {
+  padding-block: 0.75rem 1rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: $color-gray-400;
+
+  @include sm {
+    font-size: 0.875rem;
+  }
+}
+</style>

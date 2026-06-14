@@ -1,0 +1,19 @@
+{
+  "id": "dpf96wg1dbcyjojikkhajksx",
+  "slug": "dobavit-slajder-v-nuxt-js",
+  "title": "Добавить слайдер в Nuxt.js",
+  "description": "",
+  "body": "Чтобы добавить слайдер в наше приложение, необходимо устноавить модуль **Swiper**.\n\n## Шаг 1: Установите модуль\nДля установки введие следующую команду:\n```\nnpx nuxi@latest module add swiper\n```\n\n## Шаг 2. Добавить слайдер в свой компонент\n```\n<swiper-container ref=\"containerRef\">\n  <swiper-slide class=\"flex justify-center items-center text-2xl h-40 bg-red-600\">\n    Slide 1\n  </swiper-slide>\n  <swiper-slide class=\"flex justify-center items-center text-2xl h-40 bg-blue-600\">\n    Slide 2\n  </swiper-slide>\n  <swiper-slide class=\"flex justify-center items-center text-2xl h-40 bg-green-600\">\n    Slide 3\n  </swiper-slide>\n</swiper-container>\n```",
+  "cover": "/media/aHR0cHM6Ly9jbXMu.jpg",
+  "category": {
+    "slug": "dlya-vzroslyh",
+    "name": "Для взрослых"
+  },
+  "subcategory": {
+    "slug": "veb-razrabotka",
+    "name": "Веб-разработка"
+  },
+  "url": "/articles/dlya-vzroslyh/veb-razrabotka/dobavit-slajder-v-nuxt-js",
+  "publishedAt": "2025-07-11T17:00:27.926Z",
+  "views": 49
+}

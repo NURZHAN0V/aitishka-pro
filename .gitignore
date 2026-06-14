@@ -1,0 +1,11 @@
+node_modules
+dist
+.DS_Store
+*.local
+.env
+.env.*
+!.env.example
+public/content
+public/sitemap.xml
+public/build.json
+*.tsbuildinfo

@@ -1,0 +1,171 @@
+@use 'variables' as *;
+
+.prose {
+  max-width: 65ch;
+  color: $color-default;
+  line-height: 1.75;
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  ul,
+  ol {
+    margin-bottom: 1em;
+    padding-left: 1.5em;
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  li {
+    margin-bottom: 0.25em;
+  }
+
+  a {
+    color: $color-primary;
+    text-decoration: underline;
+
+    &:hover {
+      color: $color-primary-hover;
+    }
+  }
+
+  code {
+    padding: 0.15em 0.4em;
+    font-size: 0.9em;
+    background: $color-gray-200;
+    border-radius: 0.25rem;
+  }
+
+  pre {
+    margin-bottom: 1em;
+    padding: 1rem;
+    overflow-x: auto;
+    background: $color-default;
+    color: $color-white;
+    border-radius: $radius-md;
+
+    code {
+      padding: 0;
+      background: none;
+      color: inherit;
+    }
+  }
+
+  blockquote {
+    margin: 1em 0;
+    padding-left: 1em;
+    border-left: 4px solid $color-primary;
+    color: $color-secondary;
+  }
+
+  img {
+    margin: 1em 0;
+    border-radius: $radius-md;
+  }
+
+  @include md {
+    h1 {
+      font-size: 2.5rem;
+    }
+  }
+}
+
+.page-title {
+  margin-block: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: $color-default;
+
+  @include sm {
+    font-size: 1.875rem;
+  }
+}
+
+.page-lead {
+  margin-block: 0.75rem;
+  color: $color-secondary;
+  max-width: 42rem;
+}
+
+.container {
+  width: min(100% - 2rem, $container-max);
+  margin-inline: auto;
+
+  @include sm {
+    width: min(100%, $container-max);
+    padding-inline: 0;
+  }
+}
+
+.card {
+  background: $color-white;
+  border: 1px solid $color-gray-200;
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-sm;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  font-weight: 500;
+  border-radius: $radius-sm;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  @include focus-ring;
+
+  &--primary {
+    background: $color-primary;
+    color: $color-white;
+
+    &:hover {
+      background: $color-primary-hover;
+    }
+  }
+
+  &--outline {
+    border: 2px solid $color-primary;
+    color: $color-primary;
+    background: transparent;
+
+    &:hover {
+      background: $color-primary;
+      color: $color-white;
+    }
+  }
+
+  &--block {
+    width: 100%;
+
+    @include sm {
+      width: auto;
+    }
+  }
+}
