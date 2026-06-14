@@ -1,48 +1,64 @@
 <script setup lang="ts">
 import type { Video } from '@/index.d'
-import { inject } from 'vue'
+import { computed, ref } from 'vue'
+import { RouterLink } from 'vue-router'
+import BaseIcon from '@/core/components/BaseIcon.vue'
 
-defineProps<{
+const props = defineProps<{
   video: Video
 }>()
 
-const openVideoModal = inject<(url: string) => void>('openVideoModal', () => {})
+const thumbFailed = ref(false)
 
-function play(embedUrl: string) {
-  openVideoModal(embedUrl)
-}
+const showThumb = computed(() =>
+  props.video.thumbnailUrl && !thumbFailed.value,
+)
 </script>
 
 <template>
-  <article class="video-card card" @click="play(video.embedUrl)">
+  <RouterLink :to="`/media/${video.slug}`" class="video-card">
     <div class="video-card__thumb">
-      <img :src="video.thumbnailUrl" :alt="video.title" loading="lazy">
+      <img
+        v-if="showThumb"
+        :src="video.thumbnailUrl"
+        :alt="video.title"
+        loading="lazy"
+        @error="thumbFailed = true"
+      >
+      <div v-else class="video-card__thumb-placeholder" aria-hidden="true">
+        <BaseIcon name="video-off" size="2.5rem" />
+      </div>
       <span v-if="video.duration" class="video-card__duration">{{ video.duration }}</span>
     </div>
     <div class="video-card__body">
-      <span class="video-card__category">{{ video.category }}</span>
       <h3>{{ video.title }}</h3>
-      <p>{{ video.excerpt }}</p>
     </div>
-  </article>
+  </RouterLink>
 </template>
 
 <style scoped lang="scss">
 .video-card {
-  cursor: pointer;
-  overflow: hidden;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  display: block;
+  color: inherit;
+  text-decoration: none;
 
-  &:hover {
-    border-color: rgb(209 125 77 / 30%);
-    box-shadow: $shadow-md;
+  &:hover .video-card__body h3 {
+    background-size: 100% 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover .video-card__body h3 {
+      transition: none;
+    }
   }
 }
 
 .video-card__thumb {
   position: relative;
   aspect-ratio: 16 / 9;
-  background: $color-default;
+  background: $color-surface-inverse;
+  border-radius: $radius-sm;
+  overflow: hidden;
 
   img {
     width: 100%;
@@ -51,43 +67,46 @@ function play(embedUrl: string) {
   }
 }
 
+.video-card__thumb-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: $gradient-cover-placeholder;
+  color: rgb(255 255 255 / 75%);
+}
+
 .video-card__duration {
   position: absolute;
   bottom: 0.5rem;
   right: 0.5rem;
   padding: 0.125rem 0.5rem;
   font-size: 0.75rem;
-  color: $color-white;
+  color: $color-on-inverse;
   background: rgb(0 0 0 / 70%);
   border-radius: 0.25rem;
 }
 
 .video-card__body {
-  padding: 1rem;
+  padding-block: 0.75rem 0;
 
   h3 {
-    margin-top: 0.25rem;
     font-size: 1rem;
     font-weight: 600;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
+    background-image: linear-gradient($color-primary, $color-primary);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0 2px;
+    transition: background-size 0.25s ease;
 
-  p {
-    margin-top: 0.375rem;
-    font-size: 0.875rem;
-    color: $color-secondary;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
   }
-}
-
-.video-card__category {
-  font-size: 0.75rem;
-  color: $color-primary;
 }
 </style>

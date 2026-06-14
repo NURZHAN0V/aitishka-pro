@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import type { PostSummary } from '@/index.d'
+import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import BaseIcon from '@/core/components/BaseIcon.vue'
+import { NEWS_CATEGORY_SLUG } from '@/modules/news/constants'
 
-defineProps<{
+const props = defineProps<{
   post: PostSummary
 }>()
+
+const categoryLink = computed(() =>
+  props.post.category?.slug === NEWS_CATEGORY_SLUG
+    ? '/news'
+    : `/articles/${props.post.category.slug}`,
+)
 
 function formatDate(date?: string) {
   if (!date)
@@ -15,7 +23,7 @@ function formatDate(date?: string) {
 </script>
 
 <template>
-  <article class="article-card card">
+  <RouterLink :to="post.url" class="article-card">
     <header class="article-card__header">
       <img
         v-if="post.cover && post.cover !== '/media/cover.webp'"
@@ -24,32 +32,25 @@ function formatDate(date?: string) {
         class="article-card__cover"
         loading="lazy"
       >
-      <div v-else class="article-card__cover article-card__cover--placeholder" />
+      <div v-else class="article-card__cover article-card__cover--placeholder" aria-hidden="true">
+        <BaseIcon name="image-off" size="2.5rem" />
+      </div>
       <div class="article-card__date">
-        <BaseIcon name="calendar" size="0.875rem" />
-        <span>{{ formatDate(post.publishedAt) || '—' }}</span>
+        <BaseIcon name="calendar" size="1em" />
+        <p>{{ formatDate(post.publishedAt) || '—' }}</p>
       </div>
     </header>
     <main class="article-card__body">
       <ul class="article-card__tags">
         <li v-if="post.category?.name">
-          <RouterLink :to="`/articles/${post.category.slug}`">
+          <RouterLink :to="categoryLink" @click.stop>
             {{ post.category.name }}
           </RouterLink>
         </li>
       </ul>
       <h3>{{ post.title }}</h3>
     </main>
-    <footer class="article-card__footer">
-      <RouterLink :to="post.url" class="article-card__action article-card__action--read">
-        Читать
-      </RouterLink>
-      <button type="button" class="article-card__action article-card__action--share">
-        Поделиться
-      </button>
-      <div class="article-card__slider" />
-    </footer>
-  </article>
+  </RouterLink>
 </template>
 
 <style scoped lang="scss">
@@ -57,22 +58,51 @@ function formatDate(date?: string) {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  padding: 0.75rem;
   overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+
+  &:hover .article-card__cover {
+    transform: scale(1.05);
+  }
+
+  &:hover .article-card__body h3 {
+    background-size: 100% 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover .article-card__cover {
+      transform: none;
+    }
+
+    &:hover .article-card__body h3 {
+      transition: none;
+    }
+  }
 }
 
 .article-card__header {
   position: relative;
+  overflow: hidden;
+  border-radius: $radius-sm;
 }
 
 .article-card__cover {
   width: 100%;
-  height: 7.5rem;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
-  border-radius: $radius-sm;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   &--placeholder {
-    background: $color-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $gradient-cover-placeholder;
+    color: rgb(255 255 255 / 75%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 }
 
@@ -80,14 +110,18 @@ function formatDate(date?: string) {
   position: absolute;
   bottom: 0.25rem;
   left: 0.25rem;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 0.25rem;
   padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
   color: $color-secondary;
   background: $color-white;
-  border-radius: $radius-sm;
+  border-radius: 0.5rem;
+
+  p {
+    margin: 0;
+  }
 }
 
 .article-card__tags {
@@ -111,58 +145,14 @@ function formatDate(date?: string) {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
+  background-image: linear-gradient($color-primary, $color-primary);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 2px;
+  transition: background-size 0.25s ease;
 
-.article-card__footer {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.25rem;
-  padding: 0.25rem;
-  background: $color-background;
-  border-radius: $radius-lg;
-}
-
-.article-card__action {
-  position: relative;
-  z-index: 1;
-  padding: 0.25rem;
-  text-align: center;
-  font-weight: 400;
-  transition: font-weight 0.2s, color 0.2s;
-
-  &--read:hover,
-  &--read:focus-within {
-    & ~ .article-card__slider {
-      transform: translateX(calc(-100% - -4px));
-    }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
-
-  &--share:hover {
-    font-weight: 500;
-  }
-}
-
-.article-card__footer:has(.article-card__action--read:hover) .article-card__action--read,
-.article-card__footer:has(.article-card__action--read:focus-within) .article-card__action--read {
-  font-weight: 500;
-  color: $color-white;
-}
-
-.article-card__footer:has(.article-card__action--share:hover) .article-card__action--share {
-  font-weight: 500;
-  color: $color-white;
-}
-
-.article-card__slider {
-  position: absolute;
-  top: 0.25rem;
-  right: 0.25rem;
-  width: calc((100% - 4px) / 2);
-  height: calc(100% - 8px);
-  background: $color-primary;
-  border-radius: $radius-sm;
-  transition: transform 0.3s ease;
-  pointer-events: none;
 }
 </style>

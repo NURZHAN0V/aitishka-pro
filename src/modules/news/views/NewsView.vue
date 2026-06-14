@@ -1,24 +1,67 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import type { PostSummary } from '@/index.d'
+import { computed, onMounted, ref } from 'vue'
 import { api } from '@/core/api'
+import ArticleCard from '@/modules/articles/components/ArticleCard.vue'
+import { NEWS_CATEGORY_SLUG } from '@/modules/news/constants'
 
-const title = ref('Новости')
-const lead = ref('')
+const posts = ref<PostSummary[]>([])
+const loading = ref(true)
+
+const newsPosts = computed(() =>
+  [...posts.value]
+    .filter(p => p.category?.slug === NEWS_CATEGORY_SLUG)
+    .sort((a, b) =>
+      new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime(),
+    ),
+)
 
 onMounted(async () => {
-  const site = await api.getSite()
-  title.value = site.news.title
-  lead.value = site.news.lead
+  try {
+    posts.value = await api.getPosts()
+  }
+  finally {
+    loading.value = false
+  }
 })
 </script>
 
 <template>
   <div class="news">
-    <h2 class="page-title">
-      {{ title }}
-    </h2>
-    <p class="page-lead">
-      {{ lead }}
+    <p v-if="loading" class="news__status">
+      Загрузка…
     </p>
+    <p v-else-if="!newsPosts.length" class="news__status">
+      Новостей пока нет.
+    </p>
+    <div v-else class="news__cards">
+      <ArticleCard v-for="post in newsPosts" :key="post.id" :post="post" />
+    </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.news__cards {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+
+  @include sm {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @include md {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include lg {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.news__status {
+  margin-top: 2rem;
+  color: $color-secondary;
+}
+</style>
