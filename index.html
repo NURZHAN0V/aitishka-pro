@@ -169,7 +169,6 @@
     </style>
   </head>
   <body>
-    Verification: 09c61d5eabac8373
     <div id="app-boot" aria-hidden="true">
       <div class="boot-skeleton">
         <div class="boot-skeleton__header">
@@ -190,6 +189,54 @@
     </div>
     <div id="app"></div>
     <noscript><div><img src="https://mc.yandex.ru/watch/108517708" style="position:absolute;left:-9999px" alt="" /></div></noscript>
+    <script>
+      (function () {
+        var RELOAD_KEY = 'aitishka-boot-reload'
+
+        function hideBoot() {
+          var boot = document.getElementById('app-boot')
+          if (boot)
+            boot.classList.add('is-hidden')
+        }
+
+        function appMounted() {
+          var app = document.getElementById('app')
+          return Boolean(app && app.childElementCount > 0)
+        }
+
+        function reloadOnce() {
+          if (sessionStorage.getItem(RELOAD_KEY))
+            return false
+
+          sessionStorage.setItem(RELOAD_KEY, '1')
+          var url = new URL(window.location.href)
+          url.searchParams.set('v', String(Date.now()))
+          window.location.replace(url.toString())
+          return true
+        }
+
+        window.addEventListener('error', function (event) {
+          var target = event.target
+          if (!target || target.tagName !== 'SCRIPT')
+            return
+
+          if (!appMounted() && !reloadOnce())
+            hideBoot()
+        }, true)
+
+        window.addEventListener('DOMContentLoaded', function () {
+          window.setTimeout(function () {
+            if (appMounted()) {
+              sessionStorage.removeItem(RELOAD_KEY)
+              return
+            }
+
+            if (!reloadOnce())
+              hideBoot()
+          }, 4000)
+        })
+      })()
+    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
