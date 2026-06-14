@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PostSummary } from '@/index.d'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import BaseIcon from '@/core/components/BaseIcon.vue'
 import { NEWS_CATEGORY_SLUG } from '@/modules/news/constants'
@@ -8,6 +8,14 @@ import { NEWS_CATEGORY_SLUG } from '@/modules/news/constants'
 const props = defineProps<{
   post: PostSummary
 }>()
+
+const coverFailed = ref(false)
+
+const showCoverPlaceholder = computed(() =>
+  !props.post.cover
+  || props.post.cover === '/media/cover.webp'
+  || coverFailed.value,
+)
 
 const categoryLink = computed(() =>
   props.post.category?.slug === NEWS_CATEGORY_SLUG
@@ -20,17 +28,22 @@ function formatDate(date?: string) {
     return ''
   return new Date(date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })
 }
+
+function onCoverError() {
+  coverFailed.value = true
+}
 </script>
 
 <template>
   <RouterLink :to="post.url" class="article-card">
     <header class="article-card__header">
       <img
-        v-if="post.cover && post.cover !== '/media/cover.webp'"
+        v-if="!showCoverPlaceholder"
         :src="post.cover"
         :alt="post.title"
         class="article-card__cover"
         loading="lazy"
+        @error="onCoverError"
       >
       <div v-else class="article-card__cover article-card__cover--placeholder" aria-hidden="true">
         <BaseIcon name="image-off" size="2.5rem" />
