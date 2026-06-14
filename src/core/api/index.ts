@@ -1,4 +1,5 @@
-import type { BuildInfo, Post, PostSummary, SiteConfig, Taxonomy, Video } from '@/index.d'
+import type { BuildInfo, Post, PostSummary, SiteConfig, Taxonomy, Video, VideoCatalog, VideoTaxonomy } from '@/index.d'
+import { flattenVideoCatalog, normalizeVideoCatalog } from '@/core/content/videoCatalog'
 
 const CONTENT_BASE = '/content'
 
@@ -22,6 +23,10 @@ export const api = {
     return fetchJson<Taxonomy>(`${CONTENT_BASE}/taxonomy.json`)
   },
 
+  async getVideoTaxonomy(): Promise<VideoTaxonomy> {
+    return fetchJson<VideoTaxonomy>(`${CONTENT_BASE}/video-taxonomy.json`)
+  },
+
   async getPosts(): Promise<PostSummary[]> {
     return fetchJson<PostSummary[]>(`${CONTENT_BASE}/posts/index.json`)
   },
@@ -35,8 +40,14 @@ export const api = {
     }
   },
 
+  async getVideoCatalog(): Promise<VideoCatalog> {
+    const data = await fetchJson<VideoCatalog | Video[]>(`${CONTENT_BASE}/videos.json`)
+    return normalizeVideoCatalog(data)
+  },
+
   async getVideos(): Promise<Video[]> {
-    return fetchJson<Video[]>(`${CONTENT_BASE}/videos.json`)
+    const catalog = await this.getVideoCatalog()
+    return flattenVideoCatalog(catalog)
   },
 
   async getBuildInfo(): Promise<BuildInfo> {
