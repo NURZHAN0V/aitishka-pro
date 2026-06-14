@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { api } from '@/core/api'
+import FooterPartnerStrip from '@/modules/layout/components/FooterPartnerStrip.vue'
 import SiteLogo from '@/modules/layout/components/SiteLogo.vue'
 
 const phone = ref('')
@@ -82,6 +83,8 @@ onMounted(async () => {
         </div>
       </div>
     </div>
+
+    <FooterPartnerStrip />
 
     <div class="site-footer__divider" />
 
