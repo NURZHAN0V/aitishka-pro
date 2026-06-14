@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { api } from '@/core/api'
+import SiteLogo from '@/modules/layout/components/SiteLogo.vue'
 
 const phone = ref('')
 const email = ref('')
@@ -20,8 +21,8 @@ onMounted(async () => {
     <div class="site-footer__top container">
       <div class="site-footer__grid">
         <div class="site-footer__col">
-          <RouterLink to="/" class="site-footer__logo">
-            AITISHKA<span class="site-footer__logo-accent">PRO</span>
+          <RouterLink to="/" class="site-footer__logo" aria-label="aitishka pro — на главную">
+            <SiteLogo inverse />
           </RouterLink>
           <p class="site-footer__text">
             Образовательная платформа «Айтишка». Статьи и видео для взрослых и детей по программированию и смежным темам.
@@ -85,7 +86,7 @@ onMounted(async () => {
     <div class="site-footer__divider" />
 
     <div class="site-footer__bottom container">
-      <p>AITISHKA<span class="site-footer__logo-accent">PRO</span> © 2023 – 2026</p>
+      <p><SiteLogo inverse /> © 2023 – 2026</p>
     </div>
   </footer>
 </template>
@@ -132,13 +133,12 @@ onMounted(async () => {
 }
 
 .site-footer__logo {
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: $color-on-inverse;
-}
+  font-size: $text-xl;
+  text-decoration: none;
 
-.site-footer__logo-accent {
-  color: $color-primary;
+  @include lg {
+    font-size: $text-2xl;
+  }
 }
 
 .site-footer__text {

@@ -3,6 +3,7 @@ import type { Feature } from '@/index.d'
 import { onMounted, ref } from 'vue'
 import { api } from '@/core/api'
 import BaseIcon from '@/core/components/BaseIcon.vue'
+import SiteLogo from '@/modules/layout/components/SiteLogo.vue'
 
 const title = ref('О нас')
 const lead = ref('')
@@ -29,7 +30,7 @@ onMounted(async () => {
 
     <section class="about__intro card">
       <p v-for="(p, i) in paragraphs" :key="i" class="about__paragraph">
-        <strong v-if="i === 0" class="about__brand">AITISHKA<span>PRO</span></strong>
+        <strong v-if="i === 0" class="about__brand"><SiteLogo /></strong>
         {{ i === 0 ? p.replace('AITISHKAPRO —', '—') : p }}
       </p>
     </section>
@@ -68,11 +69,8 @@ onMounted(async () => {
 }
 
 .about__brand {
-  color: $color-primary;
-
-  span {
-    color: $color-default;
-  }
+  font-size: 1.125rem;
+  font-weight: normal;
 }
 
 .about__features {

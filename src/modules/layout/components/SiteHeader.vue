@@ -5,6 +5,7 @@ import { RouterLink, useRoute } from 'vue-router'
 import { api } from '@/core/api'
 import BaseIcon from '@/core/components/BaseIcon.vue'
 import { buildArticlesNavChildren } from '@/modules/articles/utils/buildArticlesNav'
+import SiteLogo from '@/modules/layout/components/SiteLogo.vue'
 import ThemeToggle from '@/modules/layout/components/ThemeToggle.vue'
 import { isNavLinkActive } from '@/modules/layout/utils/isNavLinkActive'
 
@@ -72,8 +73,8 @@ function handleViewportChange() {
 <template>
   <header class="site-header">
     <div class="site-header__inner container">
-      <RouterLink to="/" class="site-header__logo" @click="closeMenu">
-        <strong>AITISHKA<span class="site-header__logo-accent">PRO</span></strong>
+      <RouterLink to="/" class="site-header__logo" aria-label="aitishka pro — на главную" @click="closeMenu">
+        <SiteLogo />
       </RouterLink>
 
       <nav class="site-header__nav site-header__nav--desktop">
@@ -167,20 +168,13 @@ function handleViewportChange() {
 }
 
 .site-header__logo {
-  font-family: $font-display;
   font-size: $text-xl;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: $color-default;
   flex-shrink: 0;
+  text-decoration: none;
 
   @include lg {
     font-size: $text-2xl;
   }
-}
-
-.site-header__logo-accent {
-  color: $color-primary;
 }
 
 .site-header__nav--desktop {
