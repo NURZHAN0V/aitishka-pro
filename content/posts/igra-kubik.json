@@ -1,0 +1,19 @@
+{
+  "id": "jg1vrcnxgpkxhr4zm47ekr0f",
+  "slug": "igra-kubik",
+  "title": "Игра кубик",
+  "description": "",
+  "body": "![Neat Albar.png](https://static.dublecode.ru/uploads/Neat_Albar_afcb9522a9.png)\nКод к Arduino:\n```\n// C++ code\n//\nint randomNumber = 0;\n\nvoid setup()\n{\n  pinMode(7, INPUT);\n  pinMode(8, OUTPUT);\n  pinMode(9, OUTPUT);\n  pinMode(10, OUTPUT);\n  pinMode(11, OUTPUT);\n  pinMode(12, OUTPUT);\n  pinMode(13, OUTPUT);\n}\n\nvoid loop()\n{\n  if (1 == digitalRead(7)) {\n    randomNumber = random(1, 6 + 1);\n  } else {\n    if (randomNumber == 1) {\n      digitalWrite(8, HIGH);\n      digitalWrite(9, LOW);\n      digitalWrite(10, LOW);\n      digitalWrite(11, LOW);\n      digitalWrite(12, LOW);\n      digitalWrite(13, LOW);\n    } else {\n      if (randomNumber == 2) {\n        digitalWrite(8, HIGH);\n        digitalWrite(9, HIGH);\n        digitalWrite(10, LOW);\n        digitalWrite(11, LOW);\n        digitalWrite(12, LOW);\n        digitalWrite(13, LOW);\n      } else {\n        if (randomNumber == 3) {\n          digitalWrite(8, HIGH);\n          digitalWrite(9, HIGH);\n          digitalWrite(10, HIGH);\n          digitalWrite(11, LOW);\n          digitalWrite(12, LOW);\n          digitalWrite(13, LOW);\n        } else {\n          if (randomNumber == 4) {\n            digitalWrite(8, HIGH);\n            digitalWrite(9, HIGH);\n            digitalWrite(10, HIGH);\n            digitalWrite(11, LOW);\n            digitalWrite(12, LOW);\n            digitalWrite(13, HIGH);\n          } else {\n            if (randomNumber == 5) {\n              digitalWrite(8, HIGH);\n              digitalWrite(9, HIGH);\n              digitalWrite(10, HIGH);\n              digitalWrite(11, HIGH);\n              digitalWrite(12, LOW);\n              digitalWrite(13, HIGH);\n            } else {\n              digitalWrite(8, HIGH);\n              digitalWrite(9, HIGH);\n              digitalWrite(10, HIGH);\n              digitalWrite(11, HIGH);\n              digitalWrite(12, HIGH);\n              digitalWrite(13, HIGH);\n            }\n          }\n        }\n      }\n    }\n  }\n  digitalWrite(8, LOW);\n  digitalWrite(9, LOW);\n  digitalWrite(10, LOW);\n  digitalWrite(11, LOW);\n  digitalWrite(12, LOW);\n  digitalWrite(13, LOW);\n  delay(10); // Delay a little bit to improve simulation performance\n}\n```\n\nДатчик влажности почвы:\n\n```\n// C++ code\n//\nint moisture = 0;\n\nvoid setup()\n{\n  pinMode(A0, OUTPUT);\n  pinMode(A1, INPUT);\n  Serial.begin(9600);\n  pinMode(8, OUTPUT);\n  pinMode(9, OUTPUT);\n  pinMode(10, OUTPUT);\n  pinMode(11, OUTPUT);\n  pinMode(12, OUTPUT);\n}\n\nvoid loop()\n{\n  // Apply power to the soil moisture sensor\n  digitalWrite(A0, HIGH);\n  delay(10); // Wait for 10 millisecond(s)\n  moisture = analogRead(A1);\n  // Turn off the sensor to reduce metal corrosion\n  // over time\n  digitalWrite(A0, LOW);\n  Serial.println(moisture);\n  digitalWrite(8, LOW);\n  digitalWrite(9, LOW);\n  digitalWrite(10, LOW);\n  digitalWrite(11, LOW);\n  digitalWrite(12, LOW);\n  if (moisture < 200) {\n    digitalWrite(12, HIGH);\n  } else {\n    if (moisture < 400) {\n      digitalWrite(11, HIGH);\n    } else {\n      if (moisture < 600) {\n        digitalWrite(10, HIGH);\n      } else {\n        if (moisture < 800) {\n          digitalWrite(9, HIGH);\n        } else {\n          digitalWrite(8, HIGH);\n        }\n      }\n    }\n  }\n  delay(100); // Wait for 100 millisecond(s)\n}\n```",
+  "cover": "/media/aHR0cHM6Ly9jbXMu.png",
+  "category": {
+    "slug": "dlya-detej",
+    "name": "Для детей"
+  },
+  "subcategory": {
+    "slug": "arduino",
+    "name": "Arduino"
+  },
+  "url": "/articles/dlya-detej/arduino/igra-kubik",
+  "publishedAt": "2025-11-17T18:15:36.554Z",
+  "views": 6
+}

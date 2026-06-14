@@ -1,0 +1,19 @@
+{
+  "id": "wfrzh4xm28pvitykbtfmoy56",
+  "slug": "wp",
+  "title": "WP",
+  "description": "",
+  "body": "## 1. Установить тему \"Kids Camp\"\n\n![Screenshot_1.png](https://cms.pluspixel.ru/uploads/Screenshot_1_2f286f952b.png)\n\n## 2. Заходим на сайт Pixar.com\n\nПереходим на страницу [FEATURE FILMS](https://www.pixar.com/feature-films) и выбираем любой мультфильм. Например [Hoppers • 2026](https://www.pixar.com/hoppers).\n\n![Screenshot_2.png](https://cms.pluspixel.ru/uploads/Screenshot_2_24fa7ce71c.png)\n\n## Создаем новую запись с этим мультфильмом\n\nУказываем название и перечисляем персонажей на русском языке. Используйте переводчик! Примеру ниже:\n\n![Screenshot_3.png](https://cms.pluspixel.ru/uploads/Screenshot_3_8cd96719bd.png)\n\nПеречислите всех персонажей мультфильма, кроме локаций.\n\n## Результат должен быть как на экране ниже\n\n![localhost_wp_pryguny-2026__preview_id=13&preview_nonce=c9eb9af046&preview=true&_thumbnail_id=14.png](https://cms.pluspixel.ru/uploads/localhost_wp_pryguny_2026_preview_id_13_and_preview_nonce_c9eb9af046_and_preview_true_and_thumbnail_id_14_3c58e23124.png)",
+  "cover": "/media/cover.webp",
+  "category": {
+    "slug": "dlya-detej",
+    "name": "Для детей"
+  },
+  "subcategory": {
+    "slug": "python-kids",
+    "name": "Python Kids"
+  },
+  "url": "/articles/dlya-detej/python-kids/wp",
+  "publishedAt": "2026-06-13T06:30:46.208Z",
+  "views": 12
+}

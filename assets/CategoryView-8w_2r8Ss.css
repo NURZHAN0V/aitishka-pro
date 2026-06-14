@@ -1,0 +1,1 @@
+.category-view__cards[data-v-1c7cacd7]{display:grid;gap:1rem;margin-top:1rem}@media(min-width:640px){.category-view__cards[data-v-1c7cacd7]{grid-template-columns:repeat(2,1fr)}}@media(min-width:1024px){.category-view__cards[data-v-1c7cacd7]{grid-template-columns:repeat(3,1fr)}}.category-view__empty[data-v-1c7cacd7]{margin-top:2rem;color:#4f4f4f}

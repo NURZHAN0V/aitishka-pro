@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AITISHKAPRO — обучение разработке с нуля. Статьи, видео и практика по Git, HTML, CSS, JavaScript." />
+    <meta name="theme-color" content="#D17D4D" />
+    <link rel="canonical" href="https://aitishka.pro/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:url" content="https://aitishka.pro/" />
+    <meta property="og:title" content="AITISHKAPRO — обучение разработке" />
+    <meta property="og:description" content="Статьи, видео и практика по Git, HTML, CSS, JavaScript." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="AITISHKAPRO" />
+    <meta name="twitter:description" content="Обучение разработке с нуля — статьи, видео и практика." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>AITISHKAPRO — обучение разработке</title>
+    <style>
+      :root {
+        --boot-bg: #e2e8f0;
+        --boot-surface: #fff;
+        --boot-base: #cbd5e1;
+        --boot-highlight: #f1f5f9;
+        --boot-accent: #d17d4d;
+      }
+
+      #app-boot {
+        min-height: 100dvh;
+        background: var(--boot-bg);
+      }
+
+      #app-boot.is-hidden {
+        display: none;
+      }
+
+      .boot-skeleton {
+        width: min(100% - 2rem, 80rem);
+        margin-inline: auto;
+        padding-block: 1rem 2rem;
+      }
+
+      .boot-skeleton__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-block: 1rem;
+      }
+
+      .boot-skeleton__bone {
+        border-radius: 0.75rem;
+        background: linear-gradient(90deg, var(--boot-base) 0%, var(--boot-highlight) 50%, var(--boot-base) 100%);
+        background-size: 200% 100%;
+        animation: boot-shimmer 1.5s ease-in-out infinite;
+      }
+
+      .boot-skeleton__logo {
+        width: 10rem;
+        height: 2rem;
+      }
+
+      .boot-skeleton__menu {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+
+      .boot-skeleton__hero {
+        margin-block: 3rem 2rem;
+        text-align: center;
+      }
+
+      .boot-skeleton__title {
+        width: min(100%, 28rem);
+        height: 2.5rem;
+        margin-inline: auto;
+      }
+
+      .boot-skeleton__subtitle {
+        width: min(100%, 20rem);
+        height: 1.25rem;
+        margin: 1rem auto 0;
+      }
+
+      .boot-skeleton__cards {
+        display: grid;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .boot-skeleton__card {
+        height: 8rem;
+        border-radius: 1.5rem;
+        background: var(--boot-surface);
+        border: 1px solid var(--boot-base);
+      }
+
+      @media (min-width: 640px) {
+        .boot-skeleton__cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .boot-skeleton__cards {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        .boot-skeleton__menu {
+          display: none;
+        }
+      }
+
+      @keyframes boot-shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .boot-skeleton__bone {
+          animation: none;
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-BEl6xLfX.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DGxF5Dts.css">
+  </head>
+  <body>
+    <div id="app-boot" aria-hidden="true">
+      <div class="boot-skeleton">
+        <div class="boot-skeleton__header">
+          <div class="boot-skeleton__bone boot-skeleton__logo" />
+          <div class="boot-skeleton__bone boot-skeleton__menu" />
+        </div>
+        <div class="boot-skeleton__hero">
+          <div class="boot-skeleton__bone boot-skeleton__title" />
+          <div class="boot-skeleton__bone boot-skeleton__subtitle" />
+        </div>
+        <div class="boot-skeleton__cards">
+          <div class="boot-skeleton__card" />
+          <div class="boot-skeleton__card" />
+          <div class="boot-skeleton__card" />
+          <div class="boot-skeleton__card" />
+        </div>
+      </div>
+    </div>
+    <div id="app" />
+  </body>
+</html>

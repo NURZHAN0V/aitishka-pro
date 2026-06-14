@@ -1,0 +1,440 @@
+{
+  "title": "AITISHKAPRO",
+  "url": "https://aitishka.pro",
+  "description": "Обучение разработке с нуля — статьи, видео и практика по Git, HTML, CSS, JavaScript.",
+  "navigation": [
+    {
+      "label": "Новости",
+      "to": "/news"
+    },
+    {
+      "label": "Статьи",
+      "to": "/articles",
+      "children": [
+        {
+          "label": "Git",
+          "to": "/articles/git",
+          "children": [
+            {
+              "label": "Основы",
+              "to": "/articles/git/basics"
+            },
+            {
+              "label": "Ветки",
+              "to": "/articles/git/branches"
+            },
+            {
+              "label": "Рабочий процесс",
+              "to": "/articles/git/workflow"
+            }
+          ]
+        },
+        {
+          "label": "HTML&CSS",
+          "to": "/articles/html-css",
+          "children": [
+            {
+              "label": "HTML",
+              "to": "/articles/html-css/html"
+            },
+            {
+              "label": "CSS",
+              "to": "/articles/html-css/css"
+            },
+            {
+              "label": "Адаптивность",
+              "to": "/articles/html-css/responsive"
+            }
+          ]
+        },
+        {
+          "label": "JavaScript",
+          "to": "/articles/javascript"
+        }
+      ]
+    },
+    {
+      "label": "Видео",
+      "to": "/media"
+    },
+    {
+      "label": "О нас",
+      "to": "/about"
+    },
+    {
+      "label": "Контакты",
+      "to": "/contact"
+    }
+  ],
+  "benefits": [
+    {
+      "title": "Статьи и гайды",
+      "text": "Пошаговые материалы по Git, HTML, CSS, JavaScript и смежным темам.",
+      "icon": "article",
+      "link": "/articles",
+      "linkText": "Перейти к статьям"
+    },
+    {
+      "title": "Видеоуроки",
+      "text": "Разборы и уроки в видеоформате для наглядного обучения.",
+      "icon": "video",
+      "link": "/media",
+      "linkText": "Смотреть видео"
+    },
+    {
+      "title": "Проверка уровня",
+      "text": "Тесты по каждой технологии помогут оценить готовность к практике.",
+      "icon": "graduation",
+      "link": "/articles",
+      "linkText": "Пройти тест"
+    },
+    {
+      "title": "Поддержка",
+      "text": "Вопросы можно задать в Telegram — мы поможем разобраться.",
+      "icon": "support",
+      "link": "https://t.me/aitishka_pro",
+      "linkText": "Написать в Telegram",
+      "external": true
+    }
+  ],
+  "technologies": [
+    {
+      "id": "git",
+      "label": "Git",
+      "to": "/articles/git",
+      "color": "#EF4444",
+      "hoverColor": "#DC2626"
+    },
+    {
+      "id": "html",
+      "label": "HTML",
+      "to": "/articles/html-css/html",
+      "color": "#FB923C",
+      "hoverColor": "#F97316"
+    },
+    {
+      "id": "css",
+      "label": "CSS",
+      "to": "/articles/html-css/css",
+      "color": "#0284C7",
+      "hoverColor": "#0369A1"
+    },
+    {
+      "id": "javascript",
+      "label": "JavaScript",
+      "to": "/articles/javascript",
+      "color": "#FACC15",
+      "hoverColor": "#EAB308",
+      "textColor": "#0F0F0F"
+    },
+    {
+      "id": "typescript",
+      "label": "TypeScript",
+      "to": "/articles",
+      "color": "#2563EB",
+      "hoverColor": "#1D4ED8"
+    },
+    {
+      "id": "nodejs",
+      "label": "Node.js",
+      "to": "/articles",
+      "color": "#22C55E",
+      "hoverColor": "#16A34A"
+    },
+    {
+      "id": "golang",
+      "label": "Golang",
+      "to": "/articles",
+      "color": "#00ADD8",
+      "hoverColor": "#0096C7"
+    },
+    {
+      "id": "flutter",
+      "label": "Flutter",
+      "to": "/articles",
+      "color": "#02569B",
+      "hoverColor": "#014A82"
+    }
+  ],
+  "about": {
+    "title": "О нас",
+    "lead": "Узнайте больше о платформе AITISHKAPRO и нашей миссии.",
+    "paragraphs": [
+      "AITISHKAPRO — образовательная платформа для разработчиков. Мы помогаем осваивать Git, HTML, CSS, JavaScript и смежные технологии через статьи, видео и практические материалы.",
+      "Наша цель — давать структурированные знания и поддерживать вас на пути от основ до уверенной разработки. Материалы подходят как новичкам, так и тем, кто хочет систематизировать навыки."
+    ],
+    "features": [
+      {
+        "title": "Статьи и гайды",
+        "text": "Пошаговые материалы по технологиям.",
+        "icon": "article"
+      },
+      {
+        "title": "Видеоуроки",
+        "text": "Наглядные разборы и уроки.",
+        "icon": "video"
+      },
+      {
+        "title": "Практика",
+        "text": "Тесты и задания для закрепления.",
+        "icon": "graduation"
+      }
+    ]
+  },
+  "contact": {
+    "phone": "+7 (999) 999-99-99",
+    "email": "info@aitishka.pro",
+    "address": "Россия",
+    "social": [
+      {
+        "label": "Telegram",
+        "url": "https://t.me/aitishka_pro",
+        "icon": "telegram"
+      },
+      {
+        "label": "ВКонтакте",
+        "url": "https://vk.com/aitishka_pro",
+        "icon": "links"
+      }
+    ]
+  },
+  "news": {
+    "title": "Новости",
+    "lead": "Здесь находятся различные новости и события."
+  },
+  "testQuestions": {
+    "git": [
+      {
+        "question": "Что делает команда git commit?",
+        "options": [
+          "Сохраняет изменения в удалённый репозиторий",
+          "Фиксирует изменения в локальной истории",
+          "Создаёт новую ветку",
+          "Отменяет последние изменения"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "question": "Как отменить последний коммит, сохранив изменения в рабочей директории?",
+        "options": [
+          "git reset --hard HEAD~1",
+          "git revert HEAD",
+          "git reset --soft HEAD~1",
+          "git checkout HEAD~1"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "question": "Что такое git merge?",
+        "options": [
+          "Удаление ветки",
+          "Слияние изменений из одной ветки в другую",
+          "Клонирование репозитория",
+          "Отправка изменений на сервер"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "css": [
+      {
+        "question": "Какое свойство задаёт отступ снаружи элемента?",
+        "options": [
+          "padding",
+          "margin",
+          "gap",
+          "inset"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "question": "Что такое Flexbox?",
+        "options": [
+          "Способ анимации элементов",
+          "Модель layout для выравнивания и распределения пространства",
+          "Тип селектора",
+          "Единица измерения"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "question": "Как скрыть элемент, оставив место в потоке документа?",
+        "options": [
+          "display: none",
+          "visibility: hidden",
+          "opacity: 0",
+          "height: 0"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "html": [
+      {
+        "question": "Какой тег задаёт заголовок первого уровня?",
+        "options": [
+          "<head>",
+          "<h1>",
+          "<header>",
+          "<title>"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "question": "Для чего используется атрибут alt у <img>?",
+        "options": [
+          "Ссылка на изображение",
+          "Альтернативный текст при недоступности картинки",
+          "Выравнивание изображения",
+          "Размер изображения"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "question": "Какой элемент семантически обозначает навигацию?",
+        "options": [
+          "<menu>",
+          "<nav>",
+          "<sidebar>",
+          "<links>"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "python": [
+      {
+        "question": "Как создать список в Python?",
+        "options": [
+          "(1, 2, 3)",
+          "[1, 2, 3]",
+          "{1, 2, 3}",
+          "<1, 2, 3>"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "question": "Что выведет len(\"Привет\")?",
+        "options": [
+          "5",
+          "6",
+          "7",
+          "Ошибка"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "question": "Какой тип данных неизменяемый?",
+        "options": [
+          "list",
+          "dict",
+          "tuple",
+          "set"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "javascript": [
+      {
+        "question": "Чем const отличается от let?",
+        "options": [
+          "const быстрее",
+          "const нельзя переназначить",
+          "const видна только в блоке",
+          "Ничем"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "question": "Что вернёт typeof []?",
+        "options": [
+          "\"array\"",
+          "\"object\"",
+          "\"list\"",
+          "\"undefined\""
+        ],
+        "correctIndex": 1
+      },
+      {
+        "question": "Как добавить элемент в конец массива?",
+        "options": [
+          "array.add()",
+          "array.push()",
+          "array.append()",
+          "array.insert()"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "typescript": [
+      {
+        "question": "Для чего в TypeScript нужны типы?",
+        "options": [
+          "Только для документации",
+          "Проверка типов на этапе разработки и компиляции",
+          "Ускорение выполнения",
+          "Они не обязательны"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "question": "Как объявить переменную с типом «массив чисел»?",
+        "options": [
+          "let a: number[]",
+          "let a: array<number>",
+          "let a: Array",
+          "let a: num[]"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "Что такое interface?",
+        "options": [
+          "Класс с реализацией",
+          "Описание формы объекта (контракт типов)",
+          "Функция",
+          "Модуль"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "nodejs": [
+      {
+        "question": "Что такое npm?",
+        "options": [
+          "Среда выполнения Node.js",
+          "Менеджер пакетов для Node.js",
+          "Фреймворк для серверов",
+          "База данных"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "question": "Как в Node.js синхронно прочитать файл из модуля fs?",
+        "options": [
+          "fs.read()",
+          "fs.readFileSync()",
+          "fs.readFile()",
+          "readSync()"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "question": "Что такое event loop в Node.js?",
+        "options": [
+          "Цикл компиляции",
+          "Механизм выполнения асинхронного кода",
+          "Очередь событий мыши",
+          "Планировщик потоков"
+        ],
+        "correctIndex": 1
+      }
+    ]
+  },
+  "skillLabels": {
+    "git": "git",
+    "css": "CSS",
+    "html": "HTML",
+    "python": "python",
+    "javascript": "JavaScript",
+    "typescript": "TypeScript",
+    "nodejs": "nodejs"
+  }
+}

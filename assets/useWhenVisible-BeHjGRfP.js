@@ -1,0 +1,1 @@
+import{g as i,x as u,i as r}from"./index-BEl6xLfX.js";function a(s="200px"){const n=r(null),t=r(!1);let e=null;return i(()=>{n.value&&(e=new IntersectionObserver(([o])=>{o?.isIntersecting&&(t.value=!0,e?.disconnect())},{rootMargin:s}),e.observe(n.value))}),u(()=>e?.disconnect()),{target:n,visible:t}}export{a as u};
