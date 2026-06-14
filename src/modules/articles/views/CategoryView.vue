@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import type { PostSummary } from '@/index.d'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { api } from '@/core/api'
-import ArticleCard from '@/modules/articles/components/ArticleCard.vue'
+import { usePageBreadcrumbs } from '@/core/composables/usePageBreadcrumbs'
+import ArticlesPostGrid from '@/modules/articles/components/ArticlesPostGrid.vue'
+import { usePostsCatalog } from '@/modules/articles/composables/usePostsCatalog'
+import { buildCategoryBreadcrumbs } from '@/modules/articles/utils/buildArticlesCategoryBreadcrumbs'
 
 const route = useRoute()
-const posts = ref<PostSummary[]>([])
-const categoryName = ref('')
+const { posts, taxonomy, ready, ensureLoaded } = usePostsCatalog()
+const { setPageBreadcrumbs, clearPageBreadcrumbs } = usePageBreadcrumbs()
+const loading = ref(!ready.value)
 
 const categorySlug = computed(() => route.params.category as string)
 
@@ -15,47 +17,39 @@ const filtered = computed(() =>
   posts.value.filter(p => p.category?.slug === categorySlug.value),
 )
 
+function syncBreadcrumbs() {
+  if (!taxonomy.value)
+    return
+
+  setPageBreadcrumbs(buildCategoryBreadcrumbs(taxonomy.value, categorySlug.value))
+}
+
 onMounted(async () => {
-  posts.value = await api.getPosts()
-  const taxonomy = await api.getTaxonomy()
-  categoryName.value = taxonomy.categories.find(c => c.slug === categorySlug.value)?.name || categorySlug.value
+  try {
+    await ensureLoaded()
+    syncBreadcrumbs()
+  }
+  finally {
+    loading.value = false
+  }
 })
+
+watch(categorySlug, syncBreadcrumbs)
+onUnmounted(clearPageBreadcrumbs)
 </script>
 
 <template>
   <div class="category-view">
-    <h2 class="page-title">
-      {{ categoryName }}
-    </h2>
-    <p class="page-lead">
-      Статьи в категории «{{ categoryName }}»
-    </p>
-    <div class="category-view__cards">
-      <ArticleCard v-for="post in filtered" :key="post.id" :post="post" />
-    </div>
-    <p v-if="!filtered.length" class="category-view__empty">
-      В этой категории пока нет статей.
-    </p>
+    <ArticlesPostGrid
+      :posts="filtered"
+      :loading="loading"
+      empty-message="В этой категории пока нет статей."
+    />
   </div>
 </template>
 
 <style scoped lang="scss">
-.category-view__cards {
-  display: grid;
-  gap: 1rem;
-  margin-top: 1rem;
-
-  @include sm {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include lg {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.category-view__empty {
-  margin-top: 2rem;
-  color: $color-secondary;
+.category-view {
+  margin-top: 0.5rem;
 }
 </style>

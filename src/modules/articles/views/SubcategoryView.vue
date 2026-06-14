@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import type { PostSummary } from '@/index.d'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { api } from '@/core/api'
-import ArticleCard from '@/modules/articles/components/ArticleCard.vue'
+import { usePageBreadcrumbs } from '@/core/composables/usePageBreadcrumbs'
+import ArticlesPostGrid from '@/modules/articles/components/ArticlesPostGrid.vue'
+import { usePostsCatalog } from '@/modules/articles/composables/usePostsCatalog'
+import { buildSubcategoryBreadcrumbs } from '@/modules/articles/utils/buildArticlesCategoryBreadcrumbs'
 
 const route = useRoute()
-const posts = ref<PostSummary[]>([])
-const subcategoryName = ref('')
+const { posts, taxonomy, ready, ensureLoaded } = usePostsCatalog()
+const { setPageBreadcrumbs, clearPageBreadcrumbs } = usePageBreadcrumbs()
+const loading = ref(!ready.value)
 
 const categorySlug = computed(() => route.params.category as string)
 const subcategorySlug = computed(() => route.params.subcategory as string)
@@ -18,48 +20,43 @@ const filtered = computed(() =>
   ),
 )
 
+function syncBreadcrumbs() {
+  if (!taxonomy.value)
+    return
+
+  setPageBreadcrumbs(buildSubcategoryBreadcrumbs(
+    taxonomy.value,
+    categorySlug.value,
+    subcategorySlug.value,
+  ))
+}
+
 onMounted(async () => {
-  posts.value = await api.getPosts()
-  const taxonomy = await api.getTaxonomy()
-  const category = taxonomy.categories.find(c => c.slug === categorySlug.value)
-  subcategoryName.value = category?.subcategories.find(s => s.slug === subcategorySlug.value)?.name || subcategorySlug.value
+  try {
+    await ensureLoaded()
+    syncBreadcrumbs()
+  }
+  finally {
+    loading.value = false
+  }
 })
+
+watch([categorySlug, subcategorySlug], syncBreadcrumbs)
+onUnmounted(clearPageBreadcrumbs)
 </script>
 
 <template>
   <div class="subcategory-view">
-    <h2 class="page-title">
-      {{ subcategoryName }}
-    </h2>
-    <p class="page-lead">
-      Статьи в подкатегории «{{ subcategoryName }}»
-    </p>
-    <div class="subcategory-view__cards">
-      <ArticleCard v-for="post in filtered" :key="post.id" :post="post" />
-    </div>
-    <p v-if="!filtered.length" class="subcategory-view__empty">
-      В этой подкатегории пока нет статей.
-    </p>
+    <ArticlesPostGrid
+      :posts="filtered"
+      :loading="loading"
+      empty-message="В этой подкатегории пока нет статей."
+    />
   </div>
 </template>
 
 <style scoped lang="scss">
-.subcategory-view__cards {
-  display: grid;
-  gap: 1rem;
-  margin-top: 1rem;
-
-  @include sm {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include lg {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.subcategory-view__empty {
-  margin-top: 2rem;
-  color: $color-secondary;
+.subcategory-view {
+  margin-top: 0.5rem;
 }
 </style>
