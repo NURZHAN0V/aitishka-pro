@@ -1,27 +1,64 @@
-// Aitishka brand palette (from web/tailwind.config.js)
-$color-primary: #d17d4d;
-$color-primary-hover: #c77343;
-$color-background: #e2e8f0;
-$color-secondary: #4f4f4f;
-$color-default: #0f0f0f;
+// Semantic tokens → CSS custom properties (см. _theme.scss)
+$color-primary: var(--color-primary);
+$color-primary-hover: var(--color-primary-hover);
+$color-primary-active: var(--color-primary-active);
+$color-background: var(--color-background);
+$color-secondary: var(--color-text-secondary);
+$color-default: var(--color-text);
+$color-on-primary: var(--color-on-primary);
 
-$color-white: #ffffff;
-$color-gray-200: #e5e7eb;
-$color-gray-300: #d1d5db;
-$color-gray-400: #9ca3af;
-$color-gray-600: #4b5563;
+$color-white: var(--color-surface);
+$color-gray-200: var(--color-gray-200);
+$color-gray-300: var(--color-gray-300);
+$color-gray-400: var(--color-gray-400);
+$color-gray-600: var(--color-gray-600);
 
-// Tech tag colors
+$color-overlay: var(--color-overlay);
+$color-code-bg: var(--color-code-bg);
+$color-code-text: var(--color-code-text);
+$color-surface-inverse: var(--color-surface-inverse);
+$color-on-inverse: var(--color-on-inverse);
+$color-inverse-muted: var(--color-inverse-muted);
+$color-inverse-subtle: var(--color-inverse-subtle);
+$color-inverse-divider: var(--color-inverse-divider);
+$gradient-cover-placeholder: var(--gradient-cover-placeholder);
+
+$color-primary-alpha-5: var(--color-primary-alpha-5);
+$color-primary-alpha-8: var(--color-primary-alpha-8);
+$color-primary-alpha-10: var(--color-primary-alpha-10);
+$color-primary-alpha-12: var(--color-primary-alpha-12);
+$color-primary-alpha-28: var(--color-primary-alpha-28);
+$color-primary-alpha-30: var(--color-primary-alpha-30);
+$color-primary-alpha-35: var(--color-primary-alpha-35);
+
+$color-success: var(--color-success);
+$color-success-alpha-8: var(--color-success-alpha-8);
+$color-success-alpha-22: var(--color-success-alpha-22);
+$color-error-alpha-10: var(--color-error-alpha-10);
+
+// Tech tag colors (независимы от бренда)
 $color-tech-git: #ef4444;
 $color-tech-html: #fb923c;
-$color-tech-css: #0284c7;
+$color-tech-css: #1461cd;
 $color-tech-js: #facc15;
 $color-tech-ts: #2563eb;
 $color-tech-node: #22c55e;
 $color-tech-golang: #00add8;
 $color-tech-flutter: #02569b;
 
-$font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+$font-display: 'Onest Variable', 'Onest', ui-sans-serif, system-ui, sans-serif;
+$font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+$font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+
+// Fluid type scale (mobile-first, clamp for all viewports)
+$text-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+$text-sm: clamp(0.875rem, 0.84rem + 0.17vw, 0.9375rem);
+$text-base: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+$text-lg: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+$text-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+$text-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);
+$text-3xl: clamp(1.875rem, 1.6rem + 1.35vw, 2.5rem);
+$text-4xl: clamp(2.25rem, 1.85rem + 2vw, 3rem);
 
 $radius-sm: 0.75rem;
 $radius-md: 1rem;
@@ -30,9 +67,9 @@ $radius-xl: 1.5rem;
 $radius-2xl: 1.5rem;
 $radius-3xl: 1.5rem;
 
-$shadow-sm: 0 1px 2px rgb(15 23 42 / 8%);
-$shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
-$shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 10%), 0 8px 10px -6px rgb(0 0 0 / 10%);
+$shadow-sm: var(--shadow-sm);
+$shadow-md: var(--shadow-md);
+$shadow-xl: var(--shadow-xl);
 
 $container-max: 80rem;
 

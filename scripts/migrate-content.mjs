@@ -39,6 +39,83 @@ function writeJson(path, data) {
   writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`)
 }
 
+function buildTaxonomyFromPosts(postSummaries) {
+  const catMap = new Map()
+
+  for (const post of postSummaries) {
+    if (!post.category?.slug)
+      continue
+
+    const key = post.category.slug
+    if (!catMap.has(key)) {
+      catMap.set(key, {
+        slug: key,
+        name: post.category.name,
+        subs: new Map(),
+      })
+    }
+
+    if (post.subcategory?.slug && post.subcategory?.name) {
+      catMap.get(key).subs.set(post.subcategory.slug, post.subcategory.name)
+    }
+  }
+
+  return [...catMap.values()]
+    .sort((a, b) => a.name.localeCompare(b.name, 'ru'))
+    .map(cat => ({
+      slug: cat.slug,
+      name: cat.name,
+      subcategories: [...cat.subs.entries()]
+        .sort((a, b) => a[1].localeCompare(b[1], 'ru'))
+        .map(([slug, name]) => ({ slug, name })),
+    }))
+}
+
+function buildVideoCatalogFromFlat(videos) {
+  const standalone = []
+  const playlistMap = new Map()
+
+  for (const video of videos) {
+    const { playlist, ...item } = video
+
+    if (playlist?.id) {
+      if (!playlistMap.has(playlist.id)) {
+        playlistMap.set(playlist.id, {
+          id: playlist.id,
+          slug: playlist.slug || playlist.id,
+          title: playlist.title,
+          thumbnailUrl: item.thumbnailUrl,
+          publishedAt: item.publishedAt,
+          videos: [],
+        })
+      }
+
+      playlistMap.get(playlist.id).videos.push({
+        ...item,
+        order: playlist.order ?? item.order ?? 0,
+      })
+      continue
+    }
+
+    standalone.push(item)
+  }
+
+  return {
+    playlists: [...playlistMap.values()].map(playlist => ({
+      ...playlist,
+      videos: [...playlist.videos].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
+    })),
+    videos: standalone,
+  }
+}
+
+function collectVideoSlugs(catalog) {
+  const slugs = catalog.videos.map(video => video.slug)
+  for (const playlist of catalog.playlists)
+    slugs.push(...playlist.videos.map(video => video.slug))
+  return slugs
+}
+
 async function fetchStrapi(path, retries = 3) {
   const headers = {}
   if (STRAPI_TOKEN)
@@ -145,6 +222,32 @@ function normalizePost(post) {
   }
 }
 
+function mapVideoCategory(attrs, playlist) {
+  const strapiCategory = attrs.category?.data?.attributes ?? attrs.category
+  if (strapiCategory?.slug)
+    return strapiCategory.slug
+
+  const haystack = [
+    attrs.title,
+    attrs.excerpt,
+    attrs.description,
+    playlist?.title,
+  ].filter(Boolean).join(' ').toLowerCase()
+
+  if (haystack.includes('strapi'))
+    return 'strapi'
+  if (haystack.includes('git'))
+    return 'git'
+  if (haystack.includes('html'))
+    return 'html'
+  if (haystack.includes('css'))
+    return 'css'
+  if (haystack.includes('javascript') || haystack.includes('js'))
+    return 'javascript'
+
+  return 'strapi'
+}
+
 function normalizeVideo(entity) {
   const attrs = entity.attributes || entity
   const embedCode = attrs.embedCode || ''
@@ -152,6 +255,16 @@ function normalizeVideo(entity) {
   const srcMatch = embedCode.match(/src=["']([^"']+)["']/)
   if (srcMatch)
     embedUrl = srcMatch[1]
+
+  const playlistData = attrs.playlist?.data?.attributes ?? attrs.playlist
+  const playlist = playlistData?.id || playlistData?.slug
+    ? {
+        id: playlistData.slug || playlistData.id || String(playlistData.documentId || ''),
+        slug: playlistData.slug || playlistData.id || String(playlistData.documentId || ''),
+        title: playlistData.title || playlistData.name || 'Плейлист',
+        order: attrs.playlistOrder ?? attrs.order ?? 0,
+      }
+    : undefined
 
   return {
     id: entity.documentId || String(entity.id),
@@ -161,10 +274,21 @@ function normalizeVideo(entity) {
     embedUrl,
     thumbnailUrl: normalizeCoverUrl(attrs.thumbnail),
     duration: attrs.duration || '—',
-    category: 'Видео',
+    category: mapVideoCategory(attrs, playlist),
     views: attrs.views || 0,
     publishedAt: attrs.publishedAt,
+    playlist,
   }
+}
+
+const videoTaxonomy = {
+  categories: [
+    { slug: 'strapi', name: 'Strapi' },
+    { slug: 'git', name: 'Git' },
+    { slug: 'html', name: 'HTML' },
+    { slug: 'css', name: 'CSS' },
+    { slug: 'javascript', name: 'JavaScript' },
+  ],
 }
 
 const demoVideos = [
@@ -176,7 +300,7 @@ const demoVideos = [
     embedUrl: 'https://dzen.ru/embed/oOUYx_hcKAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0',
     thumbnailUrl: 'https://avatars.dzeninfra.ru/get-zen_doc/271828/pub_6979dbc253d8595cad514cce_6979dcbd7097eb06362e1346/scale_600',
     duration: '—',
-    category: 'Видео',
+    category: 'strapi',
     views: 0,
   },
   {
@@ -187,7 +311,7 @@ const demoVideos = [
     embedUrl: 'https://www.youtube.com/embed/8pDqJVdNa44',
     thumbnailUrl: null,
     duration: '12:40',
-    category: 'Git',
+    category: 'git',
     views: 0,
   },
   {
@@ -198,7 +322,7 @@ const demoVideos = [
     embedUrl: 'https://www.youtube.com/embed/8pDqJVdNa44',
     thumbnailUrl: null,
     duration: '18:20',
-    category: 'HTML',
+    category: 'html',
     views: 0,
   },
   {
@@ -209,7 +333,7 @@ const demoVideos = [
     embedUrl: 'https://www.youtube.com/embed/8pDqJVdNa44',
     thumbnailUrl: null,
     duration: '22:15',
-    category: 'CSS',
+    category: 'css',
     views: 0,
   },
   {
@@ -220,7 +344,7 @@ const demoVideos = [
     embedUrl: 'https://www.youtube.com/embed/8pDqJVdNa44',
     thumbnailUrl: null,
     duration: '25:00',
-    category: 'JavaScript',
+    category: 'javascript',
     views: 0,
   },
   {
@@ -231,7 +355,7 @@ const demoVideos = [
     embedUrl: 'https://www.youtube.com/embed/8pDqJVdNa44',
     thumbnailUrl: null,
     duration: '15:30',
-    category: 'Git',
+    category: 'git',
     views: 0,
   },
   {
@@ -242,7 +366,7 @@ const demoVideos = [
     embedUrl: 'https://www.youtube.com/embed/8pDqJVdNa44',
     thumbnailUrl: null,
     duration: '20:45',
-    category: 'CSS',
+    category: 'css',
     views: 0,
   },
 ]
@@ -250,43 +374,17 @@ const demoVideos = [
 const siteJson = {
   title: 'AITISHKAPRO',
   url: 'https://aitishka.pro',
-  description: 'Обучение разработке с нуля — статьи, видео и практика по Git, HTML, CSS, JavaScript.',
+  description: 'Обучение разработке с нуля — статьи, видео и практика для взрослых и детей.',
   navigation: [
     { label: 'Новости', to: '/news' },
-    {
-      label: 'Статьи',
-      to: '/articles',
-      children: [
-        {
-          label: 'Git',
-          to: '/articles/git',
-          children: [
-            { label: 'Основы', to: '/articles/git/basics' },
-            { label: 'Ветки', to: '/articles/git/branches' },
-            { label: 'Рабочий процесс', to: '/articles/git/workflow' },
-          ],
-        },
-        {
-          label: 'HTML&CSS',
-          to: '/articles/html-css',
-          children: [
-            { label: 'HTML', to: '/articles/html-css/html' },
-            { label: 'CSS', to: '/articles/html-css/css' },
-            { label: 'Адаптивность', to: '/articles/html-css/responsive' },
-          ],
-        },
-        { label: 'JavaScript', to: '/articles/javascript' },
-      ],
-    },
+    { label: 'Статьи', to: '/articles' },
     { label: 'Видео', to: '/media' },
-    { label: 'О нас', to: '/about' },
-    { label: 'Контакты', to: '/contact' },
   ],
   benefits: [
     { title: 'Статьи и гайды', text: 'Пошаговые материалы по Git, HTML, CSS, JavaScript и смежным темам.', icon: 'article', link: '/articles', linkText: 'Перейти к статьям' },
     { title: 'Видеоуроки', text: 'Разборы и уроки в видеоформате для наглядного обучения.', icon: 'video', link: '/media', linkText: 'Смотреть видео' },
     { title: 'Проверка уровня', text: 'Тесты по каждой технологии помогут оценить готовность к практике.', icon: 'graduation', link: '/articles', linkText: 'Пройти тест' },
-    { title: 'Поддержка', text: 'Вопросы можно задать в Telegram — мы поможем разобраться.', icon: 'support', link: 'https://t.me/aitishka_pro', linkText: 'Написать в Telegram', external: true },
+    { title: 'Поддержка', text: 'Вопросы можно задать во ВКонтакте — мы поможем разобраться.', icon: 'support', link: 'https://vk.com/aitishka', linkText: 'Написать ВКонтакте', external: true },
   ],
   technologies: [
     { id: 'git', label: 'Git', to: '/articles/git', color: '#EF4444', hoverColor: '#DC2626' },
@@ -302,27 +400,31 @@ const siteJson = {
     title: 'О нас',
     lead: 'Узнайте больше о платформе AITISHKAPRO и нашей миссии.',
     paragraphs: [
-      'AITISHKAPRO — образовательная платформа для разработчиков. Мы помогаем осваивать Git, HTML, CSS, JavaScript и смежные технологии через статьи, видео и практические материалы.',
-      'Наша цель — давать структурированные знания и поддерживать вас на пути от основ до уверенной разработки. Материалы подходят как новичкам, так и тем, кто хочет систематизировать навыки.',
+      'AITISHKAPRO — образовательная платформа «Айтишка». Мы публикуем статьи и видео для взрослых и детей: веб-разработка, Python, Arduino, Roblox Studio и другие направления.',
+      'Материалы разделены по категориям и подкатегориям — от первых шагов до практических проектов. Вы можете учиться в своём темпе, проходить тесты и задавать вопросы во ВКонтакте.',
     ],
     features: [
-      { title: 'Статьи и гайды', text: 'Пошаговые материалы по технологиям.', icon: 'article' },
-      { title: 'Видеоуроки', text: 'Наглядные разборы и уроки.', icon: 'video' },
-      { title: 'Практика', text: 'Тесты и задания для закрепления.', icon: 'graduation' },
+      { title: 'Статьи и гайды', text: 'Пошаговые материалы для взрослых и детей.', icon: 'article' },
+      { title: 'Видеоуроки', text: 'Мини-курсы и разборы в формате видео.', icon: 'video' },
+      { title: 'Практика', text: 'Тесты и задания для закрепления навыков.', icon: 'graduation' },
     ],
   },
+  media: {
+    title: 'Видео',
+    lead: 'Учебные видео и мини-курсы по веб-разработке, Python и работе с CMS.',
+  },
   contact: {
+    lead: 'Свяжитесь с нами по телефону, почте или во ВКонтакте.',
     phone: '+7 (999) 999-99-99',
     email: 'info@aitishka.pro',
     address: 'Россия',
     social: [
-      { label: 'Telegram', url: 'https://t.me/aitishka_pro', icon: 'telegram' },
-      { label: 'ВКонтакте', url: 'https://vk.com/aitishka_pro', icon: 'links' },
+      { label: 'ВКонтакте', url: 'https://vk.com/aitishka', icon: 'vk' },
     ],
   },
   news: {
     title: 'Новости',
-    lead: 'Здесь находятся различные новости и события.',
+    lead: 'Анонсы, обновления платформы и важные события AITISHKAPRO.',
   },
   testQuestions: {
     git: [
@@ -462,26 +564,17 @@ async function main() {
     }),
   }
 
-  if (taxonomy.categories.length === 0) {
-    taxonomy.categories = siteJson.navigation
-      .find(n => n.label === 'Статьи')
-      ?.children
-      ?.map(c => ({
-        slug: c.to.replace('/articles/', ''),
-        name: c.label,
-        subcategories: (c.children || []).map(s => ({
-          slug: s.to.split('/').pop(),
-          name: s.label,
-        })),
-      })) ?? []
-  }
+  if (taxonomy.categories.length === 0)
+    taxonomy.categories = buildTaxonomyFromPosts(postSummaries)
 
   writeJson(join(POSTS_DIR, 'index.json'), postSummaries)
   writeJson(join(CONTENT_DIR, 'taxonomy.json'), taxonomy)
-  writeJson(join(CONTENT_DIR, 'videos.json'), videos)
+  writeJson(join(CONTENT_DIR, 'video-taxonomy.json'), videoTaxonomy)
+  writeJson(join(CONTENT_DIR, 'videos.json'), buildVideoCatalogFromFlat(videos))
   writeJson(join(CONTENT_DIR, 'site.json'), siteJson)
 
-  console.log(`Migrated ${postSummaries.length} posts, ${videos.length} videos, ${taxonomy.categories.length} categories`)
+  const videoCatalog = buildVideoCatalogFromFlat(videos)
+  console.log(`Migrated ${postSummaries.length} posts, ${collectVideoSlugs(videoCatalog).length} videos, ${videoCatalog.playlists.length} playlists, ${taxonomy.categories.length} categories`)
 }
 
 main().catch((err) => {
