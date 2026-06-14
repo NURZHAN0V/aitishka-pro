@@ -41,7 +41,7 @@ function scrollToTop() {
 .scroll-top {
   position: fixed;
   left: 50%;
-  bottom: 2rem;
+  bottom: 2.75rem;
   z-index: 40;
   transform: translateX(-50%);
   padding: 0.375rem 1rem;
@@ -76,7 +76,7 @@ function scrollToTop() {
 
 @media (max-width: $bp-mobile) {
   .scroll-top {
-    bottom: 1.25rem;
+    bottom: 2rem;
     padding: 0.3125rem 0.875rem;
   }
 }
