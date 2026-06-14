@@ -8,11 +8,19 @@ export interface BreadcrumbItem {
   to?: string
 }
 
+export interface PostMeta {
+  description: string
+  tags?: string[]
+  ogTitle?: string
+  ogDescription?: string
+  ogImage?: string
+}
+
 export interface PostSummary {
   id: string
   slug: string
   title: string
-  description: string
+  meta: PostMeta
   cover: string
   category: CategoryRef
   subcategory: CategoryRef
