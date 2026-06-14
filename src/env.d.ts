@@ -12,6 +12,20 @@ declare module '*.scss' {
   export default css
 }
 
+declare module 'markdown-it-container' {
+  import type MarkdownIt from 'markdown-it'
+  import type ContainerToken from 'markdown-it/lib/token.mjs'
+
+  interface ContainerOptions {
+    validate?: (params: string) => boolean
+    render?: (tokens: ContainerToken[], idx: number) => string
+  }
+
+  function containerPlugin(md: MarkdownIt, name: string, options?: ContainerOptions): void
+
+  export default containerPlugin
+}
+
 interface ImportMetaEnv {
   readonly VITE_SITE_URL: string
 }

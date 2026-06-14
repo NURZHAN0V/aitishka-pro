@@ -1,60 +1,124 @@
 <script setup lang="ts">
-import type { Ref } from 'vue'
-import type { NavItem } from '@/index.d'
-import { inject, onMounted, ref, watch } from 'vue'
-import { RouterLink } from 'vue-router'
+import type { NavItem, NavSubItem } from '@/index.d'
+import { computed, defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
 import { api } from '@/core/api'
 import BaseIcon from '@/core/components/BaseIcon.vue'
+import { buildArticlesNavChildren } from '@/modules/articles/utils/buildArticlesNav'
+import ThemeToggle from '@/modules/layout/components/ThemeToggle.vue'
+import { isNavLinkActive } from '@/modules/layout/utils/isNavLinkActive'
 
-const enrollModalOpen = inject<Ref<boolean>>('enrollModalOpen', ref(false))
-const menuOpen = ref(false)
-const articlesOpen = ref(false)
-const navigation = ref<NavItem[]>([])
+const MobileMenu = defineAsyncComponent(() => import('@/modules/layout/components/MobileMenu.vue'))
 
-onMounted(async () => {
-  const site = await api.getSite()
-  navigation.value = site.navigation
-})
+const route = useRoute()
+const currentPath = computed(() => route.path)
 
-function openEnrollModal() {
-  enrollModalOpen.value = true
+function navLinkActive(to: string) {
+  return isNavLinkActive(currentPath.value, to)
 }
 
-watch(menuOpen, (open) => {
-  document.body.style.overflow = open ? 'hidden' : ''
+const menuOpen = ref(false)
+const navigation = ref<NavItem[]>([])
+const articlesNavChildren = ref<NavSubItem[]>([])
+const hasMoreArticleCategories = ref(false)
+
+let lgQuery: MediaQueryList | null = null
+
+onMounted(async () => {
+  const [site, taxonomy] = await Promise.all([
+    api.getSite(),
+    api.getTaxonomy(),
+  ])
+
+  const { items, hasMore } = buildArticlesNavChildren(taxonomy.categories)
+  articlesNavChildren.value = items
+  hasMoreArticleCategories.value = hasMore
+
+  navigation.value = site.navigation.map((item) => {
+    if (item.label === 'Статьи' && item.to === '/articles')
+      return { ...item, children: items }
+    return item
+  })
+
+  lgQuery = window.matchMedia('(min-width: 1024px)')
+  lgQuery.addEventListener('change', handleViewportChange)
+  document.addEventListener('keydown', handleEscape)
 })
+
+onUnmounted(() => {
+  lgQuery?.removeEventListener('change', handleViewportChange)
+  document.removeEventListener('keydown', handleEscape)
+})
+
+function toggleMenu() {
+  menuOpen.value = !menuOpen.value
+}
+
+function closeMenu() {
+  menuOpen.value = false
+}
+
+function handleEscape(event: KeyboardEvent) {
+  if (event.key === 'Escape' && menuOpen.value)
+    closeMenu()
+}
+
+function handleViewportChange() {
+  if (lgQuery?.matches)
+    closeMenu()
+}
 </script>
 
 <template>
   <header class="site-header">
     <div class="site-header__inner container">
-      <RouterLink to="/" class="site-header__logo" @click="menuOpen = false">
+      <RouterLink to="/" class="site-header__logo" @click="closeMenu">
         <strong>AITISHKA<span class="site-header__logo-accent">PRO</span></strong>
       </RouterLink>
 
       <nav class="site-header__nav site-header__nav--desktop">
         <ul class="site-header__nav-list">
           <li v-for="item in navigation" :key="item.to" class="site-header__nav-item" :class="{ 'site-header__nav-item--dropdown': item.children?.length }">
-            <RouterLink :to="item.to" class="site-header__link">
+            <RouterLink
+              :to="item.to"
+              class="site-header__link"
+              :class="{ 'site-header__link--active': navLinkActive(item.to) }"
+            >
               {{ item.label }}
             </RouterLink>
-            <BaseIcon v-if="item.children?.length" name="arrow-down" class="site-header__dropdown-icon" />
+            <BaseIcon
+              v-if="item.children?.length"
+              name="arrow-down"
+              class="site-header__dropdown-icon"
+              :class="{ 'site-header__dropdown-icon--active': navLinkActive(item.to) }"
+            />
             <nav v-if="item.children?.length" class="site-header__dropdown">
               <ul>
                 <li v-for="child in item.children" :key="child.to" class="site-header__dropdown-item" :class="{ 'site-header__dropdown-item--sub': child.children?.length }">
-                  <RouterLink :to="child.to" class="site-header__dropdown-link">
+                  <RouterLink
+                    :to="child.to"
+                    class="site-header__dropdown-link"
+                  >
                     <span>{{ child.label }}</span>
-                    <BaseIcon v-if="child.children?.length" name="arrow-right-drop" />
+                    <BaseIcon v-if="child.children?.length" name="arrow-right-drop" class="site-header__dropdown-icon" />
                   </RouterLink>
                   <nav v-if="child.children?.length" class="site-header__subdropdown">
                     <ul>
                       <li v-for="sub in child.children" :key="sub.to">
-                        <RouterLink :to="sub.to" class="site-header__dropdown-link">
+                        <RouterLink
+                          :to="sub.to"
+                          class="site-header__dropdown-link"
+                        >
                           {{ sub.label }}
                         </RouterLink>
                       </li>
                     </ul>
                   </nav>
+                </li>
+                <li v-if="item.label === 'Статьи' && hasMoreArticleCategories" class="site-header__dropdown-item site-header__dropdown-item--all">
+                  <RouterLink to="/articles" class="site-header__dropdown-link site-header__dropdown-link--all">
+                    Смотреть все категории
+                  </RouterLink>
                 </li>
               </ul>
             </nav>
@@ -63,79 +127,33 @@ watch(menuOpen, (open) => {
       </nav>
 
       <nav class="site-header__cta site-header__nav--desktop">
-        <button type="button" class="btn btn--primary" @click="openEnrollModal">
-          Начать обучение
-        </button>
+        <ThemeToggle />
       </nav>
 
       <button
         type="button"
         class="site-header__burger site-header__nav--mobile"
-        aria-label="Открыть меню"
+        :aria-label="menuOpen ? 'Закрыть меню' : 'Открыть меню'"
         :aria-expanded="menuOpen"
-        @click="menuOpen = true"
+        aria-controls="mobile-menu"
+        @click="toggleMenu"
       >
-        <BaseIcon name="menu" size="1.5rem" />
+        <BaseIcon :name="menuOpen ? 'close' : 'menu'" size="1.5rem" />
       </button>
     </div>
 
-    <Teleport to="body">
-      <Transition name="menu">
-        <div v-if="menuOpen" class="mobile-menu" aria-modal="true" role="dialog">
-          <div class="mobile-menu__overlay" @click="menuOpen = false" />
-          <div class="mobile-menu__panel">
-            <div class="mobile-menu__head">
-              <span>Меню</span>
-              <button type="button" aria-label="Закрыть меню" @click="menuOpen = false">
-                <BaseIcon name="close" size="1.5rem" />
-              </button>
-            </div>
-            <nav class="mobile-menu__nav">
-              <RouterLink
-                v-for="item in navigation.filter(i => !i.children?.length)"
-                :key="item.to"
-                :to="item.to"
-                class="mobile-menu__link"
-                @click="menuOpen = false"
-              >
-                {{ item.label }}
-              </RouterLink>
-              <div class="mobile-menu__accordion">
-                <button type="button" class="mobile-menu__link mobile-menu__accordion-btn" @click="articlesOpen = !articlesOpen">
-                  <span>Статьи</span>
-                  <BaseIcon :name="articlesOpen ? 'arrow-down' : 'arrow-right-drop'" />
-                </button>
-                <ul v-if="articlesOpen" class="mobile-menu__sub">
-                  <template v-for="item in navigation.find(n => n.label === 'Статьи')?.children ?? []" :key="item.to">
-                    <li>
-                      <RouterLink :to="item.to" class="mobile-menu__sublink" @click="menuOpen = false">
-                        {{ item.label }}
-                      </RouterLink>
-                    </li>
-                    <li v-for="sub in item.children ?? []" :key="sub.to">
-                      <RouterLink :to="sub.to" class="mobile-menu__sublink mobile-menu__sublink--nested" @click="menuOpen = false">
-                        {{ sub.label }}
-                      </RouterLink>
-                    </li>
-                  </template>
-                </ul>
-              </div>
-              <button type="button" class="btn btn--primary btn--block" @click="openEnrollModal(); menuOpen = false">
-                Начать обучение
-              </button>
-            </nav>
-          </div>
-        </div>
-      </Transition>
-    </Teleport>
+    <MobileMenu
+      v-if="menuOpen"
+      :is-open="menuOpen"
+      :navigation="navigation"
+      :articles-nav-children="articlesNavChildren"
+      :has-more-article-categories="hasMoreArticleCategories"
+      @close="closeMenu"
+    />
   </header>
 </template>
 
 <style scoped lang="scss">
-.site-header {
-  background: $color-white;
-}
-
 .site-header__inner {
   display: flex;
   align-items: center;
@@ -149,13 +167,15 @@ watch(menuOpen, (open) => {
 }
 
 .site-header__logo {
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-family: $font-display;
+  font-size: $text-xl;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   color: $color-default;
   flex-shrink: 0;
 
   @include lg {
-    font-size: 2rem;
+    font-size: $text-2xl;
   }
 }
 
@@ -179,16 +199,22 @@ watch(menuOpen, (open) => {
 
 .site-header__nav-list {
   display: flex;
-  gap: 1rem;
+  gap: 3rem;
   align-items: center;
 }
 
 .site-header__link {
   color: $color-secondary;
+  font-weight: 400;
   transition: color 0.2s;
 
   &:hover {
     color: $color-default;
+  }
+
+  &--active {
+    color: $color-primary;
+    font-weight: 500;
   }
 }
 
@@ -208,6 +234,10 @@ watch(menuOpen, (open) => {
 .site-header__dropdown-icon {
   width: 1rem;
   color: $color-secondary;
+
+  &--active {
+    color: $color-primary;
+  }
 }
 
 .site-header__dropdown {
@@ -220,7 +250,7 @@ watch(menuOpen, (open) => {
   padding: 0.25rem;
   background: $color-white;
   border: 1px solid $color-gray-200;
-  border-radius: $radius-2xl;
+  border-radius: $radius-md;
   box-shadow: $shadow-xl;
   opacity: 0;
   visibility: hidden;
@@ -250,8 +280,26 @@ watch(menuOpen, (open) => {
 
   &:hover {
     background: $color-primary;
-    color: $color-default;
+    color: $color-on-primary;
   }
+
+  &--active {
+    font-weight: 500;
+    color: $color-default;
+    background: $color-primary-alpha-35;
+  }
+
+  &--all {
+    justify-content: flex-start;
+    font-weight: 500;
+    color: $color-primary;
+  }
+}
+
+.site-header__dropdown-item--all {
+  margin-top: 0.125rem;
+  padding-top: 0.125rem;
+  border-top: 1px solid $color-gray-200;
 }
 
 .site-header__subdropdown {
@@ -263,7 +311,7 @@ watch(menuOpen, (open) => {
   padding: 0.25rem;
   background: $color-white;
   border: 1px solid $color-gray-200;
-  border-radius: $radius-2xl;
+  border-radius: $radius-md;
   box-shadow: $shadow-xl;
   opacity: 0;
   visibility: hidden;
@@ -275,109 +323,18 @@ watch(menuOpen, (open) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: $radius-sm;
   color: $color-default;
+  transition: background-color 0.2s ease;
 
   &:hover {
     background: $color-gray-200;
   }
-}
-
-.mobile-menu {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
 
   @include lg {
     display: none;
   }
-}
-
-.mobile-menu__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgb(0 0 0 / 40%);
-}
-
-.mobile-menu__panel {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: min(100%, 20rem);
-  height: 100%;
-  background: $color-white;
-  box-shadow: $shadow-xl;
-  overflow-y: auto;
-}
-
-.mobile-menu__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-  border-bottom: 1px solid $color-gray-200;
-  font-weight: 500;
-}
-
-.mobile-menu__nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 1rem;
-}
-
-.mobile-menu__link {
-  display: block;
-  padding: 0.75rem 1rem;
-  color: $color-secondary;
-  border-radius: $radius-sm;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background: $color-primary;
-    color: $color-default;
-  }
-}
-
-.mobile-menu__accordion-btn {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  text-align: left;
-}
-
-.mobile-menu__sub {
-  padding-left: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.mobile-menu__sublink {
-  display: block;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  color: $color-secondary;
-  border-radius: $radius-sm;
-
-  &--nested {
-    padding-left: 1.5rem;
-  }
-
-  &:hover {
-    background: $color-primary;
-    color: $color-default;
-  }
-}
-
-.menu-enter-active,
-.menu-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.menu-enter-from,
-.menu-leave-to {
-  opacity: 0;
 }
 </style>

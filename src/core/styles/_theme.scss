@@ -1,0 +1,212 @@
+// Luminous Blue (Coloro 125-28-38) — WGSN × Coloro, цвет 2027 года
+// Светлый режим: aliceblue-фон; тёмный: «космическая» глубина с светящимся акцентом
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  // Brand core
+  --color-luminous-blue: #1461cd;
+  --color-primary-rgb: 20 97 205;
+
+  // Surfaces
+  --color-background: #f0f8ff;
+  --color-surface: #ffffff;
+  --color-surface-muted: #e6f2fc;
+  --color-surface-elevated: #ffffff;
+
+  // Text
+  --color-text: #0a1628;
+  --color-text-secondary: #3a5068;
+  --color-text-muted: #647896;
+  --color-on-primary: #ffffff;
+
+  // Interactive
+  --color-primary: var(--color-luminous-blue);
+  --color-primary-hover: #1052ad;
+  --color-primary-active: #0c468f;
+
+  // Primary alpha (для фонов, бордеров, hover-состояний)
+  --color-primary-alpha-5: rgb(var(--color-primary-rgb) / 5%);
+  --color-primary-alpha-8: rgb(var(--color-primary-rgb) / 8%);
+  --color-primary-alpha-10: rgb(var(--color-primary-rgb) / 10%);
+  --color-primary-alpha-12: rgb(var(--color-primary-rgb) / 12%);
+  --color-primary-alpha-28: rgb(var(--color-primary-rgb) / 28%);
+  --color-primary-alpha-30: rgb(var(--color-primary-rgb) / 30%);
+  --color-primary-alpha-35: rgb(var(--color-primary-rgb) / 35%);
+
+  // Borders & dividers
+  --color-border: #c4daf0;
+  --color-border-subtle: #dce9f7;
+
+  // Form controls (feedtop-aligned radius)
+  --radius-form: 0.5rem;
+
+  // Gray scale (blue-tinted neutrals)
+  --color-gray-200: #dce9f7;
+  --color-gray-300: #c4daf0;
+  --color-gray-400: #8fa8c2;
+  --color-gray-600: #3a5068;
+
+  // Semantic
+  --color-success: #15803d;
+  --color-success-rgb: 21 128 61;
+  --color-success-alpha-8: rgb(var(--color-success-rgb) / 8%);
+  --color-success-alpha-22: rgb(var(--color-success-rgb) / 22%);
+  --color-error: #dc2626;
+  --color-error-rgb: 220 38 38;
+  --color-error-alpha-10: rgb(var(--color-error-rgb) / 10%);
+
+  // Overlays & code
+  --color-overlay: rgb(10 22 40 / 40%);
+  --color-code-bg: #0a1628;
+  --color-code-text: #f0f8ff;
+  --color-surface-inverse: #0a1628;
+  --color-on-inverse: #f0f8ff;
+  --color-inverse-muted: rgb(240 248 255 / 72%);
+  --color-inverse-subtle: rgb(240 248 255 / 52%);
+  --color-inverse-divider: rgb(240 248 255 / 10%);
+
+  // Placeholder gradients
+  --gradient-cover-placeholder: linear-gradient(135deg, #4589d4 0%, #5b9beb 50%, #96c4ff 100%);
+
+  // Shadows (blue-tinted)
+  --shadow-sm: 0 1px 2px rgb(10 22 40 / 6%);
+  --shadow-md: 0 4px 6px -1px rgb(10 22 40 / 8%), 0 2px 4px -2px rgb(10 22 40 / 6%);
+  --shadow-xl: 0 20px 25px -5px rgb(10 22 40 / 10%), 0 8px 10px -6px rgb(10 22 40 / 8%);
+
+  // Mobile menu sheet
+  --mobile-menu-bg: rgb(255 255 255 / 94%);
+  --mobile-menu-border: var(--color-border);
+  --mobile-menu-shadow: 0 -8px 32px rgb(10 22 40 / 10%), 0 -2px 8px rgb(10 22 40 / 6%);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-primary-rgb: 91 155 235;
+
+  // Surfaces — глубокий «космический» фон из промо-графики
+  --color-background: #070b14;
+  --color-surface: #0f1524;
+  --color-surface-muted: #151d30;
+  --color-surface-elevated: #1a2438;
+
+  // Text — aliceblue как основной на тёмном
+  --color-text: #f0f8ff;
+  --color-text-secondary: #a8c4de;
+  --color-text-muted: #6b8fa8;
+  --color-on-primary: #ffffff;
+
+  // Interactive — светящийся Luminous Blue
+  --color-primary: #5b9beb;
+  --color-primary-hover: #4589d4;
+  --color-primary-active: #3578bf;
+
+  // Borders
+  --color-border: #243552;
+  --color-border-subtle: #1a2840;
+
+  --radius-form: 0.5rem;
+
+  // Gray scale
+  --color-gray-200: #1a2840;
+  --color-gray-300: #243552;
+  --color-gray-400: #6b8fa8;
+  --color-gray-600: #a8c4de;
+
+  // Semantic
+  --color-success: #4ade80;
+  --color-success-rgb: 74 222 128;
+  --color-error: #f87171;
+  --color-error-rgb: 248 113 113;
+
+  // Overlays & code
+  --color-overlay: rgb(7 11 20 / 65%);
+  --color-code-bg: #060a12;
+  --color-code-text: #e8f4ff;
+  --color-surface-inverse: #04060d;
+  --color-on-inverse: #f0f8ff;
+  --color-inverse-muted: rgb(240 248 255 / 72%);
+  --color-inverse-subtle: rgb(240 248 255 / 52%);
+  --color-inverse-divider: rgb(240 248 255 / 10%);
+
+  --gradient-cover-placeholder: linear-gradient(135deg, #1461cd 0%, #4589d4 50%, #5b9beb 100%);
+
+  // Shadows
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 30%);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 35%), 0 2px 4px -2px rgb(0 0 0 / 25%);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 45%), 0 8px 10px -6px rgb(0 0 0 / 35%);
+
+  --mobile-menu-bg: rgb(15 21 36 / 94%);
+  --mobile-menu-border: var(--color-border);
+  --mobile-menu-shadow: 0 -8px 32px rgb(0 0 0 / 35%), 0 -2px 8px rgb(0 0 0 / 20%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+
+    --color-primary-rgb: 91 155 235;
+
+    // Surfaces — глубокий «космический» фон из промо-графики
+    --color-background: #070b14;
+    --color-surface: #0f1524;
+    --color-surface-muted: #151d30;
+    --color-surface-elevated: #1a2438;
+
+    // Text — aliceblue как основной на тёмном
+    --color-text: #f0f8ff;
+    --color-text-secondary: #a8c4de;
+    --color-text-muted: #6b8fa8;
+    --color-on-primary: #ffffff;
+
+    // Interactive — светящийся Luminous Blue
+    --color-primary: #5b9beb;
+    --color-primary-hover: #4589d4;
+    --color-primary-active: #3578bf;
+
+    // Borders
+    --color-border: #243552;
+    --color-border-subtle: #1a2840;
+
+    --radius-form: 0.5rem;
+
+    // Gray scale
+    --color-gray-200: #1a2840;
+    --color-gray-300: #243552;
+    --color-gray-400: #6b8fa8;
+    --color-gray-600: #a8c4de;
+
+    // Semantic
+    --color-success: #4ade80;
+    --color-success-rgb: 74 222 128;
+    --color-error: #f87171;
+    --color-error-rgb: 248 113 113;
+
+    // Overlays & code
+    --color-overlay: rgb(7 11 20 / 65%);
+    --color-code-bg: #060a12;
+    --color-code-text: #e8f4ff;
+    --color-surface-inverse: #04060d;
+    --color-on-inverse: #f0f8ff;
+    --color-inverse-muted: rgb(240 248 255 / 72%);
+    --color-inverse-subtle: rgb(240 248 255 / 52%);
+    --color-inverse-divider: rgb(240 248 255 / 10%);
+
+    --gradient-cover-placeholder: linear-gradient(135deg, #1461cd 0%, #4589d4 50%, #5b9beb 100%);
+
+    // Shadows
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 30%);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 35%), 0 2px 4px -2px rgb(0 0 0 / 25%);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 45%), 0 8px 10px -6px rgb(0 0 0 / 35%);
+
+    --mobile-menu-bg: rgb(15 21 36 / 94%);
+    --mobile-menu-border: var(--color-border);
+    --mobile-menu-shadow: 0 -8px 32px rgb(0 0 0 / 35%), 0 -2px 8px rgb(0 0 0 / 20%);
+  }
+}
+
+body.modal-scroll-lock {
+  overflow: hidden;
+}
