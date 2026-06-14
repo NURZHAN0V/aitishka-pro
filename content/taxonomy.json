@@ -1,45 +1,74 @@
 {
   "categories": [
     {
-      "slug": "git",
-      "name": "Git",
+      "slug": "novosti",
+      "name": "Новости",
       "subcategories": [
         {
-          "slug": "basics",
-          "name": "Основы"
-        },
-        {
-          "slug": "branches",
-          "name": "Ветки"
-        },
-        {
-          "slug": "workflow",
-          "name": "Рабочий процесс"
+          "slug": "platforma",
+          "name": "Платформа"
         }
       ]
     },
     {
-      "slug": "html-css",
-      "name": "HTML&CSS",
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых",
       "subcategories": [
         {
-          "slug": "html",
-          "name": "HTML"
+          "slug": "veb-razrabotka",
+          "name": "Веб-разработка"
         },
         {
-          "slug": "css",
-          "name": "CSS"
+          "slug": "instrumenty-i-po",
+          "name": "Инструменты и ПО"
         },
         {
-          "slug": "responsive",
-          "name": "Адаптивность"
+          "slug": "servery-i-bezopasnost",
+          "name": "Серверы и безопасность"
+        },
+        {
+          "slug": "git",
+          "name": "Git"
+        },
+        {
+          "slug": "python",
+          "name": "Python"
         }
       ]
     },
     {
-      "slug": "javascript",
-      "name": "JavaScript",
-      "subcategories": []
+      "slug": "dlya-detej",
+      "name": "Для детей",
+      "subcategories": [
+        {
+          "slug": "medialaboratoriya",
+          "name": "Медиалаборатория"
+        },
+        {
+          "slug": "arduino",
+          "name": "Arduino"
+        },
+        {
+          "slug": "arduino-middle",
+          "name": "Arduino Middle"
+        },
+        {
+          "slug": "html-i-css",
+          "name": "HTML и CSS"
+        },
+        {
+          "slug": "python-kids",
+          "name": "Python Kids"
+        },
+        {
+          "slug": "python-teens",
+          "name": "Python Teens"
+        },
+        {
+          "slug": "rolox-studio",
+          "name": "Rolox Studio"
+        }
+      ]
     }
   ]
 }
