@@ -5,7 +5,9 @@ import { useRoute } from 'vue-router'
 import { api } from '@/core/api'
 import { useMarkdown } from '@/core/composables/useMarkdown'
 import { usePageBreadcrumbs } from '@/core/composables/usePageBreadcrumbs'
+import { applyPageMeta } from '@/core/composables/usePageMeta'
 import ArticleMetaRow from '@/modules/articles/components/ArticleMetaRow.vue'
+import ArticleSideBanner from '@/modules/articles/components/ArticleSideBanner.vue'
 import ArticleTocSticks from '@/modules/articles/components/ArticleTocSticks.vue'
 import { handleArticleCodeBlockClick } from '@/modules/articles/composables/useArticleCodeBlocks'
 import { useArticleToc } from '@/modules/articles/composables/useArticleToc'
@@ -27,10 +29,15 @@ async function loadPost() {
   if (post.value) {
     html.value = render(post.value.body)
     setPageBreadcrumbs(buildArticleBreadcrumbs(post.value))
-    document.title = `${post.value.title} — AITISHKAPRO`
-    const meta = document.querySelector('meta[name="description"]')
-    if (meta)
-      meta.setAttribute('content', post.value.description)
+    applyPageMeta({
+      title: post.value.title,
+      description: post.value.meta.description,
+      ogTitle: post.value.meta.ogTitle,
+      ogDescription: post.value.meta.ogDescription,
+      ogImage: post.value.meta.ogImage
+        || (post.value.cover !== '/media/cover.webp' ? post.value.cover : undefined),
+      canonical: post.value.url,
+    })
   }
   else {
     html.value = '<p>Статья не найдена</p>'
@@ -52,14 +59,18 @@ watch(() => route.params.slug, loadPost)
     <template v-else-if="post">
       <ArticleMetaRow :post="post" />
 
-      <article
-        ref="articleRef"
-        class="article-view__content prose"
-        @click="handleArticleCodeBlockClick"
-      >
-        <h1>{{ post.title }}</h1>
-        <div v-html="html" />
-      </article>
+      <div class="article-view__layout">
+        <ArticleSideBanner />
+
+        <article
+          ref="articleRef"
+          class="article-view__content prose"
+          @click="handleArticleCodeBlockClick"
+        >
+          <h1>{{ post.title }}</h1>
+          <div v-html="html" />
+        </article>
+      </div>
 
       <ArticleTocSticks
         :sections="sections"
@@ -74,9 +85,51 @@ watch(() => route.params.slug, loadPost)
 </template>
 
 <style scoped lang="scss">
+.article-view__layout {
+  @include lg {
+    display: grid;
+    grid-template-columns: 11.25rem minmax(0, 1fr);
+    column-gap: 1.5rem;
+    align-items: start;
+  }
+}
+
+.article-view__banner {
+  @include lg {
+    grid-column: 1;
+    grid-row: 1 / -1;
+  }
+}
+
+.article-view__title {
+  margin: 0 0 0.5em;
+  max-width: 65ch;
+  font-family: $font-display;
+  font-size: $text-3xl;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: $color-default;
+  scroll-margin-top: 5rem;
+
+  @include lg {
+    grid-column: 2;
+    grid-row: 1;
+    margin-inline: auto;
+    width: 100%;
+  }
+}
+
 .article-view__content {
+  min-width: 0;
   margin-inline: auto;
   padding-block: 0 1rem;
+
+  @include lg {
+    grid-column: 2;
+    grid-row: 2;
+  }
 }
 
 .article-view__status {
