@@ -3,7 +3,6 @@
     "id": "news-migration-2026-06-14",
     "slug": "pereehali-s-pluspixel-ru",
     "title": "Мы переехали с pluspixel.ru",
-    "description": "Команда AITISHKAPRO сообщает о переезде на aitishka.pro. Все статьи и учебные материалы теперь публикуются на новом сайте.",
     "cover": "/media/cover.webp",
     "category": {
       "slug": "novosti",
@@ -15,32 +14,21 @@
     },
     "url": "/articles/novosti/platforma/pereehali-s-pluspixel-ru",
     "publishedAt": "2026-06-14T12:00:00.000Z",
-    "views": 0
-  },
-  {
-    "id": "abv080q0n7ba5fukce4rjyzt",
-    "slug": "prostoj-gid-po-soketam-v-python",
-    "title": "Простой гид по сокетам в Python",
-    "description": "Этот мини-учебник объясняет, что такое сокеты, как запустить самый простой сервер и клиент на своём компьютере, чем TCP отличается от UDP, как отправлять и получать данные, что делать с ошибками и таймаутами, а также даёт небольшие упражнения. Текст максимально простой — без «программистских» слов.",
-    "cover": "/media/cover.webp",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "python",
-      "name": "Python"
-    },
-    "url": "/articles/dlya-vzroslyh/python/prostoj-gid-po-soketam-v-python",
-    "publishedAt": "2026-05-09T09:33:46.989Z",
-    "views": 15
+    "views": 0,
+    "meta": {
+      "description": "Команда AITISHKAPRO сообщает о переезде на aitishka.pro. Все статьи и учебные материалы теперь публикуются на новом сайте.",
+      "tags": [
+        "novosti",
+        "platforma",
+        "aitishka"
+      ]
+    }
   },
   {
     "id": "kic45splnwbizijf5f9dqk7n",
     "slug": "upravlenie-svetodiodom-s-pomoshhyu-hlopka",
     "title": "Управление светодиодом с помощью хлопка",
-    "description": "",
-    "cover": "/media/cover.webp",
+    "cover": "/media/posts/upravlenie-svetodiodom-s-pomoshhyu-hlopka-cover.webp",
     "category": {
       "slug": "dlya-detej",
       "name": "Для детей"
@@ -51,13 +39,72 @@
     },
     "url": "/articles/dlya-detej/arduino/upravlenie-svetodiodom-s-pomoshhyu-hlopka",
     "publishedAt": "2026-06-03T12:55:49.640Z",
-    "views": 8
+    "views": 8,
+    "meta": {
+      "description": "Управление светодиодом с помощью хлопка. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "arduino",
+        "tutorial"
+      ],
+      "ogImage": "/media/posts/upravlenie-svetodiodom-s-pomoshhyu-hlopka-cover.webp"
+    }
+  },
+  {
+    "id": "uk6x03zr2k15a9drzd7wqmp1",
+    "slug": "podsvetka-part-pri-navedenii",
+    "title": "Подсветка Part при наведении",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "rolox-studio",
+      "name": "Rolox Studio"
+    },
+    "url": "/articles/dlya-detej/rolox-studio/podsvetka-part-pri-navedenii",
+    "publishedAt": "2026-06-03T05:55:10.099Z",
+    "views": 8,
+    "meta": {
+      "description": "Подсветка Part при наведении. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "rolox-studio",
+        "roblox",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "kegj4oyogfba0s2wyof7ivt9",
+    "slug": "pixel-art",
+    "title": "Как создать анимацию ходьбы в Piskel: Пошаговое руководство для начинающих художников",
+    "cover": "/media/posts/pixel-art-cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "medialaboratoriya",
+      "name": "Медиалаборатория"
+    },
+    "url": "/articles/dlya-detej/medialaboratoriya/pixel-art",
+    "publishedAt": "2026-05-24T06:00:25.280Z",
+    "views": 5,
+    "meta": {
+      "description": "Научимся рисовать анимацию ходьбы в Piskel: 6 кадров, настройка FPS и экспорт GIF. Пошаговый урок для юных художников.",
+      "tags": [
+        "piskel",
+        "pixel-art",
+        "animation",
+        "medialaboratoriya"
+      ],
+      "ogImage": "/media/posts/pixel-art-cover.webp"
+    }
   },
   {
     "id": "zv0i7mcibyiyeijrjza8225r",
     "slug": "super-chat-na-socket",
     "title": "Супер чат на Socket",
-    "description": "",
     "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-detej",
@@ -69,139 +116,20 @@
     },
     "url": "/articles/dlya-detej/python-kids/super-chat-na-socket",
     "publishedAt": "2026-05-23T11:54:30.413Z",
-    "views": 4
+    "views": 4,
+    "meta": {
+      "description": "Супер чат на Socket. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "python-kids",
+        "python",
+        "tutorial"
+      ]
+    }
   },
   {
-    "id": "kegj4oyogfba0s2wyof7ivt9",
-    "slug": "pixel-art",
-    "title": "Как создать анимацию ходьбы в Piskel: Пошаговое руководство для начинающих художников",
-    "description": "",
-    "cover": "/media/cover.webp",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "medialaboratoriya",
-      "name": "Медиалаборатория"
-    },
-    "url": "/articles/dlya-detej/medialaboratoriya/pixel-art",
-    "publishedAt": "2026-05-24T06:00:25.280Z",
-    "views": 5
-  },
-  {
-    "id": "i4i75rr0x8vsjbrsxvnsxe83",
-    "slug": "integracziya-nuxt-js-s-strapi-5",
-    "title": "Интеграция Nuxt.js с Strapi 5",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/integracziya-nuxt-js-s-strapi-5",
-    "publishedAt": "2025-10-12T11:50:58.621Z",
-    "views": 1
-  },
-  {
-    "id": "lo3s4ixy4bxf4xqkmno2mzmy",
-    "slug": "nuxt-schema-org-chast-2",
-    "title": "Nuxt Schema.org: часть 2",
-    "description": "В этой статье мы подробно рассмотрим, как использовать модуль Nuxt Schema.org для автоматического создания структурированных данных на вашем сайте. Узнайте, как установка и настройка модуля помогут улучшить видимость вашего ресурса в поисковых системах.",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.webp",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/nuxt-schema-org-chast-2",
-    "publishedAt": "2026-02-08T05:50:10.886Z",
-    "views": 30
-  },
-  {
-    "id": "r5215m59rgzpggkg5urvtbog",
-    "slug": "gonki-s-trassoj-mashinami-i-ochkami",
-    "title": "Гонки с трассой, машинами и очками",
-    "description": "",
-    "cover": "/media/cover.webp",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "python-kids",
-      "name": "Python Kids"
-    },
-    "url": "/articles/dlya-detej/python-kids/gonki-s-trassoj-mashinami-i-ochkami",
-    "publishedAt": "2025-10-20T00:51:56.068Z",
-    "views": 12
-  },
-  {
-    "id": "qcbtr47khb0fopw46y065912",
-    "slug": "sistema-bezopasnosti-na-arduino",
-    "title": "Система безопасности на Arduino",
-    "description": "",
-    "cover": "/media/cover.webp",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "arduino-middle",
-      "name": "Arduino Middle"
-    },
-    "url": "/articles/dlya-detej/arduino-middle/sistema-bezopasnosti-na-arduino",
-    "publishedAt": "2026-04-26T10:17:47.324Z",
-    "views": 2
-  },
-  {
-    "id": "kcowfs69kl67og7gcwst5vox",
-    "slug": "navedenie-podsvetka-i-sbor-chasti-part-po-kliku",
-    "title": "Наведение, подсветка и сбор части \"Part\" по клику",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "rolox-studio",
-      "name": "Rolox Studio"
-    },
-    "url": "/articles/dlya-detej/rolox-studio/navedenie-podsvetka-i-sbor-chasti-part-po-kliku",
-    "publishedAt": "2026-01-29T21:11:10.275Z",
-    "views": 23
-  },
-  {
-    "id": "u8ze7g1zfrnxcfj2u80p6hm0",
-    "slug": "deploi-nuxt-js",
-    "title": "Как запустить ваш сайт (Nuxt) в интернете",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/deploi-nuxt-js",
-    "publishedAt": "2026-04-26T23:20:34.973Z",
-    "views": 6
-  },
-  {
-    "id": "vfkbrmxspn0d9v7n1pqbik5e",
-    "slug": "poshagovoe-rukovodstvo-po-sozdaniyu-nastraivaemoj-konechnoj-tochki-api-v-strapi-cms-v5",
-    "title": "Пошаговое руководство по созданию настраиваемой конечной точки API в Strapi CMS v5",
-    "description": "",
+    "id": "lp78zum3wh1wq3728h4h8lir",
+    "slug": "monitoring",
+    "title": "Мониторинг",
     "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-vzroslyh",
@@ -211,358 +139,50 @@
       "slug": "veb-razrabotka",
       "name": "Веб-разработка"
     },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/poshagovoe-rukovodstvo-po-sozdaniyu-nastraivaemoj-konechnoj-tochki-api-v-strapi-cms-v5",
-    "publishedAt": "2026-04-26T23:21:14.438Z",
-    "views": 14
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/monitoring",
+    "publishedAt": "2026-05-19T17:21:54.128Z",
+    "views": 5,
+    "meta": {
+      "description": "Мониторинг сервера: Prometheus, Loki и Grafana на Ubuntu. Сбор метрик, логов и дашборды для Node.js-приложений.",
+      "tags": [
+        "monitoring",
+        "prometheus",
+        "grafana",
+        "devops"
+      ]
+    }
   },
   {
-    "id": "aj71bq1cc7a6srg7fdp4kph6",
-    "slug": "servoprivod-arduino-podklyuchenie-upravlenie",
-    "title": "Сервопривод Ардуино подключение, управление",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.avif",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "arduino",
-      "name": "Arduino"
-    },
-    "url": "/articles/dlya-detej/arduino/servoprivod-arduino-podklyuchenie-upravlenie",
-    "publishedAt": "2025-10-28T02:15:07.566Z",
-    "views": 46
-  },
-  {
-    "id": "o5j713vzqm2rvbwj7pts7d2d",
-    "slug": "kak-podklyuchitsya-k-git-hub-po-ssh-poshagovoe-rukovodstvo-dlya-novichkov",
-    "title": "Как подключиться к GitHub по SSH: пошаговое руководство для новичков",
-    "description": "Узнайте, как создать SSH-ключ, подключиться к GitHub и избежать ввода пароля при каждом git push. Простые шаги для Windows, Linux и macOS",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "git",
-      "name": "Git"
-    },
-    "url": "/articles/dlya-vzroslyh/git/kak-podklyuchitsya-k-git-hub-po-ssh-poshagovoe-rukovodstvo-dlya-novichkov",
-    "publishedAt": "2026-04-26T23:22:17.582Z",
-    "views": 137
-  },
-  {
-    "id": "apno9iwnvzm6dlljfr14syaa",
-    "slug": "avtomaticheskaya-zagruzka-audiofajlov-s-kastomnoj-strukturoj-v-strapi",
-    "title": "Автоматическая загрузка аудиофайлов с кастомной структурой в Strapi",
-    "description": "Пошаговое руководство по созданию кастомного провайдера загрузки, middleware, контроллера и маршрута в Strapi для загрузки файлов в отдельные папки по ID аудиокниги",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.webp",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/avtomaticheskaya-zagruzka-audiofajlov-s-kastomnoj-strukturoj-v-strapi",
-    "publishedAt": "2025-08-01T22:23:32.563Z",
-    "views": 39
-  },
-  {
-    "id": "djzk5gq15soq0iaw7biq54sz",
-    "slug": "programmiruem-gonki-znakomstvo-s-oop",
-    "title": "Программируем гонки: знакомство с ООП",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.webp",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "python-kids",
-      "name": "Python Kids"
-    },
-    "url": "/articles/dlya-detej/python-kids/programmiruem-gonki-znakomstvo-s-oop",
-    "publishedAt": "2026-03-14T10:17:45.677Z",
-    "views": 18
-  },
-  {
-    "id": "riqa9nfaz95acvs874f9u53d",
-    "slug": "ufw-dlya-nachinayushhih-kak-nastroit-brandmauer-na-servere-za-10-minut",
-    "title": "UFW для начинающих: как настроить брандмауэр на сервере за 10 минут",
-    "description": "Пошаговое руководство по установке, настройке и использованию UFW — простого брандмауэра для Linux. Без опыта в администрировании!",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "servery-i-bezopasnost",
-      "name": "Серверы и безопасность"
-    },
-    "url": "/articles/dlya-vzroslyh/servery-i-bezopasnost/ufw-dlya-nachinayushhih-kak-nastroit-brandmauer-na-servere-za-10-minut",
-    "publishedAt": "2025-11-17T21:37:39.684Z",
-    "views": 4
-  },
-  {
-    "id": "etbo0qdzjnxufrgwbvt95pmh",
-    "slug": "igra-gonki",
-    "title": "Занятие 2. Игра «Гонки»",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.webp",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "python-kids",
-      "name": "Python Kids"
-    },
-    "url": "/articles/dlya-detej/python-kids/igra-gonki",
-    "publishedAt": "2025-09-28T22:48:17.610Z",
-    "views": 10
-  },
-  {
-    "id": "lec0mdvr9r1pqt7q342lp27b",
-    "slug": "ci-cd-nastrojka-s-git-hub-actions-i-ubuntu",
-    "title": "CI/CD настройка с GitHub Actions и Ubuntu",
-    "description": "Пошаговое руководство по настройке CI/CD пайплайна с использованием GitHub Actions и сервера на базе Ubuntu. Автоматизация сборки, тестирования и деплоя Node.js проектов.",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "git",
-      "name": "Git"
-    },
-    "url": "/articles/dlya-vzroslyh/git/ci-cd-nastrojka-s-git-hub-actions-i-ubuntu",
-    "publishedAt": "2026-04-26T23:27:12.058Z",
-    "views": 7
-  },
-  {
-    "id": "vxmip1rxclzrcij0zakrngvk",
-    "slug": "shpargalka-po-git",
-    "title": "Шпаргалка по Git (основные команды)",
-    "description": "",
+    "id": "hqh7qz0q0j69tqlcuje7ator",
+    "slug": "kak-ispravit-oshibku-s-npm-v-terminale-vs-code",
+    "title": "Как исправить ошибку с npm в терминале VS Code",
     "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-vzroslyh",
       "name": "Для взрослых"
     },
     "subcategory": {
-      "slug": "git",
-      "name": "Git"
+      "slug": "instrumenty-i-po",
+      "name": "Инструменты и ПО"
     },
-    "url": "/articles/dlya-vzroslyh/git/shpargalka-po-git",
-    "publishedAt": "2026-04-26T23:30:19.027Z",
-    "views": 19
-  },
-  {
-    "id": "xfp3yz9qve388172zfos2zoo",
-    "slug": "shpargalka-po-sq-lite",
-    "title": "Шпаргалка по SQLite",
-    "description": "",
-    "cover": "/media/cover.webp",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/shpargalka-po-sq-lite",
-    "publishedAt": "2026-04-26T23:31:23.198Z",
-    "views": 5
-  },
-  {
-    "id": "ib63y6ixfo922vv48ylhwjk4",
-    "slug": "polnoe-rukovodstvo-po-rest-api-v-strapi-5-nastrojka-zaprosy-i-rabota-s-kontentom",
-    "title": "Полное руководство по REST API в Strapi 5: настройка, запросы и работа с контентом",
-    "description": "Изучите REST API в Strapi 5: автоматическая генерация эндпоинтов, настройка прав доступа, работа с запросами, обработка ошибок и нововведения последней версии. Практические примеры и рекомендации",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.jpg",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/polnoe-rukovodstvo-po-rest-api-v-strapi-5-nastrojka-zaprosy-i-rabota-s-kontentom",
-    "publishedAt": "2026-02-09T13:23:12.956Z",
-    "views": 141
-  },
-  {
-    "id": "rnmp99efcploctsj9nnavj1v",
-    "slug": "super-prostoe-rukovodstvo-po-hashi-corp-vault-dlya-novichkov",
-    "title": "Супер-простое руководство по HashiCorp Vault для новичков",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.avif",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/super-prostoe-rukovodstvo-po-hashi-corp-vault-dlya-novichkov",
-    "publishedAt": "2025-11-19T09:56:03.449Z",
-    "views": 8
-  },
-  {
-    "id": "iuf6hs19ggoujrgqoakas6z3",
-    "slug": "kratkoe-rukovodstvo-po-komandam-linux",
-    "title": "Краткое руководство по командам Linux",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.webp",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/kratkoe-rukovodstvo-po-komandam-linux",
-    "publishedAt": "2025-08-01T22:06:06.033Z",
-    "views": 3
-  },
-  {
-    "id": "iw4rtitvgblela0isn9vjc47",
-    "slug": "vstuplenie-v-roblox",
-    "title": "Занятие 1. Вступление в Roblox",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "rolox-studio",
-      "name": "Rolox Studio"
-    },
-    "url": "/articles/dlya-detej/rolox-studio/vstuplenie-v-roblox",
-    "publishedAt": "2025-11-04T14:27:23.215Z",
-    "views": 58
-  },
-  {
-    "id": "kkfww7b53n1mjjucgwq5zhv7",
-    "slug": "nuxt-schema-org-chast-1",
-    "title": "Nuxt Schema.org: часть 1",
-    "description": "В этой статье мы подробно рассмотрим, как использовать модуль Nuxt Schema.org для автоматического создания структурированных данных на вашем сайте. Узнайте, как установка и настройка модуля помогут улучшить видимость вашего ресурса в поисковых системах.",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.webp",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/nuxt-schema-org-chast-1",
-    "publishedAt": "2026-01-21T10:11:44.519Z",
-    "views": 25
-  },
-  {
-    "id": "uk6x03zr2k15a9drzd7wqmp1",
-    "slug": "podsvetka-part-pri-navedenii",
-    "title": "Подсветка Part при наведении",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "rolox-studio",
-      "name": "Rolox Studio"
-    },
-    "url": "/articles/dlya-detej/rolox-studio/podsvetka-part-pri-navedenii",
-    "publishedAt": "2026-06-03T05:55:10.099Z",
-    "views": 8
-  },
-  {
-    "id": "wtust28l66sr33sxbhtr1aih",
-    "slug": "integracziya-redis-so-strapi",
-    "title": "Интеграция Redis со Strapi",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/integracziya-redis-so-strapi",
-    "publishedAt": "2025-07-03T19:36:55.649Z",
-    "views": 4
-  },
-  {
-    "id": "i1q3ju6zcuovl3ro65z5v36i",
-    "slug": "kak-sozdat-novogo-polzovatelya-i-bazu-dannyh-v-my-sql",
-    "title": "Как создать нового пользователя и базу данных в MySQL",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.webp",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/kak-sozdat-novogo-polzovatelya-i-bazu-dannyh-v-my-sql",
-    "publishedAt": "2026-04-26T23:33:04.496Z",
-    "views": 6
-  },
-  {
-    "id": "je9e0p0to224jw1e17seaide",
-    "slug": "otkrytie-menyu-po-podskazke",
-    "title": "Открытие меню по подсказке",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "rolox-studio",
-      "name": "Rolox Studio"
-    },
-    "url": "/articles/dlya-detej/rolox-studio/otkrytie-menyu-po-podskazke",
-    "publishedAt": "2025-10-20T00:42:47.282Z",
-    "views": 20
-  },
-  {
-    "id": "jg1vrcnxgpkxhr4zm47ekr0f",
-    "slug": "igra-kubik",
-    "title": "Игра кубик",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "arduino",
-      "name": "Arduino"
-    },
-    "url": "/articles/dlya-detej/arduino/igra-kubik",
-    "publishedAt": "2025-11-17T18:15:36.554Z",
-    "views": 6
+    "url": "/articles/dlya-vzroslyh/instrumenty-i-po/kak-ispravit-oshibku-s-npm-v-terminale-vs-code",
+    "publishedAt": "2026-05-18T13:29:10.609Z",
+    "views": 223,
+    "meta": {
+      "description": "VS Code не видит npm в PowerShell? Разбираем политику выполнения скриптов и возвращаем рабочий терминал за несколько минут.",
+      "tags": [
+        "npm",
+        "vscode",
+        "windows",
+        "troubleshooting"
+      ]
+    }
   },
   {
     "id": "duv4rciofc0rxplf02crqdan",
     "slug": "nuxt-js-strapi-na-servere-poshagovaya-ustanovka-s-nginx-i-pm-2",
     "title": "Nuxt.js + Strapi на сервере: пошаговая установка с Nginx и PM2",
-    "description": "Как установить Nuxt.js и Strapi на сервер Ubuntu. Установка Node.js 22 через NVM, настройка PM2 и проксирование с помощью Nginx. Без лишних слов.",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
+    "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-vzroslyh",
       "name": "Для взрослых"
@@ -573,13 +193,47 @@
     },
     "url": "/articles/dlya-vzroslyh/veb-razrabotka/nuxt-js-strapi-na-servere-poshagovaya-ustanovka-s-nginx-i-pm-2",
     "publishedAt": "2026-05-17T20:24:22.260Z",
-    "views": 173
+    "views": 173,
+    "meta": {
+      "description": "Деплой Nuxt.js и Strapi на Ubuntu: Node.js, PM2, Nginx и окружение для продакшна. Пошаговое руководство без лишней воды.",
+      "tags": [
+        "nuxt",
+        "strapi",
+        "deploy",
+        "nginx",
+        "pm2"
+      ]
+    }
+  },
+  {
+    "id": "abv080q0n7ba5fukce4rjyzt",
+    "slug": "prostoj-gid-po-soketam-v-python",
+    "title": "Простой гид по сокетам в Python",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "python",
+      "name": "Python"
+    },
+    "url": "/articles/dlya-vzroslyh/python/prostoj-gid-po-soketam-v-python",
+    "publishedAt": "2026-05-09T09:33:46.989Z",
+    "views": 15,
+    "meta": {
+      "description": "Мини-учебник по сокетам в Python: TCP и UDP, простой сервер и клиент, ошибки и таймауты. Без сложных терминов — для начинающих.",
+      "tags": [
+        "python",
+        "sockets",
+        "tutorial"
+      ]
+    }
   },
   {
     "id": "u4kwaurz7i9vevi6wqand4c3",
     "slug": "poshagovaya-instrukcziya-po-sozdaniyu-igry-zmejka-na-python",
     "title": "Пошаговая инструкция по созданию игры «Змейка» на Python",
-    "description": "",
     "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-detej",
@@ -591,68 +245,21 @@
     },
     "url": "/articles/dlya-detej/python-kids/poshagovaya-instrukcziya-po-sozdaniyu-igry-zmejka-na-python",
     "publishedAt": "2026-04-26T23:33:45.874Z",
-    "views": 9
+    "views": 9,
+    "meta": {
+      "description": "Пошаговая инструкция по созданию игры «Змейка» на Python. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "python-kids",
+        "python",
+        "tutorial"
+      ]
+    }
   },
   {
-    "id": "hqh7qz0q0j69tqlcuje7ator",
-    "slug": "kak-ispravit-oshibku-s-npm-v-terminale-vs-code",
-    "title": "Как исправить ошибку с npm в терминале VS Code",
-    "description": "Если вы столкнулись с проблемой, когда терминал Visual Studio Code не распознает команду npm, не спешите паниковать. Чаще всего это связано с политикой выполнения скриптов в PowerShell. Мы покажем простое решение, которое поможет вернуть работоспособность npm.",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.jpg",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "instrumenty-i-po",
-      "name": "Инструменты и ПО"
-    },
-    "url": "/articles/dlya-vzroslyh/instrumenty-i-po/kak-ispravit-oshibku-s-npm-v-terminale-vs-code",
-    "publishedAt": "2026-05-18T13:29:10.609Z",
-    "views": 223
-  },
-  {
-    "id": "kui0caorfhn4ebj3euldwlww",
-    "slug": "igra-ugadaj-chislo",
-    "title": "Занятие 1. Игра «Угадай число»",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.webp",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "python-kids",
-      "name": "Python Kids"
-    },
-    "url": "/articles/dlya-detej/python-kids/igra-ugadaj-chislo",
-    "publishedAt": "2026-01-17T09:48:11.744Z",
-    "views": 9
-  },
-  {
-    "id": "l7go2ohn034lq5dk6vv69vcw",
-    "slug": "rukovodstvo-po-sozdaniyu-bazovoj-sistemy-andon",
-    "title": "Занятие №2. Руководство по созданию базовой системы Andon",
-    "description": "Проект Andon системы на Arduino и Python предназначен для мониторинга и сигнализации в промышленных условиях. Он использует Arduino Uno для управления аппаратными индикаторами и Python для создания графического интерфейса, обеспечивая визуальную и звуковую обратную связь о статусах системы.",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "arduino",
-      "name": "Arduino"
-    },
-    "url": "/articles/dlya-detej/arduino/rukovodstvo-po-sozdaniyu-bazovoj-sistemy-andon",
-    "publishedAt": "2026-01-19T06:14:07.824Z",
-    "views": 39
-  },
-  {
-    "id": "lp78zum3wh1wq3728h4h8lir",
-    "slug": "monitoring",
-    "title": "Мониторинг",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
+    "id": "i1q3ju6zcuovl3ro65z5v36i",
+    "slug": "kak-sozdat-novogo-polzovatelya-i-bazu-dannyh-v-my-sql",
+    "title": "Как создать нового пользователя и базу данных в MySQL",
+    "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-vzroslyh",
       "name": "Для взрослых"
@@ -661,34 +268,46 @@
       "slug": "veb-razrabotka",
       "name": "Веб-разработка"
     },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/monitoring",
-    "publishedAt": "2026-05-19T17:21:54.128Z",
-    "views": 5
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/kak-sozdat-novogo-polzovatelya-i-bazu-dannyh-v-my-sql",
+    "publishedAt": "2026-04-26T23:33:04.496Z",
+    "views": 6,
+    "meta": {
+      "description": "Как создать нового пользователя и базу данных в MySQL. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "veb-razrabotka",
+        "guide"
+      ]
+    }
   },
   {
-    "id": "m7tgnta9e7371tqsxpeha3f6",
-    "slug": "kak-sdelat-svoj-pervyj-lcd-displej-s-arduino",
-    "title": "Как сделать свой первый LCD-дисплей с Arduino",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
+    "id": "xfp3yz9qve388172zfos2zoo",
+    "slug": "shpargalka-po-sq-lite",
+    "title": "Шпаргалка по SQLite",
+    "cover": "/media/cover.webp",
     "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
     },
     "subcategory": {
-      "slug": "",
-      "name": ""
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
     },
-    "url": "/articles/kak-sdelat-svoj-pervyj-lcd-displej-s-arduino",
-    "publishedAt": "2025-11-16T13:40:58.443Z",
-    "views": 123
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/shpargalka-po-sq-lite",
+    "publishedAt": "2026-04-26T23:31:23.198Z",
+    "views": 5,
+    "meta": {
+      "description": "Шпаргалка по SQLite. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "veb-razrabotka",
+        "cheatsheet"
+      ]
+    }
   },
   {
-    "id": "reqsf7wmoz521nzfv1l23l7u",
-    "slug": "kak-otpravit-kod-proekta-na-git-hub",
-    "title": "Как начать работу с Git и GitHub: пошаговое руководство",
-    "description": "В этой статье мы подробно рассмотрим, как отправить код вашего проекта на GitHub. Вы узнаете о процессе создания репозитория, настройке Git на вашем компьютере и основных командах, необходимых для загрузки вашего кода",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.webp",
+    "id": "vxmip1rxclzrcij0zakrngvk",
+    "slug": "shpargalka-po-git",
+    "title": "Шпаргалка по Git (основные команды)",
+    "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-vzroslyh",
       "name": "Для взрослых"
@@ -697,87 +316,71 @@
       "slug": "git",
       "name": "Git"
     },
-    "url": "/articles/dlya-vzroslyh/git/kak-otpravit-kod-proekta-na-git-hub",
-    "publishedAt": "2025-12-23T11:53:17.335Z",
-    "views": 65
+    "url": "/articles/dlya-vzroslyh/git/shpargalka-po-git",
+    "publishedAt": "2026-04-26T23:30:19.027Z",
+    "views": 19,
+    "meta": {
+      "description": "Шпаргалка по Git (основные команды). Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "git",
+        "cheatsheet"
+      ]
+    }
   },
   {
-    "id": "n2m9uycxipihiu1zt0kqh22l",
-    "slug": "migayushhij-svetodiod-na-arduino-uno-r3",
-    "title": "Занятие №1. Мигающий светодиод на Arduino UNO R3",
-    "description": "Научитесь заставлять светодиод мигать с помощью Arduino UNO R3. Простой проект для начинающих, который поможет понять основы работы с Arduino",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "arduino",
-      "name": "Arduino"
-    },
-    "url": "/articles/dlya-detej/arduino/migayushhij-svetodiod-na-arduino-uno-r3",
-    "publishedAt": "2026-02-07T07:22:32.353Z",
-    "views": 34
-  },
-  {
-    "id": "nt40wzdmj8g46xry6susca6p",
-    "slug": "programma-dlya-obshheniya-s-nejrosetyu",
-    "title": "Программа для общения с нейросетью",
-    "description": "",
+    "id": "lec0mdvr9r1pqt7q342lp27b",
+    "slug": "ci-cd-nastrojka-s-git-hub-actions-i-ubuntu",
+    "title": "CI/CD настройка с GitHub Actions и Ubuntu",
     "cover": "/media/cover.webp",
-    "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
-    },
-    "subcategory": {
-      "slug": "python-kids",
-      "name": "Python Kids"
-    },
-    "url": "/articles/dlya-detej/python-kids/programma-dlya-obshheniya-s-nejrosetyu",
-    "publishedAt": "2025-08-15T09:26:30.118Z",
-    "views": 44
-  },
-  {
-    "id": "nuwxmp8citf9o69jyb05mhbl",
-    "slug": "postgress-ustanovka-i-nastrojka",
-    "title": "Postgress: установка и настройка",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
     "category": {
       "slug": "dlya-vzroslyh",
       "name": "Для взрослых"
     },
     "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
+      "slug": "git",
+      "name": "Git"
     },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/postgress-ustanovka-i-nastrojka",
-    "publishedAt": "2025-10-31T07:30:09.726Z",
-    "views": 6
+    "url": "/articles/dlya-vzroslyh/git/ci-cd-nastrojka-s-git-hub-actions-i-ubuntu",
+    "publishedAt": "2026-04-26T23:27:12.058Z",
+    "views": 7,
+    "meta": {
+      "description": "Пошаговое руководство по настройке CI/CD пайплайна с использованием GitHub Actions и сервера на базе Ubuntu. Автоматизация сборки, тестирования и деплоя Node…",
+      "tags": [
+        "git",
+        "guide"
+      ]
+    }
   },
   {
-    "id": "p0cl2w7873qctis3q9dwu662",
-    "slug": "skript-otkrytiya-dveri",
-    "title": "Скрипт открытия двери в Roblox",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
+    "id": "o5j713vzqm2rvbwj7pts7d2d",
+    "slug": "kak-podklyuchitsya-k-git-hub-po-ssh-poshagovoe-rukovodstvo-dlya-novichkov",
+    "title": "Как подключиться к GitHub по SSH: пошаговое руководство для новичков",
+    "cover": "/media/cover.webp",
     "category": {
-      "slug": "dlya-detej",
-      "name": "Для детей"
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
     },
     "subcategory": {
-      "slug": "rolox-studio",
-      "name": "Rolox Studio"
+      "slug": "git",
+      "name": "Git"
     },
-    "url": "/articles/dlya-detej/rolox-studio/skript-otkrytiya-dveri",
-    "publishedAt": "2026-02-09T13:18:20.416Z",
-    "views": 81
+    "url": "/articles/dlya-vzroslyh/git/kak-podklyuchitsya-k-git-hub-po-ssh-poshagovoe-rukovodstvo-dlya-novichkov",
+    "publishedAt": "2026-04-26T23:22:17.582Z",
+    "views": 137,
+    "meta": {
+      "description": "Как создать SSH-ключ и подключиться к GitHub без пароля при каждом push. Пошагово для Windows, Linux и macOS.",
+      "tags": [
+        "git",
+        "github",
+        "ssh",
+        "tutorial"
+      ]
+    }
   },
   {
-    "id": "phvw4rx69uvn6qq8wt3chu7x",
-    "slug": "oop-v-java-script-prostymi-slovami",
-    "title": "ООП в JavaScript — простыми словами 🚀",
-    "description": "",
+    "id": "vfkbrmxspn0d9v7n1pqbik5e",
+    "slug": "poshagovoe-rukovodstvo-po-sozdaniyu-nastraivaemoj-konechnoj-tochki-api-v-strapi-cms-v5",
+    "title": "Пошаговое руководство по созданию настраиваемой конечной точки API в Strapi CMS v5",
     "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-vzroslyh",
@@ -787,16 +390,23 @@
       "slug": "veb-razrabotka",
       "name": "Веб-разработка"
     },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/oop-v-java-script-prostymi-slovami",
-    "publishedAt": "2025-08-01T22:06:00.022Z",
-    "views": 4
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/poshagovoe-rukovodstvo-po-sozdaniyu-nastraivaemoj-konechnoj-tochki-api-v-strapi-cms-v5",
+    "publishedAt": "2026-04-26T23:21:14.438Z",
+    "views": 14,
+    "meta": {
+      "description": "Пошаговое руководство по созданию настраиваемой конечной точки API в Strapi CMS v5. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начина…",
+      "tags": [
+        "veb-razrabotka",
+        "strapi",
+        "guide"
+      ]
+    }
   },
   {
-    "id": "pnk9dhq0a2de8xy4f7i07rgj",
-    "slug": "kak-podklyuchit-domen-k-vps-na-ubuntu-nginx-1",
-    "title": "Как подключить домен к VPS на Ubuntu + Nginx",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.jpg",
+    "id": "u8ze7g1zfrnxcfj2u80p6hm0",
+    "slug": "deploi-nuxt-js",
+    "title": "Как запустить ваш сайт (Nuxt) в интернете",
+    "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-vzroslyh",
       "name": "Для взрослых"
@@ -805,51 +415,47 @@
       "slug": "veb-razrabotka",
       "name": "Веб-разработка"
     },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/kak-podklyuchit-domen-k-vps-na-ubuntu-nginx-1",
-    "publishedAt": "2026-03-17T09:04:12.912Z",
-    "views": 73
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/deploi-nuxt-js",
+    "publishedAt": "2026-04-26T23:20:34.973Z",
+    "views": 6,
+    "meta": {
+      "description": "Как запустить ваш сайт (Nuxt) в интернете. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "veb-razrabotka",
+        "nuxt",
+        "guide"
+      ]
+    }
   },
   {
-    "id": "q6c06o4porzfpqpvnlyv6nq6",
-    "slug": "pm-2-effektivnyj-menedzher-proczessov-dlya-prilozhenij-na-node-js",
-    "title": "PM2: Эффективный менеджер процессов для приложений на Node.js",
-    "description": "PM2 — это мощный менеджер процессов для приложений на Node.js, который обеспечивает надежность, высокую доступность и простоту в управлении. Узнайте, как использовать PM2 для оптимизации работы ваших приложений",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/pm-2-effektivnyj-menedzher-proczessov-dlya-prilozhenij-na-node-js",
-    "publishedAt": "2025-11-16T13:46:01.201Z",
-    "views": 27
-  },
-  {
-    "id": "sc4lejzck0opegmecl4ym5kr",
-    "slug": "liderbord-i-koiny",
-    "title": "Лидерборд и коины",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
+    "id": "qcbtr47khb0fopw46y065912",
+    "slug": "sistema-bezopasnosti-na-arduino",
+    "title": "Система безопасности на Arduino",
+    "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-detej",
       "name": "Для детей"
     },
     "subcategory": {
-      "slug": "rolox-studio",
-      "name": "Rolox Studio"
+      "slug": "arduino-middle",
+      "name": "Arduino Middle"
     },
-    "url": "/articles/dlya-detej/rolox-studio/liderbord-i-koiny",
-    "publishedAt": "2025-11-11T14:52:13.997Z",
-    "views": 19
+    "url": "/articles/dlya-detej/arduino-middle/sistema-bezopasnosti-na-arduino",
+    "publishedAt": "2026-04-26T10:17:47.324Z",
+    "views": 2,
+    "meta": {
+      "description": "Система безопасности на Arduino. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "arduino-middle",
+        "arduino",
+        "tutorial"
+      ]
+    }
   },
   {
     "id": "sfaabt8pge6k8950p40y74yu",
     "slug": "gonki-na-turtle",
     "title": "Гонки на Turtle",
-    "description": "",
     "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-detej",
@@ -861,14 +467,21 @@
     },
     "url": "/articles/dlya-detej/python-kids/gonki-na-turtle",
     "publishedAt": "2026-04-04T10:57:42.404Z",
-    "views": 8
+    "views": 8,
+    "meta": {
+      "description": "Гонки на Turtle. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "python-kids",
+        "python",
+        "tutorial"
+      ]
+    }
   },
   {
-    "id": "t4yf68cg5sh9x6z7eqbhg8l9",
-    "slug": "integracziya-redis-s-strapi",
-    "title": "Интеграция Redis с Strapi",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
+    "id": "pnk9dhq0a2de8xy4f7i07rgj",
+    "slug": "kak-podklyuchit-domen-k-vps-na-ubuntu-nginx-1",
+    "title": "Как подключить домен к VPS на Ubuntu + Nginx",
+    "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-vzroslyh",
       "name": "Для взрослых"
@@ -877,70 +490,50 @@
       "slug": "veb-razrabotka",
       "name": "Веб-разработка"
     },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/integracziya-redis-s-strapi",
-    "publishedAt": "2026-01-29T12:55:40.681Z",
-    "views": 7
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/kak-podklyuchit-domen-k-vps-na-ubuntu-nginx-1",
+    "publishedAt": "2026-03-17T09:04:12.912Z",
+    "views": 73,
+    "meta": {
+      "description": "Подключение домена к VPS на Ubuntu: DNS, Nginx, SSL через Certbot и автопродление сертификата. Полное руководство для новичков.",
+      "tags": [
+        "nginx",
+        "ssl",
+        "vps",
+        "ubuntu",
+        "tutorial"
+      ]
+    }
   },
   {
-    "id": "wr2t3fkyna2c0qncaf3028ar",
-    "slug": "kak-obnovit-prevyu-ssylki-v-telegram",
-    "title": "Как обновить превью ссылки в Telegram",
-    "description": "Исправили описание или картинку на сайте, но Telegram всё равно показывает старое превью? Рассказываем, как сбросить кэш ссылки через бота @WebpageBot. Работает для новых сообщений — старые не изменятся",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.jpg",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/kak-obnovit-prevyu-ssylki-v-telegram",
-    "publishedAt": "2025-12-23T10:49:28.289Z",
-    "views": 46
-  },
-  {
-    "id": "x9qx0wtaqidpq2ifpzmzgtt7",
-    "slug": "kak-rabotaet-sortirovka-i-paginacziya-v-strapi-api",
-    "title": "Как работает сортировка и пагинация в Strapi API",
-    "description": "Простое объяснение параметров сортировки и пагинации в Strapi API. Пошаговые примеры и советы для новичков",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.webp",
-    "category": {
-      "slug": "dlya-vzroslyh",
-      "name": "Для взрослых"
-    },
-    "subcategory": {
-      "slug": "veb-razrabotka",
-      "name": "Веб-разработка"
-    },
-    "url": "/articles/dlya-vzroslyh/veb-razrabotka/kak-rabotaet-sortirovka-i-paginacziya-v-strapi-api",
-    "publishedAt": "2025-08-01T22:22:58.824Z",
-    "views": 15
-  },
-  {
-    "id": "xkdqxk5xl3rm2ai6k2nanwlk",
-    "slug": "sbor-predmetov",
-    "title": "Сбор предметов",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
+    "id": "djzk5gq15soq0iaw7biq54sz",
+    "slug": "programmiruem-gonki-znakomstvo-s-oop",
+    "title": "Программируем гонки: знакомство с ООП",
+    "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-detej",
       "name": "Для детей"
     },
     "subcategory": {
-      "slug": "rolox-studio",
-      "name": "Rolox Studio"
+      "slug": "python-kids",
+      "name": "Python Kids"
     },
-    "url": "/articles/dlya-detej/rolox-studio/sbor-predmetov",
-    "publishedAt": "2025-12-09T18:09:17.495Z",
-    "views": 20
+    "url": "/articles/dlya-detej/python-kids/programmiruem-gonki-znakomstvo-s-oop",
+    "publishedAt": "2026-03-14T10:17:45.677Z",
+    "views": 18,
+    "meta": {
+      "description": "Программируем гонки: знакомство с ООП. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "python-kids",
+        "python",
+        "tutorial"
+      ]
+    }
   },
   {
     "id": "xkp314avv91uk6fd3tgiv1if",
     "slug": "rukovodstvo-po-rfid-dlya-arduino-polnoe-rukovodstvo-po-modulyu-rc-522-s-kodom-i-proektami",
     "title": "Руководство по RFID для Arduino: Полное руководство по модулю RC522 с кодом и проектами",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.webp",
+    "cover": "/media/posts/rukovodstvo-po-rfid-dlya-arduino-polnoe-rukovodstvo-po-modulyu-rc-522-s-kodom-i-proektami-cover.webp",
     "category": {
       "slug": "dlya-detej",
       "name": "Для детей"
@@ -951,14 +544,122 @@
     },
     "url": "/articles/dlya-detej/arduino/rukovodstvo-po-rfid-dlya-arduino-polnoe-rukovodstvo-po-modulyu-rc-522-s-kodom-i-proektami",
     "publishedAt": "2026-02-23T19:28:17.376Z",
-    "views": 11
+    "views": 11,
+    "meta": {
+      "description": "Руководство по RFID для Arduino: Полное руководство по модулю RC522 с кодом и проектами. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для н…",
+      "tags": [
+        "arduino",
+        "tutorial"
+      ],
+      "ogImage": "/media/posts/rukovodstvo-po-rfid-dlya-arduino-polnoe-rukovodstvo-po-modulyu-rc-522-s-kodom-i-proektami-cover.webp"
+    }
+  },
+  {
+    "id": "ib63y6ixfo922vv48ylhwjk4",
+    "slug": "polnoe-rukovodstvo-po-rest-api-v-strapi-5-nastrojka-zaprosy-i-rabota-s-kontentom",
+    "title": "Полное руководство по REST API в Strapi 5: настройка, запросы и работа с контентом",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
+    },
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/polnoe-rukovodstvo-po-rest-api-v-strapi-5-nastrojka-zaprosy-i-rabota-s-kontentom",
+    "publishedAt": "2026-02-09T13:23:12.956Z",
+    "views": 141,
+    "meta": {
+      "description": "REST API в Strapi 5: эндпоинты, права доступа, запросы, ошибки и практические примеры. Полное руководство для разработчиков.",
+      "tags": [
+        "strapi",
+        "rest-api",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "p0cl2w7873qctis3q9dwu662",
+    "slug": "skript-otkrytiya-dveri",
+    "title": "Скрипт открытия двери в Roblox",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "rolox-studio",
+      "name": "Rolox Studio"
+    },
+    "url": "/articles/dlya-detej/rolox-studio/skript-otkrytiya-dveri",
+    "publishedAt": "2026-02-09T13:18:20.416Z",
+    "views": 81,
+    "meta": {
+      "description": "Скрипт открытия двери в Roblox. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "rolox-studio",
+        "roblox",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "lo3s4ixy4bxf4xqkmno2mzmy",
+    "slug": "nuxt-schema-org-chast-2",
+    "title": "Nuxt Schema.org: часть 2",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
+    },
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/nuxt-schema-org-chast-2",
+    "publishedAt": "2026-02-08T05:50:10.886Z",
+    "views": 30,
+    "meta": {
+      "description": "В этой статье мы подробно рассмотрим, как использовать модуль Nuxt Schema.org для автоматического создания структурированных данных на вашем сайте. Узнайте, …",
+      "tags": [
+        "veb-razrabotka",
+        "nuxt",
+        "guide"
+      ]
+    }
+  },
+  {
+    "id": "n2m9uycxipihiu1zt0kqh22l",
+    "slug": "migayushhij-svetodiod-na-arduino-uno-r3",
+    "title": "Занятие №1. Мигающий светодиод на Arduino UNO R3",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "arduino",
+      "name": "Arduino"
+    },
+    "url": "/articles/dlya-detej/arduino/migayushhij-svetodiod-na-arduino-uno-r3",
+    "publishedAt": "2026-02-07T07:22:32.353Z",
+    "views": 34,
+    "meta": {
+      "description": "Первый проект на Arduino UNO: мигающий светодиод, схема, код и принцип работы GPIO. Стартовый урок для детей.",
+      "tags": [
+        "arduino",
+        "led",
+        "tutorial",
+        "kids"
+      ]
+    }
   },
   {
     "id": "zb3klikup1xwazk28qquu7e4",
     "slug": "krasivyj-adres-dlya-strapi",
     "title": "Красивый адрес для Strapi",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.png",
+    "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-vzroslyh",
       "name": "Для взрослых"
@@ -969,14 +670,219 @@
     },
     "url": "/articles/dlya-vzroslyh/veb-razrabotka/krasivyj-adres-dlya-strapi",
     "publishedAt": "2026-02-04T10:04:30.963Z",
-    "views": 3
+    "views": 3,
+    "meta": {
+      "description": "Красивый адрес для Strapi. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "veb-razrabotka",
+        "strapi",
+        "guide"
+      ]
+    }
+  },
+  {
+    "id": "kcowfs69kl67og7gcwst5vox",
+    "slug": "navedenie-podsvetka-i-sbor-chasti-part-po-kliku",
+    "title": "Наведение, подсветка и сбор части \"Part\" по клику",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "rolox-studio",
+      "name": "Rolox Studio"
+    },
+    "url": "/articles/dlya-detej/rolox-studio/navedenie-podsvetka-i-sbor-chasti-part-po-kliku",
+    "publishedAt": "2026-01-29T21:11:10.275Z",
+    "views": 23,
+    "meta": {
+      "description": "Наведение, подсветка и сбор части \"Part\" по клику. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "rolox-studio",
+        "roblox",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "t4yf68cg5sh9x6z7eqbhg8l9",
+    "slug": "integracziya-redis-s-strapi",
+    "title": "Интеграция Redis с Strapi",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
+    },
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/integracziya-redis-s-strapi",
+    "publishedAt": "2026-01-29T12:55:40.681Z",
+    "views": 7,
+    "meta": {
+      "description": "Кэширование Strapi v5 через Redis: установка, конфигурация, middleware и очереди Bull. Ускоряем API и снижаем нагрузку на БД.",
+      "tags": [
+        "strapi",
+        "redis",
+        "caching",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "kkfww7b53n1mjjucgwq5zhv7",
+    "slug": "nuxt-schema-org-chast-1",
+    "title": "Nuxt Schema.org: часть 1",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
+    },
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/nuxt-schema-org-chast-1",
+    "publishedAt": "2026-01-21T10:11:44.519Z",
+    "views": 25,
+    "meta": {
+      "description": "В этой статье мы подробно рассмотрим, как использовать модуль Nuxt Schema.org для автоматического создания структурированных данных на вашем сайте. Узнайте, …",
+      "tags": [
+        "veb-razrabotka",
+        "nuxt",
+        "guide"
+      ]
+    }
+  },
+  {
+    "id": "l7go2ohn034lq5dk6vv69vcw",
+    "slug": "rukovodstvo-po-sozdaniyu-bazovoj-sistemy-andon",
+    "title": "Занятие №2. Руководство по созданию базовой системы Andon",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "arduino",
+      "name": "Arduino"
+    },
+    "url": "/articles/dlya-detej/arduino/rukovodstvo-po-sozdaniyu-bazovoj-sistemy-andon",
+    "publishedAt": "2026-01-19T06:14:07.824Z",
+    "views": 39,
+    "meta": {
+      "description": "Проект Andon системы на Arduino и Python предназначен для мониторинга и сигнализации в промышленных условиях. Он использует Arduino Uno для управления аппара…",
+      "tags": [
+        "arduino",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "kui0caorfhn4ebj3euldwlww",
+    "slug": "igra-ugadaj-chislo",
+    "title": "Занятие 1. Игра «Угадай число»",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "python-kids",
+      "name": "Python Kids"
+    },
+    "url": "/articles/dlya-detej/python-kids/igra-ugadaj-chislo",
+    "publishedAt": "2026-01-17T09:48:11.744Z",
+    "views": 9,
+    "meta": {
+      "description": "Занятие 1. Игра «Угадай число». Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "python-kids",
+        "python",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "reqsf7wmoz521nzfv1l23l7u",
+    "slug": "kak-otpravit-kod-proekta-na-git-hub",
+    "title": "Как начать работу с Git и GitHub: пошаговое руководство",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "git",
+      "name": "Git"
+    },
+    "url": "/articles/dlya-vzroslyh/git/kak-otpravit-kod-proekta-na-git-hub",
+    "publishedAt": "2025-12-23T11:53:17.335Z",
+    "views": 65,
+    "meta": {
+      "description": "В этой статье мы подробно рассмотрим, как отправить код вашего проекта на GitHub. Вы узнаете о процессе создания репозитория, настройке Git на вашем компьюте…",
+      "tags": [
+        "git",
+        "guide"
+      ]
+    }
+  },
+  {
+    "id": "wr2t3fkyna2c0qncaf3028ar",
+    "slug": "kak-obnovit-prevyu-ssylki-v-telegram",
+    "title": "Как обновить превью ссылки в Telegram",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
+    },
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/kak-obnovit-prevyu-ssylki-v-telegram",
+    "publishedAt": "2025-12-23T10:49:28.289Z",
+    "views": 46,
+    "meta": {
+      "description": "Исправили описание или картинку на сайте, но Telegram всё равно показывает старое превью? Рассказываем, как сбросить кэш ссылки через бота @WebpageBot. Работ…",
+      "tags": [
+        "veb-razrabotka",
+        "guide"
+      ]
+    }
+  },
+  {
+    "id": "xkdqxk5xl3rm2ai6k2nanwlk",
+    "slug": "sbor-predmetov",
+    "title": "Сбор предметов",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "rolox-studio",
+      "name": "Rolox Studio"
+    },
+    "url": "/articles/dlya-detej/rolox-studio/sbor-predmetov",
+    "publishedAt": "2025-12-09T18:09:17.495Z",
+    "views": 20,
+    "meta": {
+      "description": "Сбор предметов. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "rolox-studio",
+        "roblox",
+        "tutorial"
+      ]
+    }
   },
   {
     "id": "zl3qt0lkpcvr7deulcd8f6wc",
     "slug": "chto-takoe-oop",
     "title": "Что такое ООП",
-    "description": "",
-    "cover": "/media/aHR0cHM6Ly9jbXMu.webp",
+    "cover": "/media/cover.webp",
     "category": {
       "slug": "dlya-detej",
       "name": "Для детей"
@@ -987,6 +893,458 @@
     },
     "url": "/articles/dlya-detej/python-kids/chto-takoe-oop",
     "publishedAt": "2025-12-09T18:09:01.208Z",
-    "views": 8
+    "views": 8,
+    "meta": {
+      "description": "Что такое ООП. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "python-kids",
+        "python",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "rnmp99efcploctsj9nnavj1v",
+    "slug": "super-prostoe-rukovodstvo-po-hashi-corp-vault-dlya-novichkov",
+    "title": "Супер-простое руководство по HashiCorp Vault для новичков",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
+    },
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/super-prostoe-rukovodstvo-po-hashi-corp-vault-dlya-novichkov",
+    "publishedAt": "2025-11-19T09:56:03.449Z",
+    "views": 8,
+    "meta": {
+      "description": "Супер-простое руководство по HashiCorp Vault для новичков. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "veb-razrabotka",
+        "guide"
+      ]
+    }
+  },
+  {
+    "id": "riqa9nfaz95acvs874f9u53d",
+    "slug": "ufw-dlya-nachinayushhih-kak-nastroit-brandmauer-na-servere-za-10-minut",
+    "title": "UFW для начинающих: как настроить брандмауэр на сервере за 10 минут",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "servery-i-bezopasnost",
+      "name": "Серверы и безопасность"
+    },
+    "url": "/articles/dlya-vzroslyh/servery-i-bezopasnost/ufw-dlya-nachinayushhih-kak-nastroit-brandmauer-na-servere-za-10-minut",
+    "publishedAt": "2025-11-17T21:37:39.684Z",
+    "views": 4,
+    "meta": {
+      "description": "Пошаговое руководство по установке, настройке и использованию UFW — простого брандмауэра для Linux. Без опыта в администрировании!",
+      "tags": [
+        "servery-i-bezopasnost",
+        "guide"
+      ]
+    }
+  },
+  {
+    "id": "jg1vrcnxgpkxhr4zm47ekr0f",
+    "slug": "igra-kubik",
+    "title": "Игра кубик",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "arduino",
+      "name": "Arduino"
+    },
+    "url": "/articles/dlya-detej/arduino/igra-kubik",
+    "publishedAt": "2025-11-17T18:15:36.554Z",
+    "views": 6,
+    "meta": {
+      "description": "Игра кубик. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "arduino",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "q6c06o4porzfpqpvnlyv6nq6",
+    "slug": "pm-2-effektivnyj-menedzher-proczessov-dlya-prilozhenij-na-node-js",
+    "title": "PM2: Эффективный менеджер процессов для приложений на Node.js",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
+    },
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/pm-2-effektivnyj-menedzher-proczessov-dlya-prilozhenij-na-node-js",
+    "publishedAt": "2025-11-16T13:46:01.201Z",
+    "views": 27,
+    "meta": {
+      "description": "PM2 — это мощный менеджер процессов для приложений на Node.js, который обеспечивает надежность, высокую доступность и простоту в управлении. Узнайте, как исп…",
+      "tags": [
+        "veb-razrabotka",
+        "guide"
+      ]
+    }
+  },
+  {
+    "id": "m7tgnta9e7371tqsxpeha3f6",
+    "slug": "kak-sdelat-svoj-pervyj-lcd-displej-s-arduino",
+    "title": "Как сделать свой первый LCD-дисплей с Arduino",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "arduino",
+      "name": "Arduino"
+    },
+    "url": "/articles/dlya-detej/arduino/kak-sdelat-svoj-pervyj-lcd-displej-s-arduino",
+    "publishedAt": "2025-11-16T13:40:58.443Z",
+    "views": 123,
+    "meta": {
+      "description": "Первый проект с Arduino и LCD 16x2: подключение, код на LiquidCrystal и вывод текста на экран. Урок для начинающих.",
+      "tags": [
+        "arduino",
+        "lcd",
+        "tutorial",
+        "kids"
+      ]
+    }
+  },
+  {
+    "id": "sc4lejzck0opegmecl4ym5kr",
+    "slug": "liderbord-i-koiny",
+    "title": "Лидерборд и коины",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "rolox-studio",
+      "name": "Rolox Studio"
+    },
+    "url": "/articles/dlya-detej/rolox-studio/liderbord-i-koiny",
+    "publishedAt": "2025-11-11T14:52:13.997Z",
+    "views": 19,
+    "meta": {
+      "description": "Лидерборд и коины. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "rolox-studio",
+        "roblox",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "iw4rtitvgblela0isn9vjc47",
+    "slug": "vstuplenie-v-roblox",
+    "title": "Занятие 1. Вступление в Roblox",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "rolox-studio",
+      "name": "Rolox Studio"
+    },
+    "url": "/articles/dlya-detej/rolox-studio/vstuplenie-v-roblox",
+    "publishedAt": "2025-11-04T14:27:23.215Z",
+    "views": 58,
+    "meta": {
+      "description": "Занятие 1. Вступление в Roblox. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "rolox-studio",
+        "roblox",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "nuwxmp8citf9o69jyb05mhbl",
+    "slug": "postgress-ustanovka-i-nastrojka",
+    "title": "Postgress: установка и настройка",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
+    },
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/postgress-ustanovka-i-nastrojka",
+    "publishedAt": "2025-10-31T07:30:09.726Z",
+    "views": 6,
+    "meta": {
+      "description": "Postgress: установка и настройка. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "veb-razrabotka",
+        "guide"
+      ]
+    }
+  },
+  {
+    "id": "aj71bq1cc7a6srg7fdp4kph6",
+    "slug": "servoprivod-arduino-podklyuchenie-upravlenie",
+    "title": "Сервопривод Ардуино подключение, управление",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "arduino",
+      "name": "Arduino"
+    },
+    "url": "/articles/dlya-detej/arduino/servoprivod-arduino-podklyuchenie-upravlenie",
+    "publishedAt": "2025-10-28T02:15:07.566Z",
+    "views": 46,
+    "meta": {
+      "description": "Сервопривод Ардуино подключение, управление. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "arduino",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "r5215m59rgzpggkg5urvtbog",
+    "slug": "gonki-s-trassoj-mashinami-i-ochkami",
+    "title": "Гонки с трассой, машинами и очками",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "python-kids",
+      "name": "Python Kids"
+    },
+    "url": "/articles/dlya-detej/python-kids/gonki-s-trassoj-mashinami-i-ochkami",
+    "publishedAt": "2025-10-20T00:51:56.068Z",
+    "views": 12,
+    "meta": {
+      "description": "Гонки с трассой, машинами и очками. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "python-kids",
+        "python",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "je9e0p0to224jw1e17seaide",
+    "slug": "otkrytie-menyu-po-podskazke",
+    "title": "Открытие меню по подсказке",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "rolox-studio",
+      "name": "Rolox Studio"
+    },
+    "url": "/articles/dlya-detej/rolox-studio/otkrytie-menyu-po-podskazke",
+    "publishedAt": "2025-10-20T00:42:47.282Z",
+    "views": 20,
+    "meta": {
+      "description": "Открытие меню по подсказке. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "rolox-studio",
+        "roblox",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "i4i75rr0x8vsjbrsxvnsxe83",
+    "slug": "integracziya-nuxt-js-s-strapi-5",
+    "title": "Интеграция Nuxt.js с Strapi 5",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
+    },
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/integracziya-nuxt-js-s-strapi-5",
+    "publishedAt": "2025-10-12T11:50:58.621Z",
+    "views": 1,
+    "meta": {
+      "description": "Интеграция Nuxt.js с Strapi 5. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "veb-razrabotka",
+        "strapi",
+        "nuxt",
+        "guide"
+      ]
+    }
+  },
+  {
+    "id": "etbo0qdzjnxufrgwbvt95pmh",
+    "slug": "igra-gonki",
+    "title": "Занятие 2. Игра «Гонки»",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "python-kids",
+      "name": "Python Kids"
+    },
+    "url": "/articles/dlya-detej/python-kids/igra-gonki",
+    "publishedAt": "2025-09-28T22:48:17.610Z",
+    "views": 10,
+    "meta": {
+      "description": "Занятие 2. Игра «Гонки». Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "python-kids",
+        "python",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "nt40wzdmj8g46xry6susca6p",
+    "slug": "programma-dlya-obshheniya-s-nejrosetyu",
+    "title": "Программа для общения с нейросетью",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-detej",
+      "name": "Для детей"
+    },
+    "subcategory": {
+      "slug": "python-kids",
+      "name": "Python Kids"
+    },
+    "url": "/articles/dlya-detej/python-kids/programma-dlya-obshheniya-s-nejrosetyu",
+    "publishedAt": "2025-08-15T09:26:30.118Z",
+    "views": 44,
+    "meta": {
+      "description": "Программа для общения с нейросетью. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "python-kids",
+        "python",
+        "tutorial"
+      ]
+    }
+  },
+  {
+    "id": "apno9iwnvzm6dlljfr14syaa",
+    "slug": "avtomaticheskaya-zagruzka-audiofajlov-s-kastomnoj-strukturoj-v-strapi",
+    "title": "Автоматическая загрузка аудиофайлов с кастомной структурой в Strapi",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
+    },
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/avtomaticheskaya-zagruzka-audiofajlov-s-kastomnoj-strukturoj-v-strapi",
+    "publishedAt": "2025-08-01T22:23:32.563Z",
+    "views": 39,
+    "meta": {
+      "description": "Пошаговое руководство по созданию кастомного провайдера загрузки, middleware, контроллера и маршрута в Strapi для загрузки файлов в отдельные папки по ID ауд…",
+      "tags": [
+        "veb-razrabotka",
+        "strapi",
+        "guide"
+      ]
+    }
+  },
+  {
+    "id": "x9qx0wtaqidpq2ifpzmzgtt7",
+    "slug": "kak-rabotaet-sortirovka-i-paginacziya-v-strapi-api",
+    "title": "Как работает сортировка и пагинация в Strapi API",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
+    },
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/kak-rabotaet-sortirovka-i-paginacziya-v-strapi-api",
+    "publishedAt": "2025-08-01T22:22:58.824Z",
+    "views": 15,
+    "meta": {
+      "description": "Простое объяснение параметров сортировки и пагинации в Strapi API. Пошаговые примеры и советы для новичков",
+      "tags": [
+        "veb-razrabotka",
+        "strapi",
+        "guide"
+      ]
+    }
+  },
+  {
+    "id": "iuf6hs19ggoujrgqoakas6z3",
+    "slug": "kratkoe-rukovodstvo-po-komandam-linux",
+    "title": "Краткое руководство по командам Linux",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
+    },
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/kratkoe-rukovodstvo-po-komandam-linux",
+    "publishedAt": "2025-08-01T22:06:06.033Z",
+    "views": 3,
+    "meta": {
+      "description": "Краткое руководство по командам Linux. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "veb-razrabotka",
+        "guide"
+      ]
+    }
+  },
+  {
+    "id": "phvw4rx69uvn6qq8wt3chu7x",
+    "slug": "oop-v-java-script-prostymi-slovami",
+    "title": "ООП в JavaScript — простыми словами 🚀",
+    "cover": "/media/cover.webp",
+    "category": {
+      "slug": "dlya-vzroslyh",
+      "name": "Для взрослых"
+    },
+    "subcategory": {
+      "slug": "veb-razrabotka",
+      "name": "Веб-разработка"
+    },
+    "url": "/articles/dlya-vzroslyh/veb-razrabotka/oop-v-java-script-prostymi-slovami",
+    "publishedAt": "2025-08-01T22:06:00.022Z",
+    "views": 4,
+    "meta": {
+      "description": "ООП в JavaScript — простыми словами 🚀. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+      "tags": [
+        "veb-razrabotka",
+        "guide"
+      ]
+    }
   }
 ]

@@ -19,7 +19,7 @@ Actionable-справочник для **AI-агента** и **автора**, 
 | Загрузка | `fetch('/content/...')` — `api.getPosts()`, `api.getPost(slug)` |
 | Сборка | `pnpm dev` / `pnpm build` → `scripts/copy-content.mjs` |
 
-Обложки в **`public/media/`** (вне `content/`). Указывайте существующий `/media/...` или согласуйте новый файл с разработчиком. `pnpm migrate` — только для dev (импорт из Strapi).
+Обложки и inline-изображения в **`public/media/posts/`**. Если своей обложки нет — укажите **`/media/cover.webp`**: в карточках показывается CSS-градиент (без файла). Уникальная обложка: `/media/posts/{slug}-cover.webp`.
 
 ---
 
@@ -48,16 +48,26 @@ content/
 |------|-------|----------|
 | `id` | да | Уникальная строка |
 | `slug` | да | a-z, 0-9, дефис; lowercase; уникален |
-| `title` | да | Заголовок |
-| `description` | нет* | Для карточки/SEO; может быть `""` |
+| `title` | да | Заголовок (H1 на странице) |
+| `meta` | да | SEO и OG (см. ниже) |
 | `body` | да** | Markdown; **только** в `{slug}.json` |
-| `cover` | да | `/media/cover.webp` |
+| `cover` | да | `/media/cover.webp` (градиент-заглушка) или `/media/posts/{slug}-cover.webp` (своя обложка) |
 | `category`, `subcategory` | да | `{ slug, name }` из taxonomy |
 | `url` | да | `/articles/{cat}/{subcat}/{slug}` |
 | `publishedAt` | нет | ISO 8601 |
 | `views` | да | Для новой — `0` |
 
-\* Рекомендуется. \*\* Не включать в index.
+**`meta`:**
+
+| Поле | Обяз. | Описание |
+|------|-------|----------|
+| `description` | да | 120–160 символов для `<meta name="description">` |
+| `tags` | нет | 2–5 slug-тегов (`strapi`, `python-kids`, `tutorial`) |
+| `ogTitle` | нет | По умолчанию — `title` |
+| `ogDescription` | нет | По умолчанию — `meta.description` |
+| `ogImage` | нет | По умолчанию — `cover` |
+
+\*\* Не включать `body` в index.
 
 **Slug:** транслит заголовка, без кириллицы и пробелов. Не менять после публикации без редиректа.
 
@@ -69,7 +79,9 @@ content/
 
 Рендер: `src/core/composables/useMarkdown.ts`.
 
-**Базовый синтаксис:** заголовки `#`–`####`, абзацы, **жирный**, *курсив*, списки, `[ссылки](url)`, автолинковка URL, `> цитаты`, `---`, изображения `![alt](/media/x.webp)`, inline `` `код` ``, fenced blocks:
+**Базовый синтаксис:** заголовки `##`–`###` в body (H1 — только `title` в JSON), абзацы, **жирный**, *курсив*, списки, `[ссылки](url)`, автолинковка URL, `> цитаты`, `---`, изображения `![alt](/media/posts/{slug}/x.webp)`, inline `` `код` ``, fenced blocks:
+
+**TOC:** в боковое оглавление попадают только **h2 и h3**; не используйте h4+ и не дробите статью служебными заголовками «Шаг N» — оформляйте шаги **жирным** или callout-блоками.
 
 ````markdown
 ```python
@@ -161,10 +173,10 @@ print("hello")
 2. Уникальный `slug`
 3. `posts/{slug}.json` с `body`
 4. `url` = `/articles/{cat}/{subcat}/{slug}`
-5. `cover` — `/media/...`
+5. `cover` — `/media/posts/{slug}-cover.webp`
 6. Запись в `posts/index.json` **без `body`**
 7. `pnpm dev` — проверить рендер
-8. Заполнить `description`
+8. Заполнить `meta.description` и `meta.tags`
 
 ---
 
@@ -177,9 +189,13 @@ print("hello")
   "id": "manual-moj-gid",
   "slug": "moj-gid",
   "title": "Мой гид",
-  "description": "Краткое описание.",
+  "meta": {
+    "description": "Краткое SEO-описание статьи для поисковиков и соцсетей.",
+    "tags": ["python", "tutorial"],
+    "ogImage": "/media/posts/moj-gid-cover.webp"
+  },
   "body": "## Введение\n\nТекст…",
-  "cover": "/media/cover.webp",
+  "cover": "/media/posts/moj-gid-cover.webp",
   "category": { "slug": "dlya-vzroslyh", "name": "Для взрослых" },
   "subcategory": { "slug": "python", "name": "Python" },
   "url": "/articles/dlya-vzroslyh/python/moj-gid",
@@ -210,4 +226,4 @@ print("Привет!")
 
 ---
 
-*При расхождении с кодом — ориентир: `useMarkdown.ts`, `index.d.ts`, `copy-content.mjs`.*
+*При расхождении с кодом — ориентир: `useMarkdown.ts`, `usePageMeta.ts`, `index.d.ts`, `copy-content.mjs`.*

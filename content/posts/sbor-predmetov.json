@@ -2,9 +2,8 @@
   "id": "xkdqxk5xl3rm2ai6k2nanwlk",
   "slug": "sbor-predmetov",
   "title": "Сбор предметов",
-  "description": "",
-  "body": "### Шаг 1\nСоздайте **Part** и придайте необходимую ему цвет и форму\n\n### Шаг 2\nСоздайте **Script** в **Part** и вставьте следующий код:\n\n```\nlocal part = script.Parent\nlocal Debris = game:GetService(\"Debris\")\n\nlocal function onTouched(hit)\n\tlocal character = hit.Parent\n\tif not character then return end\n\tlocal player = game.Players:GetPlayerFromCharacter(character)\n\tif not player then return end\n\n\t-- защита от повторных касаний\n\tif part:GetAttribute(\"Consumed\") then return end\n\tpart:SetAttribute(\"Consumed\", true)\n\n\t-- добавить 1 коин\n\tlocal leaderstats = player:FindFirstChild(\"leaderstats\")\n\tlocal coins = leaderstats and leaderstats:FindFirstChild(\"Coins\")\n\tif coins then\n\t\tcoins.Value += 1\n\tend\n\n\t-- скрыть и удалить Part\n\tpart.CanTouch = false\n\tpart.Transparency = 1\n\tpart.CanCollide = false\n\tDebris:AddItem(part, 0) -- сразу удалить (можно 2-3 сек, если хотите задержку)\nend\n\npart.Touched:Connect(onTouched)\n```",
-  "cover": "/media/aHR0cHM6Ly9jbXMu.png",
+  "body": "**Шаг 1**\nСоздайте **Part** и придайте необходимую ему цвет и форму\n\n**Шаг 2**\nСоздайте **Script** в **Part** и вставьте следующий код:\n\n```\nlocal part = script.Parent\nlocal Debris = game:GetService(\"Debris\")\n\nlocal function onTouched(hit)\n\tlocal character = hit.Parent\n\tif not character then return end\n\tlocal player = game.Players:GetPlayerFromCharacter(character)\n\tif not player then return end\n\n\t-- защита от повторных касаний\n\tif part:GetAttribute(\"Consumed\") then return end\n\tpart:SetAttribute(\"Consumed\", true)\n\n\t-- добавить 1 коин\n\tlocal leaderstats = player:FindFirstChild(\"leaderstats\")\n\tlocal coins = leaderstats and leaderstats:FindFirstChild(\"Coins\")\n\tif coins then\n\t\tcoins.Value += 1\n\tend\n\n\t-- скрыть и удалить Part\n\tpart.CanTouch = false\n\tpart.Transparency = 1\n\tpart.CanCollide = false\n\tDebris:AddItem(part, 0) -- сразу удалить (можно 2-3 сек, если хотите задержку)\nend\n\npart.Touched:Connect(onTouched)\n```",
+  "cover": "/media/cover.webp",
   "category": {
     "slug": "dlya-detej",
     "name": "Для детей"
@@ -15,5 +14,13 @@
   },
   "url": "/articles/dlya-detej/rolox-studio/sbor-predmetov",
   "publishedAt": "2025-12-09T18:09:17.495Z",
-  "views": 20
+  "views": 20,
+  "meta": {
+    "description": "Сбор предметов. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+    "tags": [
+      "rolox-studio",
+      "roblox",
+      "tutorial"
+    ]
+  }
 }

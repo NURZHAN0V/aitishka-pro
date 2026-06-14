@@ -2,9 +2,8 @@
   "id": "aj71bq1cc7a6srg7fdp4kph6",
   "slug": "servoprivod-arduino-podklyuchenie-upravlenie",
   "title": "Сервопривод Ардуино подключение, управление",
-  "description": "",
-  "body": "![Stunning Jarv.png](https://static.dublecode.ru/uploads/Stunning_Jarv_77672c939c.png)\n\n\n#### Код к схеме выше:\n```\n#include <Servo.h> // подключаем библиотеку для работы с сервоприводом\n\nServo servo1; // объявляем переменную servo типа \"servo1\"\n\nvoid setup() {\n   servo1.attach(2); // привязываем сервопривод к аналоговому выходу 2\n}\n\nvoid loop() {\n   servo1.write(0); // ставим угол поворота под 0\n   delay(2000); // ждем 2 секунды\n\n   servo1.write(90); // ставим угол поворота под 90\n   delay(2000); // ждем 2 секунды\n\n   servo1.write(180); // ставим угол поворота под 180\n   delay(2000); // ждем 2 секунды\n}\n```",
-  "cover": "/media/aHR0cHM6Ly9jbXMu.avif",
+  "body": "![Stunning Jarv.png](/media/posts/servoprivod-arduino-podklyuchenie-upravlenie/01-stunning-jarvpng.webp)\n\n**Код к схеме выше:**\n```\n#include <Servo.h> // подключаем библиотеку для работы с сервоприводом\n\nServo servo1; // объявляем переменную servo типа \"servo1\"\n\nvoid setup() {\n   servo1.attach(2); // привязываем сервопривод к аналоговому выходу 2\n}\n\nvoid loop() {\n   servo1.write(0); // ставим угол поворота под 0\n   delay(2000); // ждем 2 секунды\n\n   servo1.write(90); // ставим угол поворота под 90\n   delay(2000); // ждем 2 секунды\n\n   servo1.write(180); // ставим угол поворота под 180\n   delay(2000); // ждем 2 секунды\n}\n```",
+  "cover": "/media/cover.webp",
   "category": {
     "slug": "dlya-detej",
     "name": "Для детей"
@@ -15,5 +14,12 @@
   },
   "url": "/articles/dlya-detej/arduino/servoprivod-arduino-podklyuchenie-upravlenie",
   "publishedAt": "2025-10-28T02:15:07.566Z",
-  "views": 46
+  "views": 46,
+  "meta": {
+    "description": "Сервопривод Ардуино подключение, управление. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+    "tags": [
+      "arduino",
+      "tutorial"
+    ]
+  }
 }

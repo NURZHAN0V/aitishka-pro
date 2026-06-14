@@ -2,9 +2,8 @@
   "id": "zb3klikup1xwazk28qquu7e4",
   "slug": "krasivyj-adres-dlya-strapi",
   "title": "Красивый адрес для Strapi",
-  "description": "",
-  "body": "## Шаг 1\n### В Strapi (локально) находим файл `config\\server.ts` и добавляем строчку кода:\n\n```\nexport default ({ env }) => ({\n  host: env('HOST', '0.0.0.0'),\n  port: env.int('PORT', 1337),\n  app: {\n    keys: env.array('APP_KEYS'),\n  },\n  url: 'https://mysite.ru/x',\n});\n```\n\n## Шаг 2\n### Загружаем изменения на сервер VPS и перезапускаем Strapi на сервере\n\n\n## Шаг 3\n### Изменить конфигурацию Nginx по примеру ниже:\n\n```\nlocation /admin/ {\n    rewrite ^/admin/?(.*)$ /$1 break;\n    proxy_pass http://localhost:1337;\n    proxy_http_version 1.1;\n    proxy_set_header X-Forwarded-Host $host;\n    proxy_set_header X-Forwarded-Server $host;\n    proxy_set_header X-Real-IP $remote_addr;\n    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n    proxy_set_header X-Forwarded-Proto $scheme;\n    proxy_set_header Host $http_host;\n    proxy_set_header Upgrade $http_upgrade;\n    proxy_set_header Connection \"Upgrade\";\n    proxy_pass_request_headers on;\n}\n```\n\n## Шаг 4\n### Проверьте настройки:\n```\nsudo nginx -t\n```\n### Перезагрузите Nginx:\n```\nsudo systemctl reload nginx\n```\n",
-  "cover": "/media/aHR0cHM6Ly9jbXMu.png",
+  "body": "## Шаг 1\n### В Strapi (локально) находим файл `config\\server.ts` и добавляем строчку кода:\n\n```\nexport default ({ env }) => ({\n  host: env('HOST', '0.0.0.0'),\n  port: env.int('PORT', 1337),\n  app: {\n    keys: env.array('APP_KEYS'),\n  },\n  url: 'https://mysite.ru/x',\n});\n```\n\n## Шаг 2\n### Загружаем изменения на сервер VPS и перезапускаем Strapi на сервере\n\n## Шаг 3\n### Изменить конфигурацию Nginx по примеру ниже:\n\n```\nlocation /admin/ {\n    rewrite ^/admin/?(.*)$ /$1 break;\n    proxy_pass http://localhost:1337;\n    proxy_http_version 1.1;\n    proxy_set_header X-Forwarded-Host $host;\n    proxy_set_header X-Forwarded-Server $host;\n    proxy_set_header X-Real-IP $remote_addr;\n    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n    proxy_set_header X-Forwarded-Proto $scheme;\n    proxy_set_header Host $http_host;\n    proxy_set_header Upgrade $http_upgrade;\n    proxy_set_header Connection \"Upgrade\";\n    proxy_pass_request_headers on;\n}\n```\n\n## Шаг 4\n### Проверьте настройки:\n```\nsudo nginx -t\n```\n### Перезагрузите Nginx:\n```\nsudo systemctl reload nginx\n```",
+  "cover": "/media/cover.webp",
   "category": {
     "slug": "dlya-vzroslyh",
     "name": "Для взрослых"
@@ -15,5 +14,13 @@
   },
   "url": "/articles/dlya-vzroslyh/veb-razrabotka/krasivyj-adres-dlya-strapi",
   "publishedAt": "2026-02-04T10:04:30.963Z",
-  "views": 3
+  "views": 3,
+  "meta": {
+    "description": "Красивый адрес для Strapi. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+    "tags": [
+      "veb-razrabotka",
+      "strapi",
+      "guide"
+    ]
+  }
 }

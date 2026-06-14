@@ -2,9 +2,8 @@
   "id": "sc4lejzck0opegmecl4ym5kr",
   "slug": "liderbord-i-koiny",
   "title": "Лидерборд и коины",
-  "description": "",
-  "body": "### Шаг 1\nВ **ServerScriptService** создаем **Script** и переименовываем в **Leaderboard**, и вставляем следующий код:\n\n```\nlocal Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal leaderstats = Instance.new(\"Folder\")\n\tleaderstats.Name = \"leaderstats\"\n\tleaderstats.Parent = player\n\n\tlocal Coins = Instance.new(\"IntValue\")\n\tCoins.Name = \"Coins\"\n\tCoins.Value = 0\n\tCoins.Parent = leaderstats\nend)\n```\n\n### Шаг 2\n1. Создаем новый **ScreenGui** в **StarterGui** и переименовываем в **InterfaceGui**\n2. Создаем **TextLabel** в **InterfaceGui** и переименовываем в **ScoreLabel**\n3. Создаем **LocalScript** в **InterfaceGui** и вставляем следующий код:\n\n```\nlocal Players = game:GetService(\"Players\")\nlocal player = Players.LocalPlayer\n\nlocal gui = player:WaitForChild(\"PlayerGui\"):WaitForChild(\"InterfaceGui\")\nlocal scoreLabel = gui:WaitForChild(\"ScoreLabel\") -- это TextLabel\n\n-- helper: установить текст\nlocal function updateScore(val)\n\tscoreLabel.Text = \"Coins: \" .. tostring(val)\nend\n\n-- дождаться появления leaderstats и Coins\nlocal leaderstats = player:WaitForChild(\"leaderstats\")\nlocal coins = leaderstats:WaitForChild(\"Coins\")\n\n-- начальное значение\nupdateScore(coins.Value)\n\n-- обновление при изменении\ncoins:GetPropertyChangedSignal(\"Value\"):Connect(function()\n\tupdateScore(coins.Value)\nend)\n\n```",
-  "cover": "/media/aHR0cHM6Ly9jbXMu.png",
+  "body": "**Шаг 1**\nВ **ServerScriptService** создаем **Script** и переименовываем в **Leaderboard**, и вставляем следующий код:\n\n```\nlocal Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal leaderstats = Instance.new(\"Folder\")\n\tleaderstats.Name = \"leaderstats\"\n\tleaderstats.Parent = player\n\n\tlocal Coins = Instance.new(\"IntValue\")\n\tCoins.Name = \"Coins\"\n\tCoins.Value = 0\n\tCoins.Parent = leaderstats\nend)\n```\n\n**Шаг 2**\n1. Создаем новый **ScreenGui** в **StarterGui** и переименовываем в **InterfaceGui**\n2. Создаем **TextLabel** в **InterfaceGui** и переименовываем в **ScoreLabel**\n3. Создаем **LocalScript** в **InterfaceGui** и вставляем следующий код:\n\n```\nlocal Players = game:GetService(\"Players\")\nlocal player = Players.LocalPlayer\n\nlocal gui = player:WaitForChild(\"PlayerGui\"):WaitForChild(\"InterfaceGui\")\nlocal scoreLabel = gui:WaitForChild(\"ScoreLabel\") -- это TextLabel\n\n-- helper: установить текст\nlocal function updateScore(val)\n\tscoreLabel.Text = \"Coins: \" .. tostring(val)\nend\n\n-- дождаться появления leaderstats и Coins\nlocal leaderstats = player:WaitForChild(\"leaderstats\")\nlocal coins = leaderstats:WaitForChild(\"Coins\")\n\n-- начальное значение\nupdateScore(coins.Value)\n\n-- обновление при изменении\ncoins:GetPropertyChangedSignal(\"Value\"):Connect(function()\n\tupdateScore(coins.Value)\nend)\n\n```",
+  "cover": "/media/cover.webp",
   "category": {
     "slug": "dlya-detej",
     "name": "Для детей"
@@ -15,5 +14,13 @@
   },
   "url": "/articles/dlya-detej/rolox-studio/liderbord-i-koiny",
   "publishedAt": "2025-11-11T14:52:13.997Z",
-  "views": 19
+  "views": 19,
+  "meta": {
+    "description": "Лидерборд и коины. Учебный материал AITISHKAPRO — практика и пошаговые инструкции для начинающих.",
+    "tags": [
+      "rolox-studio",
+      "roblox",
+      "tutorial"
+    ]
+  }
 }
