@@ -1,0 +1,19 @@
+{
+  "id": "news-migration-2026-06-14",
+  "slug": "pereehali-s-pluspixel-ru",
+  "title": "Мы переехали с pluspixel.ru",
+  "description": "Команда AITISHKAPRO сообщает о переезде на aitishka.pro. Все статьи и учебные материалы теперь публикуются на новом сайте.",
+  "body": "Мы завершили переезд образовательной платформы с **pluspixel.ru** на **aitishka.pro**.\n\n### Что изменилось\n\n- Все статьи, гайды и материалы теперь доступны на [aitishka.pro](https://aitishka.pro).\n- Структура контента сохранена: материалы для взрослых и детей, категории и подкатегории на месте.\n- Старый адрес pluspixel.ru больше не используется как основная площадка для публикаций.\n\n### Что это значит для вас\n\n- Закладки и ссылки лучше обновить на новый домен.\n- Новые материалы выходят только здесь — следите за разделом «Новости» и «Статьи».\n- По вопросам можно написать на [info@aitishka.pro](mailto:info@aitishka.pro) или во [ВКонтакте](https://vk.com/aitishka).\n\nСпасибо, что остаётесь с нами. Добро пожаловать на **AITISHKAPRO**!",
+  "cover": "/media/cover.webp",
+  "category": {
+    "slug": "novosti",
+    "name": "Новости"
+  },
+  "subcategory": {
+    "slug": "platforma",
+    "name": "Платформа"
+  },
+  "url": "/articles/novosti/platforma/pereehali-s-pluspixel-ru",
+  "publishedAt": "2026-06-14T12:00:00.000Z",
+  "views": 0
+}
