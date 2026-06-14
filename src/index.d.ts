@@ -3,6 +3,11 @@ export interface CategoryRef {
   name: string
 }
 
+export interface BreadcrumbItem {
+  label: string
+  to?: string
+}
+
 export interface PostSummary {
   id: string
   slug: string
@@ -20,7 +25,7 @@ export interface Post extends PostSummary {
   body: string
 }
 
-export interface Video {
+export interface VideoItem {
   id: string
   slug: string
   title: string
@@ -31,11 +36,39 @@ export interface Video {
   category: string
   views: number
   publishedAt?: string
+  order?: number
+}
+
+export interface VideoPlaylistRef {
+  id: string
+  slug: string
+  title: string
+  order: number
+}
+
+export interface Video extends VideoItem {
+  playlist?: VideoPlaylistRef
+}
+
+export interface VideoPlaylist {
+  id: string
+  slug: string
+  title: string
+  description?: string
+  thumbnailUrl?: string
+  publishedAt?: string
+  videos: VideoItem[]
+}
+
+export interface VideoCatalog {
+  playlists: VideoPlaylist[]
+  videos: VideoItem[]
 }
 
 export interface Subcategory {
   slug: string
   name: string
+  subcategories?: Subcategory[]
 }
 
 export interface Category {
@@ -46,6 +79,10 @@ export interface Category {
 
 export interface Taxonomy {
   categories: Category[]
+}
+
+export interface VideoTaxonomy {
+  categories: CategoryRef[]
 }
 
 export interface NavSubItem {
@@ -96,6 +133,7 @@ export interface SiteConfig {
   title: string
   url: string
   description: string
+  vkCommunityId?: number
   navigation: NavItem[]
   benefits: Benefit[]
   technologies: Technology[]
@@ -105,7 +143,12 @@ export interface SiteConfig {
     paragraphs: string[]
     features: Feature[]
   }
+  media: {
+    title: string
+    lead: string
+  }
   contact: {
+    lead: string
     phone: string
     email: string
     address: string
