@@ -131,7 +131,7 @@ function next() {
 .modal__overlay {
   position: absolute;
   inset: 0;
-  background: rgb(0 0 0 / 40%);
+  background: $color-overlay;
 }
 
 .modal__panel {
@@ -193,12 +193,12 @@ function next() {
 
   &--correct {
     border-color: #22c55e;
-    background: rgb(34 197 94 / 10%);
+    background: $color-success-alpha-8;
   }
 
   &--wrong {
     border-color: #ef4444;
-    background: rgb(239 68 68 / 10%);
+    background: $color-error-alpha-10;
   }
 }
 

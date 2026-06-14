@@ -56,7 +56,7 @@ function close() {
 .modal__overlay {
   position: absolute;
   inset: 0;
-  background: rgb(0 0 0 / 40%);
+  background: $color-overlay;
 }
 
 .modal__panel {

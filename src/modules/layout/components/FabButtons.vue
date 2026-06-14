@@ -1,67 +1,131 @@
 <script setup lang="ts">
-import type { Ref } from 'vue'
-import { inject, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import BaseIcon from '@/core/components/BaseIcon.vue'
+import { VK_COMMUNITY_CHAT_URL } from '@/core/constants/vk'
 
-const telegramModalOpen = inject<Ref<boolean>>('telegramModalOpen', ref(false))
+const isScrollVisible = ref(false)
+
+const SCROLL_THRESHOLD = 800
+
+function handleScroll() {
+  isScrollVisible.value = window.scrollY > SCROLL_THRESHOLD
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  handleScroll()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
-
-function openTelegram() {
-  telegramModalOpen.value = true
-}
 </script>
 
 <template>
-  <div class="fab">
-    <button type="button" class="fab__btn" aria-label="Наверх" @click="scrollToTop">
-      <BaseIcon name="chevron-up" />
+  <Transition name="scroll-top">
+    <button
+      v-if="isScrollVisible"
+      type="button"
+      class="scroll-top btn btn--primary"
+      aria-label="Наверх"
+      @click="scrollToTop"
+    >
+      Наверх
     </button>
-    <button type="button" class="fab__btn fab__btn--telegram" aria-label="Telegram" @click="openTelegram">
-      <BaseIcon name="telegram" />
-    </button>
-  </div>
+  </Transition>
+
+  <a
+    :href="VK_COMMUNITY_CHAT_URL"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="fab__btn fab__btn--vk"
+    aria-label="Чат сообщества ВК"
+    title="Написать в сообщения"
+  >
+    <BaseIcon name="vk" size="1.25rem" />
+  </a>
 </template>
 
 <style scoped lang="scss">
-.fab {
+.scroll-top {
+  position: fixed;
+  left: 50%;
+  bottom: 3.75rem;
+  z-index: 40;
+  transform: translateX(-50%);
+  padding: 0.375rem 1rem;
+  font-size: $text-xs;
+  line-height: 1.25;
+  border-radius: 999px;
+  box-shadow: $shadow-md;
+  background: #1461cd;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: #1052ad;
+  }
+
+  &:active {
+    background: #0c468f;
+  }
+}
+
+.scroll-top-enter-active,
+.scroll-top-leave-active {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.scroll-top-enter-from,
+.scroll-top-leave-to {
+  opacity: 0;
+  transform: translateX(-50%) translateY(0.75rem);
+}
+
+.fab__btn {
   position: fixed;
   right: 2rem;
   bottom: 2rem;
   z-index: 40;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.fab__btn {
-  display: flex;
   align-items: center;
   justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  background: $color-white;
-  border: 1px solid $color-gray-200;
-  border-radius: 50%;
-  box-shadow: $shadow-md;
-  color: $color-primary;
-  transition: background-color 0.2s, color 0.2s;
+  padding: 0.75rem;
+  border: none;
+  border-radius: $radius-md;
+  color: $color-on-primary;
+  background: $color-primary;
+  transition: background-color 0.2s;
 
+  &:active,
   &:hover {
-    background: $color-primary;
-    color: $color-white;
+    background: $color-primary-hover;
   }
 
-  &--telegram {
-    background: #34aae5;
-    border-color: #34aae5;
-    color: $color-white;
+  &--vk {
+    background: #0077ff;
 
+    &:active,
     &:hover {
-      background: #299fda;
+      background: #0066dd;
     }
+  }
+}
+
+@media (max-width: $bp-mobile) {
+  .scroll-top {
+    bottom: 2.75rem;
+    padding: 0.3125rem 0.875rem;
+  }
+
+  .fab__btn {
+    right: 1rem;
+    bottom: 1.25rem;
   }
 }
 </style>
