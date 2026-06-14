@@ -46,23 +46,36 @@ function submit() {
               <p class="modal__lead">
                 Оставьте контакты — мы свяжемся с вами.
               </p>
-              <form class="modal__form" @submit.prevent="submit">
-                <label class="modal__field">
-                  <span>Имя</span>
-                  <input v-model="name" type="text" required placeholder="Ваше имя">
-                </label>
-                <label class="modal__field">
-                  <span>Телефон</span>
-                  <input v-model="phone" type="tel" required placeholder="+7 (999) 999-99-99">
-                </label>
+              <form class="form" @submit.prevent="submit">
+                <div class="form-field">
+                  <label for="enroll-name" class="form-field__label">Имя</label>
+                  <input
+                    id="enroll-name"
+                    v-model="name"
+                    type="text"
+                    required
+                    class="form-field__input"
+                    placeholder="Ваше имя"
+                  >
+                </div>
+                <div class="form-field">
+                  <label for="enroll-phone" class="form-field__label">Телефон</label>
+                  <input
+                    id="enroll-phone"
+                    v-model="phone"
+                    type="tel"
+                    required
+                    class="form-field__input"
+                    placeholder="+7 (999) 999-99-99"
+                  >
+                </div>
                 <BaseButton type="submit" block>
                   Отправить
                 </BaseButton>
               </form>
             </template>
             <p v-else class="modal__success">
-              Спасибо! Мы свяжемся с вами в ближайшее время. Также можете написать в
-              <a href="https://t.me/aitishka_pro" target="_blank" rel="noopener noreferrer">Telegram</a>.
+              Спасибо! Мы свяжемся с вами в ближайшее время.
             </p>
           </div>
         </div>
@@ -85,7 +98,7 @@ function submit() {
 .modal__overlay {
   position: absolute;
   inset: 0;
-  background: rgb(0 0 0 / 40%);
+  background: $color-overlay;
 }
 
 .modal__panel {
@@ -113,30 +126,6 @@ function submit() {
   margin-bottom: 1rem;
   font-size: 0.875rem;
   color: $color-secondary;
-}
-
-.modal__form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.modal__field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-  font-size: 0.875rem;
-
-  input {
-    padding: 0.625rem 0.75rem;
-    border: 1px solid $color-gray-200;
-    border-radius: $radius-sm;
-
-    &:focus {
-      outline: 2px solid $color-primary;
-      outline-offset: 1px;
-    }
-  }
 }
 
 .modal__success {
