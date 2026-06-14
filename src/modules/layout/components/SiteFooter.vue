@@ -157,9 +157,14 @@ onMounted(async () => {
 }
 
 .site-footer__links-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+
+  @include lg {
+    align-items: flex-start;
+  }
 }
 
 .site-footer__link {
