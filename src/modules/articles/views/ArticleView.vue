@@ -12,7 +12,6 @@ import ArticleTocSticks from '@/modules/articles/components/ArticleTocSticks.vue
 import { handleArticleCodeBlockClick } from '@/modules/articles/composables/useArticleCodeBlocks'
 import { useArticleToc } from '@/modules/articles/composables/useArticleToc'
 import { buildArticleBreadcrumbs } from '@/modules/articles/utils/buildArticleBreadcrumbs'
-import AffiliateBanner from '@/modules/layout/components/AffiliateBanner.vue'
 
 const route = useRoute()
 const { render } = useMarkdown()
@@ -60,13 +59,6 @@ watch(() => route.params.slug, loadPost)
     <template v-else-if="post">
       <ArticleMetaRow :post="post" />
 
-      <div class="article-view__inline-banner">
-        <AffiliateBanner
-          partner="cloud"
-          format="inline"
-        />
-      </div>
-
       <div class="article-view__layout">
         <ArticleSideBanner class="article-view__banner" />
 
@@ -93,14 +85,6 @@ watch(() => route.params.slug, loadPost)
 </template>
 
 <style scoped lang="scss">
-.article-view__inline-banner {
-  margin-bottom: 1.5rem;
-
-  @include lg {
-    display: none;
-  }
-}
-
 .article-view__layout {
   @include lg {
     display: grid;
@@ -119,11 +103,14 @@ watch(() => route.params.slug, loadPost)
 
 .article-view__content {
   min-width: 0;
+  width: 100%;
+  margin-inline: auto;
   padding-block: 0 1rem;
 
   @include lg {
     grid-column: 2;
     grid-row: 1;
+    max-width: 65ch;
   }
 
   :deep(h1:first-child) {

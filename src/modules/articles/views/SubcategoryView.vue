@@ -5,7 +5,6 @@ import { usePageBreadcrumbs } from '@/core/composables/usePageBreadcrumbs'
 import ArticlesPostGrid from '@/modules/articles/components/ArticlesPostGrid.vue'
 import { usePostsCatalog } from '@/modules/articles/composables/usePostsCatalog'
 import { buildSubcategoryBreadcrumbs } from '@/modules/articles/utils/buildArticlesCategoryBreadcrumbs'
-import ListPageBanner from '@/modules/layout/components/ListPageBanner.vue'
 
 const route = useRoute()
 const { posts, taxonomy, ready, ensureLoaded } = usePostsCatalog()
@@ -48,7 +47,6 @@ onUnmounted(clearPageBreadcrumbs)
 
 <template>
   <div class="subcategory-view">
-    <ListPageBanner />
     <ArticlesPostGrid
       :posts="filtered"
       :loading="loading"
