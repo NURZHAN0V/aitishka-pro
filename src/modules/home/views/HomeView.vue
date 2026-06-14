@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import type { Benefit, Technology } from '@/index.d'
+import type { Benefit } from '@/index.d'
 import { inject, onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { api } from '@/core/api'
@@ -10,13 +10,11 @@ import { useWhenVisible } from '@/core/composables/useWhenVisible'
 
 const enrollModalOpen = inject<Ref<boolean>>('enrollModalOpen', ref(false))
 const benefits = ref<Benefit[]>([])
-const technologies = ref<Technology[]>([])
 const { target: benefitsRef, visible: benefitsVisible } = useWhenVisible()
 
 onMounted(async () => {
   const site = await api.getSite()
   benefits.value = site.benefits
-  technologies.value = site.technologies
 })
 
 function openEnrollModal() {
@@ -73,36 +71,6 @@ function openEnrollModal() {
       </ul>
     </section>
 
-    <section class="home__section home__tech card">
-      <h2 class="home__section-title">
-        Направления обучения
-      </h2>
-      <p class="home__tech-lead">
-        Выберите технологию и начните с основ или проверьте свой уровень.
-      </p>
-      <div class="home__tech-grid">
-        <RouterLink
-          v-for="tech in technologies"
-          :key="tech.id"
-          :to="tech.to"
-          class="home__tech-tag"
-          :style="{
-            backgroundColor: tech.color,
-            color: tech.textColor || '#fff',
-          }"
-        >
-          {{ tech.label }}
-        </RouterLink>
-      </div>
-      <p class="home__tech-note">
-        На странице
-        <RouterLink to="/articles" class="home__inline-link">
-          Статьи
-        </RouterLink>
-        можно пройти тест по любой технологии.
-      </p>
-    </section>
-
     <section class="home__section">
       <div class="home__cta card">
         <h2>Готовы начать?</h2>
@@ -126,18 +94,17 @@ function openEnrollModal() {
 }
 
 .home__title {
-  font-size: 1.875rem;
+  font-family: $font-display;
+  font-size: $text-3xl;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
   max-width: 48rem;
   margin-inline: auto;
 
   @include sm {
-    font-size: 2.25rem;
-  }
-
-  @include lg {
-    font-size: 3rem;
+    font-size: $text-4xl;
   }
 }
 
@@ -147,14 +114,16 @@ function openEnrollModal() {
 
 .home__lead {
   margin-top: 1rem;
-  font-size: 1.125rem;
+  font-size: $text-lg;
+  line-height: 1.6;
   color: $color-secondary;
   max-width: 42rem;
   margin-inline: auto;
+  text-wrap: pretty;
 
   @include sm {
     margin-top: 1.5rem;
-    font-size: 1.25rem;
+    font-size: $text-xl;
   }
 }
 
@@ -176,13 +145,16 @@ function openEnrollModal() {
 }
 
 .home__section-title {
-  font-size: 1.5rem;
+  font-family: $font-display;
+  font-size: $text-2xl;
   font-weight: 600;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
   text-align: center;
   margin-bottom: 2rem;
 
   @include sm {
-    font-size: 1.875rem;
+    font-size: $text-3xl;
   }
 }
 
@@ -208,15 +180,17 @@ function openEnrollModal() {
   transition: border-color 0.2s;
 
   &:hover {
-    border-color: rgb(209 125 77 / 30%);
+    border-color: $color-primary-alpha-30;
   }
 
   h3 {
+    font-family: $font-display;
     font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   p {
-    font-size: 0.875rem;
+    font-size: $text-sm;
     color: $color-secondary;
     flex: 1;
   }
@@ -228,7 +202,7 @@ function openEnrollModal() {
   justify-content: center;
   width: 3rem;
   height: 3rem;
-  background: rgb(209 125 77 / 10%);
+  background: $color-primary-alpha-10;
   border-radius: $radius-sm;
   color: $color-primary;
 }
@@ -246,60 +220,6 @@ function openEnrollModal() {
   }
 }
 
-.home__tech {
-  padding: 1.5rem 2rem;
-}
-
-.home__tech-lead {
-  text-align: center;
-  color: $color-secondary;
-  max-width: 36rem;
-  margin: 0 auto 1.5rem;
-}
-
-.home__tech-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
-
-  @include sm {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @include lg {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
-  }
-}
-
-.home__tech-tag {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border-radius: $radius-sm;
-  box-shadow: $shadow-sm;
-  transition: opacity 0.2s;
-
-  &:hover {
-    opacity: 0.9;
-  }
-}
-
-.home__tech-note {
-  margin-top: 1rem;
-  text-align: center;
-  font-size: 0.875rem;
-  color: $color-secondary;
-}
-
-.home__inline-link {
-  color: $color-primary;
-  text-decoration: underline;
-}
-
 .home__cta {
   max-width: 42rem;
   margin-inline: auto;
@@ -307,11 +227,13 @@ function openEnrollModal() {
   text-align: center;
 
   h2 {
-    font-size: 1.25rem;
+    font-family: $font-display;
+    font-size: $text-xl;
     font-weight: 600;
+    letter-spacing: -0.02em;
 
     @include sm {
-      font-size: 1.5rem;
+      font-size: $text-2xl;
     }
   }
 
