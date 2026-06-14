@@ -36,7 +36,7 @@ function formatDate(date?: string) {
         <BaseIcon name="image-off" size="2.5rem" />
       </div>
       <div class="article-card__date">
-        <BaseIcon name="calendar" size="1em" />
+        <BaseIcon name="calendar" size="0.875em" />
         <p>{{ formatDate(post.publishedAt) || '—' }}</p>
       </div>
     </header>
@@ -113,11 +113,13 @@ function formatDate(date?: string) {
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.25rem 0.5rem;
+  gap: 0.1875rem;
+  padding: 0.125rem 0.375rem;
+  font-size: $text-xs;
+  line-height: 1.2;
   color: $color-secondary;
   background: $color-white;
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
 
   p {
     margin: 0;
