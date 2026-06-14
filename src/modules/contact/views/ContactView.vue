@@ -6,16 +6,24 @@ import BaseButton from '@/core/components/BaseButton.vue'
 import BaseIcon from '@/core/components/BaseIcon.vue'
 
 const enrollModalOpen = inject<Ref<boolean>>('enrollModalOpen', ref(false))
+const lead = ref('')
 const phone = ref('')
 const email = ref('')
 const address = ref('')
 const social = ref<{ label: string, url: string, icon: string }[]>([])
+const singleSocial = ref<{ label: string, url: string, icon: string } | null>(null)
 
 onMounted(async () => {
   const site = await api.getSite()
+  lead.value = site.contact.lead
   phone.value = site.contact.phone
   email.value = site.contact.email
   address.value = site.contact.address
+
+  if (site.contact.social.length === 1) {
+    singleSocial.value = site.contact.social[0]!
+    return
+  }
   social.value = site.contact.social
 })
 
@@ -30,7 +38,7 @@ function openEnrollModal() {
       Контакты
     </h2>
     <p class="page-lead">
-      Свяжитесь с нами по телефону, почте или в мессенджерах.
+      {{ lead }}
     </p>
 
     <section class="contact__cards">
@@ -61,11 +69,26 @@ function openEnrollModal() {
           <p>{{ address }}</p>
         </div>
       </div>
+      <a
+        v-if="singleSocial"
+        :href="singleSocial.url"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="contact__card card"
+      >
+        <div class="contact__card-icon">
+          <BaseIcon :name="singleSocial.icon" />
+        </div>
+        <div>
+          <h3>{{ singleSocial.label }}</h3>
+          <p>Написать в сообщения</p>
+        </div>
+      </a>
     </section>
 
-    <section class="contact__social">
+    <section v-if="social.length > 1" class="contact__social">
       <h3>Мы в соцсетях</h3>
-      <div class="contact__social-links">
+      <div class="contact__social-list">
         <a
           v-for="item in social"
           :key="item.url"
@@ -112,7 +135,7 @@ function openEnrollModal() {
   transition: border-color 0.2s;
 
   &:hover {
-    border-color: rgb(209 125 77 / 30%);
+    border-color: $color-primary-alpha-30;
   }
 
   h3 {
@@ -134,7 +157,7 @@ function openEnrollModal() {
   width: 2.5rem;
   height: 2.5rem;
   flex-shrink: 0;
-  background: rgb(209 125 77 / 10%);
+  background: $color-primary-alpha-10;
   border-radius: $radius-sm;
   color: $color-primary;
 
@@ -151,10 +174,14 @@ function openEnrollModal() {
     font-size: 1.125rem;
     font-weight: 600;
     margin-bottom: 1rem;
+
+    @include sm {
+      font-size: 1.25rem;
+    }
   }
 }
 
-.contact__social-links {
+.contact__social-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
@@ -165,13 +192,12 @@ function openEnrollModal() {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  font-weight: 500;
-  color: $color-primary;
+  color: $color-default;
   transition: border-color 0.2s, background-color 0.2s;
 
   &:hover {
-    border-color: $color-primary;
-    background: rgb(209 125 77 / 5%);
+    border-color: $color-primary-alpha-30;
+    background: $color-primary-alpha-5;
   }
 }
 

@@ -1,6 +1,18 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import BaseIcon from '@/core/components/BaseIcon.vue'
+import { api } from '@/core/api'
+
+const phone = ref('')
+const email = ref('')
+const address = ref('')
+
+onMounted(async () => {
+  const site = await api.getSite()
+  phone.value = site.contact.phone
+  email.value = site.contact.email
+  address.value = site.contact.address
+})
 </script>
 
 <template>
@@ -12,16 +24,8 @@ import BaseIcon from '@/core/components/BaseIcon.vue'
             AITISHKA<span class="site-footer__logo-accent">PRO</span>
           </RouterLink>
           <p class="site-footer__text">
-            Образовательная платформа для разработчиков. Статьи, видео и материалы по Git, HTML, CSS и фронтенду.
+            Образовательная платформа «Айтишка». Статьи и видео для взрослых и детей по программированию и смежным темам.
           </p>
-          <div class="site-footer__social">
-            <a href="https://t.me/aitishka_pro" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="site-footer__social-link">
-              <BaseIcon name="telegram" />
-            </a>
-            <a href="https://vk.com/aitishka_pro" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" class="site-footer__social-link">
-              <BaseIcon name="links" />
-            </a>
-          </div>
         </div>
 
         <div class="site-footer__col">
@@ -29,9 +33,6 @@ import BaseIcon from '@/core/components/BaseIcon.vue'
             Навигация
           </h3>
           <div class="site-footer__links-grid">
-            <RouterLink to="/" class="site-footer__link">
-              Главная
-            </RouterLink>
             <RouterLink to="/news" class="site-footer__link">
               Новости
             </RouterLink>
@@ -40,12 +41,6 @@ import BaseIcon from '@/core/components/BaseIcon.vue'
             </RouterLink>
             <RouterLink to="/media" class="site-footer__link">
               Видео
-            </RouterLink>
-            <RouterLink to="/about" class="site-footer__link">
-              О нас
-            </RouterLink>
-            <RouterLink to="/contact" class="site-footer__link">
-              Контакты
             </RouterLink>
           </div>
         </div>
@@ -57,13 +52,13 @@ import BaseIcon from '@/core/components/BaseIcon.vue'
           <ul class="site-footer__info">
             <li>
               Телефон:
-              <a href="tel:+79999999999" class="site-footer__link">+7 (999) 999-99-99</a>
+              <a :href="`tel:${phone.replace(/\D/g, '')}`" class="site-footer__link">{{ phone }}</a>
             </li>
             <li>
               Email:
-              <a href="mailto:info@aitishka.pro" class="site-footer__link">info@aitishka.pro</a>
+              <a :href="`mailto:${email}`" class="site-footer__link">{{ email }}</a>
             </li>
-            <li>Адрес: Россия</li>
+            <li>Адрес: {{ address }}</li>
           </ul>
         </div>
 
@@ -97,8 +92,8 @@ import BaseIcon from '@/core/components/BaseIcon.vue'
 
 <style scoped lang="scss">
 .site-footer {
-  background: $color-default;
-  color: $color-white;
+  background: $color-surface-inverse;
+  color: $color-on-inverse;
 }
 
 .site-footer__top {
@@ -139,7 +134,7 @@ import BaseIcon from '@/core/components/BaseIcon.vue'
 .site-footer__logo {
   font-size: 1.125rem;
   font-weight: 500;
-  color: $color-white;
+  color: $color-on-inverse;
 }
 
 .site-footer__logo-accent {
@@ -148,31 +143,9 @@ import BaseIcon from '@/core/components/BaseIcon.vue'
 
 .site-footer__text {
   font-size: 0.875rem;
-  color: $color-gray-300;
+  color: $color-inverse-muted;
   line-height: 1.6;
   max-width: 18rem;
-}
-
-.site-footer__social {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.site-footer__social-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid $color-primary;
-  border-radius: 50%;
-  color: $color-primary;
-  transition: background-color 0.2s, color 0.2s;
-
-  &:hover {
-    background: $color-primary;
-    color: $color-white;
-  }
 }
 
 .site-footer__heading {
@@ -180,7 +153,7 @@ import BaseIcon from '@/core/components/BaseIcon.vue'
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: $color-gray-400;
+  color: $color-inverse-subtle;
 }
 
 .site-footer__links-grid {
@@ -204,18 +177,18 @@ import BaseIcon from '@/core/components/BaseIcon.vue'
   flex-direction: column;
   gap: 0.5rem;
   font-size: 0.875rem;
-  color: $color-gray-300;
+  color: $color-inverse-muted;
 }
 
 .site-footer__divider {
-  border-top: 1px solid $color-gray-600;
+  border-top: 1px solid $color-inverse-divider;
 }
 
 .site-footer__bottom {
   padding-block: 0.75rem 1rem;
   text-align: center;
   font-size: 0.75rem;
-  color: $color-gray-400;
+  color: $color-inverse-subtle;
 
   @include sm {
     font-size: 0.875rem;

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { trackYandexMetrikaHit } from '@/core/analytics/yandexMetrika'
 import { aboutRoutes } from '@/modules/about/routes'
 import { articlesRoutes } from '@/modules/articles/routes'
 import { contactRoutes } from '@/modules/contact/routes'
@@ -10,10 +11,10 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     ...homeRoutes,
-    ...articlesRoutes,
-    ...mediaRoutes,
     ...aboutRoutes,
     ...contactRoutes,
+    ...articlesRoutes,
+    ...mediaRoutes,
     ...newsRoutes,
     {
       path: '/:pathMatch(.*)*',
@@ -22,7 +23,13 @@ const router = createRouter({
       meta: { title: 'Страница не найдена' },
     },
   ],
-  scrollBehavior() {
+  scrollBehavior(to, from) {
+    const articlesFilter = to.path.startsWith('/articles') && from.path.startsWith('/articles')
+    const mediaFilter = to.name === 'media' && from.name === 'media'
+
+    if (articlesFilter || mediaFilter)
+      return false
+
     return { top: 0 }
   },
 })
@@ -39,6 +46,8 @@ router.afterEach((to) => {
     document.head.appendChild(meta)
   }
   meta.setAttribute('content', description || 'Обучение разработке с нуля — статьи, видео и практика.')
+
+  trackYandexMetrikaHit(to.fullPath, document.title)
 })
 
 export default router

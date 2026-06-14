@@ -1,7 +1,8 @@
 {
   "title": "AITISHKAPRO",
   "url": "https://aitishka.pro",
-  "description": "Обучение разработке с нуля — статьи, видео и практика по Git, HTML, CSS, JavaScript.",
+  "description": "Обучение разработке с нуля — статьи, видео и практика для взрослых и детей.",
+  "vkCommunityId": 229925889,
   "navigation": [
     {
       "label": "Новости",
@@ -9,61 +10,11 @@
     },
     {
       "label": "Статьи",
-      "to": "/articles",
-      "children": [
-        {
-          "label": "Git",
-          "to": "/articles/git",
-          "children": [
-            {
-              "label": "Основы",
-              "to": "/articles/git/basics"
-            },
-            {
-              "label": "Ветки",
-              "to": "/articles/git/branches"
-            },
-            {
-              "label": "Рабочий процесс",
-              "to": "/articles/git/workflow"
-            }
-          ]
-        },
-        {
-          "label": "HTML&CSS",
-          "to": "/articles/html-css",
-          "children": [
-            {
-              "label": "HTML",
-              "to": "/articles/html-css/html"
-            },
-            {
-              "label": "CSS",
-              "to": "/articles/html-css/css"
-            },
-            {
-              "label": "Адаптивность",
-              "to": "/articles/html-css/responsive"
-            }
-          ]
-        },
-        {
-          "label": "JavaScript",
-          "to": "/articles/javascript"
-        }
-      ]
+      "to": "/articles"
     },
     {
       "label": "Видео",
       "to": "/media"
-    },
-    {
-      "label": "О нас",
-      "to": "/about"
-    },
-    {
-      "label": "Контакты",
-      "to": "/contact"
     }
   ],
   "benefits": [
@@ -90,10 +41,10 @@
     },
     {
       "title": "Поддержка",
-      "text": "Вопросы можно задать в Telegram — мы поможем разобраться.",
+      "text": "Вопросы можно задать во ВКонтакте — мы поможем разобраться.",
       "icon": "support",
-      "link": "https://t.me/aitishka_pro",
-      "linkText": "Написать в Telegram",
+      "link": "https://vk.me/aitishka",
+      "linkText": "Написать в сообщения",
       "external": true
     }
   ],
@@ -160,47 +111,47 @@
     "title": "О нас",
     "lead": "Узнайте больше о платформе AITISHKAPRO и нашей миссии.",
     "paragraphs": [
-      "AITISHKAPRO — образовательная платформа для разработчиков. Мы помогаем осваивать Git, HTML, CSS, JavaScript и смежные технологии через статьи, видео и практические материалы.",
-      "Наша цель — давать структурированные знания и поддерживать вас на пути от основ до уверенной разработки. Материалы подходят как новичкам, так и тем, кто хочет систематизировать навыки."
+      "AITISHKAPRO — образовательная платформа «Айтишка». Мы публикуем статьи и видео для взрослых и детей: веб-разработка, Python, Arduino, Roblox Studio и другие направления.",
+      "Материалы разделены по категориям и подкатегориям — от первых шагов до практических проектов. Вы можете учиться в своём темпе, проходить тесты и задавать вопросы во ВКонтакте."
     ],
     "features": [
       {
         "title": "Статьи и гайды",
-        "text": "Пошаговые материалы по технологиям.",
+        "text": "Пошаговые материалы для взрослых и детей.",
         "icon": "article"
       },
       {
         "title": "Видеоуроки",
-        "text": "Наглядные разборы и уроки.",
+        "text": "Мини-курсы и разборы в формате видео.",
         "icon": "video"
       },
       {
         "title": "Практика",
-        "text": "Тесты и задания для закрепления.",
+        "text": "Тесты и задания для закрепления навыков.",
         "icon": "graduation"
       }
     ]
   },
+  "media": {
+    "title": "Видео",
+    "lead": "Учебные видео и мини-курсы по веб-разработке, Python и работе с CMS."
+  },
   "contact": {
+    "lead": "Свяжитесь с нами по телефону, почте или во ВКонтакте.",
     "phone": "+7 (999) 999-99-99",
     "email": "info@aitishka.pro",
     "address": "Россия",
     "social": [
       {
-        "label": "Telegram",
-        "url": "https://t.me/aitishka_pro",
-        "icon": "telegram"
-      },
-      {
-        "label": "ВКонтакте",
-        "url": "https://vk.com/aitishka_pro",
-        "icon": "links"
+        "label": "Чат сообщества ВК",
+        "url": "https://vk.me/aitishka",
+        "icon": "vk"
       }
     ]
   },
   "news": {
     "title": "Новости",
-    "lead": "Здесь находятся различные новости и события."
+    "lead": "Анонсы, обновления платформы и важные события AITISHKAPRO."
   },
   "testQuestions": {
     "git": [

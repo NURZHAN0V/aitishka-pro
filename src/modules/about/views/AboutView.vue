@@ -109,7 +109,7 @@ onMounted(async () => {
   transition: border-color 0.2s;
 
   &:hover {
-    border-color: rgb(209 125 77 / 30%);
+    border-color: $color-primary-alpha-30;
   }
 
   h4 {
@@ -130,7 +130,7 @@ onMounted(async () => {
   width: 2.5rem;
   height: 2.5rem;
   flex-shrink: 0;
-  background: rgb(209 125 77 / 10%);
+  background: $color-primary-alpha-10;
   border-radius: $radius-sm;
   color: $color-primary;
 
