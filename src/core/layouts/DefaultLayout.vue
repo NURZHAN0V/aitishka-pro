@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { provide, ref } from 'vue'
+import { computed, provide, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import BreadcrumbsBar from '@/modules/layout/components/BreadcrumbsBar.vue'
+import CategoryChipsBar from '@/modules/layout/components/CategoryChipsBar.vue'
 import FabButtons from '@/modules/layout/components/FabButtons.vue'
 import SiteFooter from '@/modules/layout/components/SiteFooter.vue'
 import SiteHeader from '@/modules/layout/components/SiteHeader.vue'
 import EnrollModal from '@/modules/modals/components/EnrollModal.vue'
 import SkillTestModal from '@/modules/modals/components/SkillTestModal.vue'
-import TelegramModal from '@/modules/modals/components/TelegramModal.vue'
 import VideoModal from '@/modules/modals/components/VideoModal.vue'
 
-const telegramModalOpen = ref(false)
 const enrollModalOpen = ref(false)
 const testModalOpen = ref(false)
 const testSkillId = ref<string | null>(null)
@@ -25,7 +26,6 @@ function openVideoModal(embedUrl: string) {
   videoModalOpen.value = true
 }
 
-provide('telegramModalOpen', telegramModalOpen)
 provide('enrollModalOpen', enrollModalOpen)
 provide('testModalOpen', testModalOpen)
 provide('testSkillId', testSkillId)
@@ -33,17 +33,33 @@ provide('openTest', openTest)
 provide('videoModalOpen', videoModalOpen)
 provide('videoEmbedUrl', videoEmbedUrl)
 provide('openVideoModal', openVideoModal)
+
+const route = useRoute()
+
+const showCategoryChips = computed(() => {
+  const name = route.name
+  return name === 'articles' || name === 'media'
+})
+
+const showBreadcrumbs = computed(() => {
+  const name = route.name
+  return name === 'articles-category'
+    || name === 'articles-subcategory'
+    || name === 'article'
+    || name === 'media-video'
+})
 </script>
 
 <template>
   <div class="default-layout">
     <SiteHeader />
-    <main class="default-layout__main container">
+    <CategoryChipsBar v-if="showCategoryChips" />
+    <BreadcrumbsBar v-if="showBreadcrumbs" />
+    <main class="default-layout__main container" :class="{ 'default-layout__main--with-breadcrumbs': showBreadcrumbs }">
       <slot />
     </main>
     <SiteFooter />
     <FabButtons />
-    <TelegramModal />
     <EnrollModal />
     <SkillTestModal />
     <VideoModal />
@@ -60,5 +76,9 @@ provide('openVideoModal', openVideoModal)
 .default-layout__main {
   flex: 1;
   padding-block: 1rem;
+
+  &--with-breadcrumbs {
+    padding-top: 0.5rem;
+  }
 }
 </style>
