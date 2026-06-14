@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { trackYandexMetrikaHit } from '@/core/analytics/yandexMetrika'
+import { redirectRoutes } from '@/core/routes/redirects'
 import { aboutRoutes } from '@/modules/about/routes'
 import { articlesRoutes } from '@/modules/articles/routes'
 import { contactRoutes } from '@/modules/contact/routes'
@@ -16,6 +17,7 @@ const router = createRouter({
     ...articlesRoutes,
     ...mediaRoutes,
     ...newsRoutes,
+    ...redirectRoutes,
     {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
