@@ -166,9 +166,6 @@ onBeforeUnmount(() => {
         @contextmenu.prevent="emit('update:secondaryColor', normalizeDrawHex(hex))"
       />
     </div>
-    <p class="draw-panel__hint">
-      Квадраты — системный выбор цвета. Пресеты и цвета с холста — вкладка «Палитра» справа.
-    </p>
   </div>
 </template>
 
