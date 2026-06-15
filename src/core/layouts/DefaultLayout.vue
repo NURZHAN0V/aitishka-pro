@@ -48,6 +48,8 @@ const showBreadcrumbs = computed(() => {
     || name === 'article'
     || name === 'media-video'
 })
+
+const isNotFound = computed(() => route.name === 'not-found')
 </script>
 
 <template>
@@ -55,7 +57,14 @@ const showBreadcrumbs = computed(() => {
     <SiteHeader />
     <CategoryChipsBar v-if="showCategoryChips" />
     <BreadcrumbsBar v-if="showBreadcrumbs" />
-    <main class="default-layout__main container" :class="{ 'default-layout__main--with-breadcrumbs': showBreadcrumbs }">
+    <main
+      class="default-layout__main"
+      :class="{
+        'container': !isNotFound,
+        'default-layout__main--with-breadcrumbs': showBreadcrumbs,
+        'default-layout__main--not-found': isNotFound,
+      }"
+    >
       <slot />
     </main>
     <SiteFooter />
@@ -79,6 +88,10 @@ const showBreadcrumbs = computed(() => {
 
   &--with-breadcrumbs {
     padding-top: 0.5rem;
+  }
+
+  &--not-found {
+    padding-block: 0;
   }
 }
 </style>
