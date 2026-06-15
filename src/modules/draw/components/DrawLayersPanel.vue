@@ -378,9 +378,6 @@ function layerRowActionsClass(layerIndex: number) {
         <BaseIcon name="draw-palette" class="draw-panel-icon-md" />
         <span>Палитра</span>
       </p>
-      <p class="draw-panel__hint" style="margin-top: 0; margin-bottom: 0.75rem">
-        ЛКМ — основной цвет, Shift+ЛКМ или ПКМ — вторичный; Enter/Пробел и с Shift — то же с клавиатуры. Пресеты — нейтрали и ряды оттенков (тени → блики). Ниже — цвета с холста («В проекте»).
-      </p>
       <div class="draw-scrollbar draw-palette-scroll" style="display: flex; flex-direction: column; gap: 1rem">
         <section>
           <p class="draw-palette-section__label">
@@ -436,9 +433,6 @@ function layerRowActionsClass(layerIndex: number) {
       <p class="draw-panel__title" style="margin-bottom: 0.5rem">
         <BaseIcon name="draw-history" class="draw-panel-icon-md" />
         <span>История</span>
-      </p>
-      <p class="draw-panel__hint" style="margin-top: 0; margin-bottom: 0.5rem">
-        Новые шаги выше в списке. Выберите шаг — остальные слабее (50%). «Вперёд» к более новым — Ctrl+Y. Удаление только кнопкой внизу: убирает выбранный шаг и все более новые. Черновик в IndexedDB хранит baseline и цепочку снимков.
       </p>
       <div v-if="redoCount > 0" class="draw-history-notice">
         Вперёд доступно {{ redoCount }} {{ redoStepsLabel }} — Ctrl+Y или Ctrl+Shift+Z.
