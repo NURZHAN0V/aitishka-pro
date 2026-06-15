@@ -116,8 +116,7 @@ function onDragEnd() {
       style="margin-top: 0.5rem; height: 3rem"
       @click="emit('addFrame')"
     >
-      <BaseIcon name="draw-add" size="1.25rem" />
-      <span>Добавить кадр</span>
+      Добавить кадр
     </button>
   </div>
 </template>
