@@ -711,7 +711,7 @@ watch(
   width: 12rem;
   height: 12rem;
   border: 1px solid var(--color-border);
-  border-radius: $radius-sm;
+  border-radius: 0.25rem;
   background: color-mix(in srgb, var(--color-surface-inverse) 90%, transparent);
 }
 </style>

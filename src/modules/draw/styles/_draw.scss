@@ -2,6 +2,9 @@
 
 $color-surface: var(--color-surface);
 $color-border: var(--color-border);
+$draw-radius-panel: 0.375rem;
+$draw-radius-control: 0.25rem;
+$draw-radius-inner: 0.1875rem;
 
 // Inverse-tinted blocks (range, palette picker) — readable text on dark tint
 .draw-surface-muted {
@@ -46,7 +49,7 @@ $color-border: var(--color-border);
   min-height: 2.5rem;
   padding: 0.25rem 0.75rem;
   border: 1px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: $color-surface;
   color: $color-default;
   font-size: $text-xs;
@@ -122,7 +125,7 @@ $color-border: var(--color-border);
   max-width: 100%;
   padding: 0.625rem;
   border: 1px solid $color-border;
-  border-radius: $radius-md;
+  border-radius: $draw-radius-panel;
   background: color-mix(in srgb, $color-surface 70%, transparent);
   box-shadow: $shadow-md;
 }
@@ -231,7 +234,7 @@ $color-border: var(--color-border);
   max-width: min(100%, 18rem);
   padding: 0.5rem 0.75rem;
   border: 1px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: $color-surface;
   font-size: $text-xs;
   color: $color-secondary;
@@ -317,7 +320,7 @@ $color-border: var(--color-border);
   width: 2rem;
   height: 2rem;
   border: 1px solid $color-border;
-  border-radius: 0.375rem;
+  border-radius: $draw-radius-control;
   background: $color-surface;
   color: $color-secondary;
   cursor: pointer;
@@ -343,7 +346,7 @@ $color-border: var(--color-border);
 .draw-range {
   padding: 0.625rem 0.5rem;
   border: 1px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
 
   @extend .draw-surface-muted;
 }
@@ -360,7 +363,7 @@ $color-border: var(--color-border);
 .draw-range__value {
   padding: 0.125rem 0.5rem;
   border: 1px solid $color-primary-alpha-28;
-  border-radius: 0.375rem;
+  border-radius: $draw-radius-control;
   background: $color-primary-alpha-10;
   font-size: $text-xs;
   font-weight: 500;
@@ -395,7 +398,7 @@ $color-border: var(--color-border);
   gap: 0.5rem;
   padding: 0.5rem;
   border: 1px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: color-mix(in srgb, $color-surface-inverse 70%, transparent);
   color: $color-on-inverse;
 }
@@ -412,7 +415,7 @@ $color-border: var(--color-border);
   height: 2.75rem;
   padding: 0;
   border: 2px solid $color-border;
-  border-radius: 0.5rem;
+  border-radius: $draw-radius-panel;
   cursor: pointer;
 
   &--primary {
@@ -536,8 +539,14 @@ $color-border: var(--color-border);
   overflow-y: auto;
   padding: 2px;
   margin: -2px;
-  border-radius: 0.5rem;
+  border-radius: $draw-radius-control;
   transition: outline 0.15s ease, background 0.15s ease;
+
+  @media (min-width: $bp-lg) {
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+  }
 
   &--dragging {
     outline: 2px dashed $color-primary;
@@ -554,7 +563,7 @@ $color-border: var(--color-border);
   margin: 0 auto;
   overflow: hidden;
   border: 1px solid $color-border;
-  border-radius: 0.5rem;
+  border-radius: $draw-radius-panel;
   background: linear-gradient(45deg, color-mix(in srgb, $color-surface-inverse 90%, transparent) 25%, color-mix(in srgb, $color-surface-inverse 70%, transparent) 25%, color-mix(in srgb, $color-surface-inverse 70%, transparent) 50%, color-mix(in srgb, $color-surface-inverse 90%, transparent) 50%, color-mix(in srgb, $color-surface-inverse 90%, transparent) 75%, color-mix(in srgb, $color-surface-inverse 70%, transparent) 75%, color-mix(in srgb, $color-surface-inverse 70%, transparent) 100%);
   background-size: 10px 10px;
   cursor: pointer;
@@ -628,7 +637,7 @@ $color-border: var(--color-border);
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: 0.5rem;
+  border-radius: $draw-radius-panel;
   background: transparent;
   image-rendering: pixelated;
 }
@@ -646,7 +655,7 @@ $color-border: var(--color-border);
 .draw-tabs__pill {
   position: absolute;
   z-index: 0;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: $color-gray-200;
   pointer-events: none;
   transition: left 0.2s ease, top 0.2s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
@@ -663,7 +672,7 @@ $color-border: var(--color-border);
   min-width: 0;
   padding: 0.5rem;
   border: none;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: transparent;
   font-size: $text-xs;
   font-weight: 500;
@@ -690,7 +699,7 @@ $color-border: var(--color-border);
   padding: 2px;
   margin: -2px;
   overflow-y: auto;
-  border-radius: 0.5rem;
+  border-radius: $draw-radius-panel;
   transition: outline 0.15s ease, background 0.15s ease;
 
   &--dragging {
@@ -706,7 +715,7 @@ $color-border: var(--color-border);
   gap: 0.25rem;
   padding: 0.25rem;
   border: 1px solid $color-border;
-  border-radius: 0.5rem;
+  border-radius: $draw-radius-panel;
   background: color-mix(in srgb, $color-surface-inverse 70%, transparent);
   cursor: grab;
 
@@ -771,7 +780,7 @@ $color-border: var(--color-border);
   min-height: 2.25rem;
   padding: 0.125rem 0.375rem;
   border: 1px solid $color-border;
-  border-radius: 0.375rem;
+  border-radius: $draw-radius-control;
   background: color-mix(in srgb, $color-surface-inverse 40%, transparent);
   font-size: $text-xs;
   color: $color-secondary;
@@ -795,7 +804,7 @@ $color-border: var(--color-border);
   min-height: 120px;
   overflow: auto;
   border: 1px solid $color-border;
-  border-radius: 0.5rem;
+  border-radius: $draw-radius-panel;
   background: color-mix(in srgb, $color-surface-inverse 40%, transparent);
 }
 
@@ -844,7 +853,7 @@ $color-border: var(--color-border);
   margin-bottom: 0.5rem;
   padding: 0.375rem 0.5rem;
   border: 1px solid color-mix(in srgb, $color-border 80%, transparent);
-  border-radius: 0.5rem;
+  border-radius: $draw-radius-panel;
 
   @extend .draw-surface-muted;
 
@@ -862,7 +871,7 @@ $color-border: var(--color-border);
   isolation: isolate;
   padding: 0.75rem;
   border: 1px solid $color-border;
-  border-radius: $radius-md;
+  border-radius: $draw-radius-panel;
   background: color-mix(in srgb, $color-surface 70%, transparent);
   box-shadow: $shadow-md;
 }
@@ -898,7 +907,7 @@ $color-border: var(--color-border);
   overflow: auto;
   padding: 0.5rem;
   border: 1px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
 }
 
@@ -919,7 +928,7 @@ $color-border: var(--color-border);
   justify-content: center;
   padding: 0 0.5rem;
   border: 1px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   font-size: $text-xs;
   color: $color-secondary;
   cursor: help;
@@ -937,7 +946,7 @@ $color-border: var(--color-border);
   margin-top: 0.5rem;
   padding: 0.75rem;
   border: 1px solid color-mix(in srgb, $color-border 90%, transparent);
-  border-radius: $radius-md;
+  border-radius: $draw-radius-panel;
   background: $color-surface;
   box-shadow: $shadow-xl;
 }
@@ -996,7 +1005,7 @@ $color-border: var(--color-border);
   height: 2.5rem;
   padding: 0 0.5rem;
   border: 1px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
   font-size: $text-xs;
   color: $color-default;
@@ -1012,7 +1021,7 @@ $color-border: var(--color-border);
   width: 100%;
   padding: 0.5rem;
   border: 1px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
   font-size: $text-xs;
   color: $color-default;
@@ -1034,7 +1043,7 @@ $color-border: var(--color-border);
   min-height: 2.5rem;
   padding: 0.5rem;
   border: 1px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
   text-align: left;
   color: $color-secondary;
@@ -1053,7 +1062,7 @@ $color-border: var(--color-border);
   gap: 0.5rem;
   padding: 0.5rem;
   border: 1px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
   color: $color-secondary;
 
@@ -1076,7 +1085,7 @@ $color-border: var(--color-border);
   gap: 0.25rem;
   padding: 0.25rem;
   border: 1px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
   font-size: $text-xs;
   line-height: 1.2;
@@ -1119,7 +1128,7 @@ $color-border: var(--color-border);
   max-width: 28rem;
   padding: 1rem;
   border: 1px solid $color-border;
-  border-radius: $radius-md;
+  border-radius: $draw-radius-panel;
   background: $color-surface;
   box-shadow: $shadow-xl;
 }
@@ -1163,7 +1172,7 @@ $color-border: var(--color-border);
   justify-content: center;
   padding: 0.75rem;
   border: 1px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
 }
 
@@ -1199,7 +1208,7 @@ $color-border: var(--color-border);
   align-items: flex-start;
   gap: 0.5rem;
   padding: 0.5rem;
-  border-radius: 0.5rem;
+  border-radius: $draw-radius-panel;
   background: color-mix(in srgb, $color-gray-200 90%, transparent);
 }
 
@@ -1212,7 +1221,7 @@ $color-border: var(--color-border);
   justify-content: center;
   padding: 0.125rem 0.375rem;
   border: 1px solid $color-gray-400;
-  border-radius: 0.375rem;
+  border-radius: $draw-radius-control;
   background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
   font-size: $text-xs;
   font-weight: 600;
@@ -1247,7 +1256,7 @@ $color-border: var(--color-border);
 .draw-shortcuts-section {
   padding: 0.75rem 1rem;
   border: 1px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: color-mix(in srgb, $color-surface-inverse 50%, transparent);
 
   @include sm {
@@ -1274,7 +1283,7 @@ $color-border: var(--color-border);
   gap: 0.75rem;
   padding: 1rem;
   border-left: 4px solid $color-border;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: color-mix(in srgb, $color-surface 75%, transparent);
   backdrop-filter: blur(12px) saturate(150%);
   box-shadow: $shadow-md;
@@ -1445,6 +1454,8 @@ $color-border: var(--color-border);
 
   @media (min-width: $bp-lg) {
     grid-template-columns: 10.625rem 7.5rem minmax(0, 1fr) clamp(18rem, 22vw, 22rem);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: stretch;
     padding: 0.75rem 1rem;
   }
 
@@ -1461,17 +1472,70 @@ $color-border: var(--color-border);
   min-width: 0;
   min-height: 0;
 
+  @media (min-width: $bp-lg) {
+    height: 100%;
+    max-height: 100%;
+  }
+
   &--tools {
     overflow-y: auto;
+
+    @media (min-width: $bp-lg) {
+      overflow: hidden;
+
+      > .draw-panel:first-child {
+        flex-shrink: 0;
+      }
+
+      > .draw-panel:last-child {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        min-height: 0;
+        overflow: hidden;
+
+        .draw-swatch-grid {
+          flex: 1;
+          min-height: 0;
+          align-content: start;
+          overflow-y: auto;
+        }
+      }
+    }
+  }
+
+  &--frames {
+    @media (min-width: $bp-lg) {
+      > .draw-panel {
+        flex: 1;
+        min-height: 0;
+      }
+    }
   }
 
   &--workspace {
     flex: 1;
     min-height: 0;
+
+    @media (min-width: $bp-lg) {
+      > .draw-workspace {
+        flex: 1;
+        min-height: 0;
+        height: 100%;
+      }
+    }
   }
 
   &--layers {
     min-height: 0;
+
+    @media (min-width: $bp-lg) {
+      > .draw-panel {
+        flex: 1;
+        min-height: 0;
+        height: 100%;
+      }
+    }
   }
 
   @media (min-width: $bp-md) and (max-width: ($bp-lg - 1px)) {
@@ -1513,7 +1577,7 @@ $color-border: var(--color-border);
   flex: 1;
   min-height: 2.75rem;
   border: 1px solid transparent;
-  border-radius: $radius-sm;
+  border-radius: $draw-radius-control;
   background: transparent;
   color: $color-secondary;
   font-size: $text-xs;
