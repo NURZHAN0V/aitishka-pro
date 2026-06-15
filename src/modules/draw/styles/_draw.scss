@@ -559,6 +559,23 @@ $color-border: var(--color-border);
     min-height: 1.75rem;
   }
 
+  .draw-btn {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+
+    &:hover:not(:disabled) {
+      border-color: transparent;
+      background: transparent;
+    }
+
+    &.draw-btn--active {
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+    }
+  }
+
   .draw-frame-thumb--active &,
   .draw-frame-thumb:hover & {
     opacity: 1;
