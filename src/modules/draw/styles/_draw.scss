@@ -764,6 +764,10 @@ $color-border: var(--color-border);
 // ─── Workspace ───────────────────────────────────────────────────────────────
 
 .draw-workspace {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
   isolation: isolate;
   padding: 0.75rem;
   border: 1px solid $color-border;
@@ -779,12 +783,11 @@ $color-border: var(--color-border);
 
 .draw-workspace__toolbar-scroll {
   margin-bottom: 0.5rem;
-  overflow-x: auto;
 }
 
 .draw-workspace__toolbar-row {
   display: flex;
-  min-width: max-content;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
 }
@@ -798,7 +801,9 @@ $color-border: var(--color-border);
 .draw-workspace__viewport {
   position: relative;
   z-index: 0;
-  height: 520px;
+  flex: 1;
+  min-height: min(520px, 45vh);
+  max-height: 100%;
   overflow: auto;
   padding: 0.5rem;
   border: 1px solid $color-border;
@@ -817,13 +822,14 @@ $color-border: var(--color-border);
 
 .draw-workspace__zoom-label {
   display: inline-flex;
-  min-width: 5rem;
-  height: 2.5rem;
+  min-width: 4.25rem;
+  height: 2.25rem;
   align-items: center;
   justify-content: center;
-  padding: 0 0.75rem;
+  padding: 0 0.5rem;
   border: 1px solid $color-border;
   border-radius: $radius-sm;
+  font-size: $text-xs;
   color: $color-secondary;
   cursor: help;
 }
@@ -1366,6 +1372,11 @@ $color-border: var(--color-border);
 
   &--tools {
     overflow-y: auto;
+  }
+
+  &--workspace {
+    flex: 1;
+    min-height: 0;
   }
 
   @media (min-width: $bp-md) and (max-width: ($bp-lg - 1px)) {
