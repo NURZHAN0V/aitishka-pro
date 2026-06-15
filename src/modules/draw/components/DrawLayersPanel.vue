@@ -415,7 +415,7 @@ function layerRowActionsClass(layerIndex: number) {
           </div>
           <button
             type="button"
-            class="draw-btn draw-btn--danger draw-history-delete"
+            class="draw-history-delete"
             title="Удалить выбранный шаг и все более новые"
             :disabled="!historyDeleteAllowed"
             aria-label="Удалить выбранную запись истории и более новые шаги"
