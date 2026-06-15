@@ -89,7 +89,10 @@ onMounted(async () => {
     <div class="site-footer__divider" />
 
     <div class="site-footer__bottom container">
-      <p><SiteLogo inverse /> © 2023 – 2026</p>
+      <p class="site-footer__copyright">
+        <SiteLogo inverse :interactive="false" />
+        <span>© 2023 – 2026</span>
+      </p>
     </div>
   </footer>
 </template>
@@ -201,5 +204,14 @@ onMounted(async () => {
   @include sm {
     font-size: 0.875rem;
   }
+}
+
+.site-footer__copyright {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0;
+  line-height: 1;
 }
 </style>
