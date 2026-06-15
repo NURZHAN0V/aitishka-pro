@@ -80,7 +80,8 @@ $color-border: var(--color-border);
 }
 
 .draw-btn--xs {
-  min-height: 1.5rem;
+  min-height: 1.75rem;
+  min-width: 1.75rem;
   padding: 0.125rem 0.375rem;
   font-size: $text-xs;
 }
@@ -128,6 +129,18 @@ $color-border: var(--color-border);
 
 .draw-panel--wide {
   max-width: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
+
+.draw-layers-tab {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0.75rem 0.75rem 0.5rem;
 }
 
 .draw-panel__head {
@@ -565,7 +578,7 @@ $color-border: var(--color-border);
   z-index: 1;
   flex: 1;
   min-width: 0;
-  padding: 0.5rem 0.375rem;
+  padding: 0.5rem;
   border: none;
   border-radius: $radius-sm;
   background: transparent;
@@ -589,10 +602,11 @@ $color-border: var(--color-border);
 // ─── Layers ──────────────────────────────────────────────────────────────────
 
 .draw-layers-drop {
+  flex: 1;
+  min-height: 0;
   padding: 2px;
   margin: -2px;
-  max-height: 11rem;
-  overflow: auto;
+  overflow-y: auto;
   border-radius: 0.5rem;
   transition: outline 0.15s ease, background 0.15s ease;
 
@@ -606,17 +620,12 @@ $color-border: var(--color-border);
 .draw-layer-row {
   display: flex;
   align-items: center;
-  gap: 0.125rem;
-  padding: 0.125rem;
+  gap: 0.25rem;
+  padding: 0.25rem;
   border: 1px solid $color-border;
   border-radius: 0.5rem;
   background: color-mix(in srgb, $color-surface-inverse 70%, transparent);
   cursor: grab;
-
-  @media (min-width: 480px) {
-    gap: 0.25rem;
-    padding: 0.25rem;
-  }
 
   &:active {
     cursor: grabbing;
@@ -630,14 +639,13 @@ $color-border: var(--color-border);
 .draw-layer-row__name {
   flex: 1;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   text-align: left;
-  font-size: 0.6875rem;
+  font-size: $text-xs;
 
-  @media (min-width: 480px) {
-    font-size: $text-xs;
+  @media (max-width: 479px) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
@@ -677,7 +685,7 @@ $color-border: var(--color-border);
   justify-content: center;
   gap: 0.25rem;
   min-width: 0;
-  min-height: 1.5rem;
+  min-height: 2.25rem;
   padding: 0.125rem 0.375rem;
   border: 1px solid $color-border;
   border-radius: 0.375rem;
@@ -1353,7 +1361,7 @@ $color-border: var(--color-border);
   min-height: 0;
 
   @media (min-width: $bp-lg) {
-    grid-template-columns: 10.625rem 6.875rem minmax(0, 1fr) 20rem;
+    grid-template-columns: 10.625rem 6.875rem minmax(0, 1fr) clamp(18rem, 22vw, 22rem);
     padding: 0.75rem 1rem;
   }
 
@@ -1376,6 +1384,10 @@ $color-border: var(--color-border);
 
   &--workspace {
     flex: 1;
+    min-height: 0;
+  }
+
+  &--layers {
     min-height: 0;
   }
 
