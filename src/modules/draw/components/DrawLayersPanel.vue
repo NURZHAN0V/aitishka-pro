@@ -383,7 +383,7 @@ function layerRowActionsClass(layerIndex: number) {
           <p class="draw-palette-section__label">
             Готовые
           </p>
-          <div class="draw-swatch-grid" style="grid-template-columns: repeat(6, 1fr); gap: 0.5rem">
+          <div class="draw-swatch-grid">
             <button
               v-for="hex in presetColors"
               :key="`p-${hex}`"
@@ -408,7 +408,7 @@ function layerRowActionsClass(layerIndex: number) {
           <div v-if="projectColors.length === 0" class="draw-history-empty" style="border: 1px solid var(--color-border); border-radius: 0.5rem">
             Пока нет заливки — нарисуйте или импортируйте изображение.
           </div>
-          <div v-else class="draw-swatch-grid" style="grid-template-columns: repeat(6, 1fr); gap: 0.5rem">
+          <div v-else class="draw-swatch-grid">
             <button
               v-for="hex in projectColors"
               :key="`c-${hex}`"
