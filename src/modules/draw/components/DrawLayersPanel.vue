@@ -9,7 +9,6 @@ const props = defineProps<{
   layers: DrawLayer[]
   activeLayerIndex: number
   undoStack: DrawHistoryEntry[]
-  redoCount: number
   historySelectedIndex: number
   primaryColor: string
   secondaryColor: string
@@ -142,13 +141,12 @@ function onLayerDragEnd() {
   layerDragFromIndex.value = null
 }
 
-type PanelTab = 'layers' | 'history' | 'palette'
+type PanelTab = 'layers' | 'history'
 const panelTab = ref<PanelTab>('layers')
 
 const tabListRef = ref<HTMLElement | null>(null)
 const layersTabRef = ref<HTMLElement | null>(null)
 const historyTabRef = ref<HTMLElement | null>(null)
-const paletteTabRef = ref<HTMLElement | null>(null)
 
 const tabPillStyle = ref<Record<string, string>>({
   left: '0px',
@@ -160,12 +158,7 @@ const tabPillStyle = ref<Record<string, string>>({
 
 function syncTabPill() {
   const list = tabListRef.value
-  const btn
-    = panelTab.value === 'layers'
-      ? layersTabRef.value
-      : panelTab.value === 'history'
-        ? historyTabRef.value
-        : paletteTabRef.value
+  const btn = panelTab.value === 'layers' ? layersTabRef.value : historyTabRef.value
   if (!list || !btn) {
     return
   }
@@ -219,17 +212,6 @@ function historyEntryLabel(checkpointIndex: number) {
   return props.undoStack[checkpointIndex]?.label ?? 'Состояние'
 }
 
-const redoStepsLabel = computed(() => {
-  const n = props.redoCount
-  if (n === 1) {
-    return 'шаг'
-  }
-  if (n >= 2 && n <= 4) {
-    return 'шага'
-  }
-  return 'шагов'
-})
-
 function layerRowActionsClass(layerIndex: number) {
   if (props.activeLayerIndex === layerIndex) {
     return 'draw-layer-row__actions draw-layer-row__actions--visible'
@@ -239,56 +221,92 @@ function layerRowActionsClass(layerIndex: number) {
 </script>
 
 <template>
-  <div class="draw-panel draw-panel--wide" style="padding: 0">
-    <div
-      ref="tabListRef"
-      class="draw-tabs"
-      role="tablist"
-      aria-label="Слои, история и палитра"
-    >
-      <div class="draw-tabs__pill" :style="tabPillStyle" aria-hidden="true" />
-      <button
-        ref="layersTabRef"
-        type="button"
-        role="tab"
-        :aria-selected="panelTab === 'layers'"
-        class="draw-tabs__btn"
-        :class="{ 'draw-tabs__btn--active': panelTab === 'layers' }"
-        @click="panelTab = 'layers'"
-      >
-        Слои
-      </button>
-      <button
-        ref="historyTabRef"
-        type="button"
-        role="tab"
-        :aria-selected="panelTab === 'history'"
-        class="draw-tabs__btn"
-        :class="{ 'draw-tabs__btn--active': panelTab === 'history' }"
-        @click="panelTab = 'history'"
-      >
-        История
-      </button>
-      <button
-        ref="paletteTabRef"
-        type="button"
-        role="tab"
-        :aria-selected="panelTab === 'palette'"
-        class="draw-tabs__btn"
-        :class="{ 'draw-tabs__btn--active': panelTab === 'palette' }"
-        @click="panelTab = 'palette'"
-      >
-        Палитра
-      </button>
-    </div>
-
-    <div v-show="panelTab === 'layers'" class="draw-layers-tab">
-      <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem">
-        <BaseIcon name="draw-stack" class="draw-panel-icon-md" />
-        <p class="draw-panel__title" style="margin: 0">
-          Слои
-        </p>
+  <div class="draw-panel draw-panel--wide draw-side-panel" style="padding: 0">
+    <section class="draw-side-panel__block draw-side-panel__block--palette">
+      <div class="draw-side-panel__scroll draw-scrollbar draw-palette-scroll">
+        <section>
+          <p class="draw-palette-section__label">
+            Готовые
+          </p>
+          <div class="draw-swatch-grid">
+            <button
+              v-for="hex in presetColors"
+              :key="`p-${hex}`"
+              type="button"
+              :class="swatchClass(hex)"
+              :style="{ backgroundColor: hex }"
+              :title="`${hex}: ЛКМ — основной; Shift+ЛКМ или ПКМ — вторичный`"
+              :aria-label="`Цвет ${hex}`"
+              @pointerdown="onPaletteSwatchPointerDown($event, hex)"
+              @keydown.enter.exact.prevent="pickPalettePrimary(hex)"
+              @keydown.enter.shift.prevent="pickPaletteSecondary(hex)"
+              @keydown.space.exact.prevent="pickPalettePrimary(hex)"
+              @keydown.space.shift.prevent="pickPaletteSecondary(hex)"
+              @contextmenu.prevent="onPaletteSwatchContextMenu($event, hex)"
+            />
+          </div>
+        </section>
+        <section>
+          <p class="draw-palette-section__label">
+            В проекте
+          </p>
+          <div v-if="projectColors.length === 0" class="draw-history-empty" style="border: 1px solid var(--color-border); border-radius: 0.5rem">
+            Пока нет заливки — нарисуйте или импортируйте изображение.
+          </div>
+          <div v-else class="draw-swatch-grid">
+            <button
+              v-for="hex in projectColors"
+              :key="`c-${hex}`"
+              type="button"
+              :class="swatchClass(hex)"
+              :style="{ backgroundColor: hex }"
+              :title="`${hex}: ЛКМ — основной; Shift+ЛКМ или ПКМ — вторичный`"
+              :aria-label="`Цвет из проекта ${hex}`"
+              @pointerdown="onPaletteSwatchPointerDown($event, hex)"
+              @keydown.enter.exact.prevent="pickPalettePrimary(hex)"
+              @keydown.enter.shift.prevent="pickPaletteSecondary(hex)"
+              @keydown.space.exact.prevent="pickPalettePrimary(hex)"
+              @keydown.space.shift.prevent="pickPaletteSecondary(hex)"
+              @contextmenu.prevent="onPaletteSwatchContextMenu($event, hex)"
+            />
+          </div>
+        </section>
       </div>
+    </section>
+
+    <section class="draw-side-panel__block draw-side-panel__block--stack">
+      <div
+        ref="tabListRef"
+        class="draw-tabs"
+        role="tablist"
+        aria-label="Слои и история"
+      >
+        <div class="draw-tabs__pill" :style="tabPillStyle" aria-hidden="true" />
+        <button
+          ref="layersTabRef"
+          type="button"
+          role="tab"
+          :aria-selected="panelTab === 'layers'"
+          class="draw-tabs__btn"
+          :class="{ 'draw-tabs__btn--active': panelTab === 'layers' }"
+          @click="panelTab = 'layers'"
+        >
+          Слои
+        </button>
+        <button
+          ref="historyTabRef"
+          type="button"
+          role="tab"
+          :aria-selected="panelTab === 'history'"
+          class="draw-tabs__btn"
+          :class="{ 'draw-tabs__btn--active': panelTab === 'history' }"
+          @click="panelTab = 'history'"
+        >
+          История
+        </button>
+      </div>
+
+      <div v-show="panelTab === 'layers'" class="draw-layers-tab">
       <div
         class="draw-layers-drop draw-scrollbar"
         :class="{ 'draw-layers-drop--dragging': isDragging }"
@@ -371,107 +389,44 @@ function layerRowActionsClass(layerIndex: number) {
           </button>
         </BaseTooltip>
       </div>
-    </div>
+      </div>
 
-    <div v-show="panelTab === 'palette'" style="display: flex; min-height: 0; flex-direction: column; padding: 0.75rem 0.75rem 0.5rem">
-      <p class="draw-panel__title" style="margin-bottom: 0.5rem">
-        <BaseIcon name="draw-palette" class="draw-panel-icon-md" />
-        <span>Палитра</span>
-      </p>
-      <div class="draw-scrollbar draw-palette-scroll" style="display: flex; flex-direction: column; gap: 1rem">
-        <section>
-          <p class="draw-palette-section__label">
-            Готовые
-          </p>
-          <div class="draw-swatch-grid">
+      <div v-show="panelTab === 'history'" class="draw-history-tab">
+        <div class="draw-history-panel">
+          <div class="draw-history-list draw-scrollbar">
+            <template v-if="undoStack.length === 0">
+              <p class="draw-history-empty">
+                История появится после первого штриха на холсте.
+              </p>
+            </template>
             <button
-              v-for="hex in presetColors"
-              :key="`p-${hex}`"
+              v-for="idx in historyIndicesNewestFirst"
+              :key="`h-${idx}`"
               type="button"
-              :class="swatchClass(hex)"
-              :style="{ backgroundColor: hex }"
-              :title="`${hex}: ЛКМ — основной; Shift+ЛКМ или ПКМ — вторичный`"
-              :aria-label="`Цвет ${hex}`"
-              @pointerdown="onPaletteSwatchPointerDown($event, hex)"
-              @keydown.enter.exact.prevent="pickPalettePrimary(hex)"
-              @keydown.enter.shift.prevent="pickPaletteSecondary(hex)"
-              @keydown.space.exact.prevent="pickPalettePrimary(hex)"
-              @keydown.space.shift.prevent="pickPaletteSecondary(hex)"
-              @contextmenu.prevent="onPaletteSwatchContextMenu($event, hex)"
-            />
+              class="draw-history-item"
+              :class="[
+                idx === historySelectedIndex ? 'draw-history-item--selected' : 'draw-history-item--dimmed',
+              ]"
+              @click="emit('historyJump', idx)"
+            >
+              <BaseIcon name="draw-brush-tool" class="draw-panel-icon-sm" style="opacity: 0.7" />
+              <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ historyEntryLabel(idx) }}</span>
+            </button>
           </div>
-        </section>
-        <section>
-          <p class="draw-palette-section__label">
-            В проекте
-          </p>
-          <div v-if="projectColors.length === 0" class="draw-history-empty" style="border: 1px solid var(--color-border); border-radius: 0.5rem">
-            Пока нет заливки — нарисуйте или импортируйте изображение.
-          </div>
-          <div v-else class="draw-swatch-grid">
-            <button
-              v-for="hex in projectColors"
-              :key="`c-${hex}`"
-              type="button"
-              :class="swatchClass(hex)"
-              :style="{ backgroundColor: hex }"
-              :title="`${hex}: ЛКМ — основной; Shift+ЛКМ или ПКМ — вторичный`"
-              :aria-label="`Цвет из проекта ${hex}`"
-              @pointerdown="onPaletteSwatchPointerDown($event, hex)"
-              @keydown.enter.exact.prevent="pickPalettePrimary(hex)"
-              @keydown.enter.shift.prevent="pickPaletteSecondary(hex)"
-              @keydown.space.exact.prevent="pickPalettePrimary(hex)"
-              @keydown.space.shift.prevent="pickPaletteSecondary(hex)"
-              @contextmenu.prevent="onPaletteSwatchContextMenu($event, hex)"
-            />
-          </div>
-        </section>
+          <button
+            type="button"
+            class="draw-btn draw-btn--danger draw-history-delete"
+            title="Удалить выбранный шаг и все более новые"
+            :disabled="!historyDeleteAllowed"
+            aria-label="Удалить выбранную запись истории и более новые шаги"
+            @click="emitHistoryDeleteSelected"
+          >
+            <BaseIcon name="draw-delete" class="draw-panel-icon-xs" />
+            <span>Удалить</span>
+          </button>
+        </div>
       </div>
-    </div>
-
-    <div v-show="panelTab === 'history'" style="display: flex; flex-direction: column; padding: 0.75rem 0.75rem 0.5rem">
-      <p class="draw-panel__title" style="margin-bottom: 0.5rem">
-        <BaseIcon name="draw-history" class="draw-panel-icon-md" />
-        <span>История</span>
-      </p>
-      <div v-if="redoCount > 0" class="draw-history-notice">
-        Вперёд доступно {{ redoCount }} {{ redoStepsLabel }} — Ctrl+Y или Ctrl+Shift+Z.
-      </div>
-      <div class="draw-history-list draw-scrollbar">
-        <template v-if="undoStack.length === 0">
-          <p class="draw-history-empty">
-            История появится после первого штриха на холсте.
-          </p>
-        </template>
-        <button
-          v-for="idx in historyIndicesNewestFirst"
-          :key="`h-${idx}`"
-          type="button"
-          class="draw-history-item"
-          :class="[
-            idx === historySelectedIndex ? 'draw-history-item--selected' : 'draw-history-item--dimmed',
-          ]"
-          @click="emit('historyJump', idx)"
-        >
-          <BaseIcon name="draw-brush-tool" class="draw-panel-icon-sm" style="opacity: 0.7" />
-          <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ historyEntryLabel(idx) }}</span>
-        </button>
-      </div>
-      <div class="draw-layers-footer">
-        <button
-          type="button"
-          class="draw-layers-footer__btn draw-btn--danger"
-          style="width: 100%"
-          title="Удалить выбранный шаг и все более новые"
-          :disabled="!historyDeleteAllowed"
-          aria-label="Удалить выбранную запись истории и более новые шаги"
-          @click="emitHistoryDeleteSelected"
-        >
-          <BaseIcon name="draw-delete" class="draw-panel-icon-xs" />
-          <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Удалить</span>
-        </button>
-      </div>
-    </div>
+    </section>
   </div>
 </template>
 

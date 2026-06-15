@@ -95,10 +95,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="draw-panel">
-    <p class="draw-panel__title" style="margin-bottom: 0.5rem">
-      <span>Цвета</span>
-    </p>
+  <div class="draw-panel draw-panel--colors">
     <div class="draw-palette-picker">
       <div class="draw-palette-picker__stack">
         <button
@@ -150,10 +147,7 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <p class="draw-palette-section__label" style="margin-top: 0.625rem">
-      Быстрый выбор
-    </p>
-    <div class="draw-swatch-grid">
+    <div class="draw-swatch-grid draw-swatch-grid--stacked">
       <button
         v-for="hex in quickSwatches"
         :key="`q-${hex}`"

@@ -8,6 +8,7 @@ import DrawEditorHeader from '@/modules/draw/components/DrawEditorHeader.vue'
 import DrawFramesPanel from '@/modules/draw/components/DrawFramesPanel.vue'
 import DrawLayersPanel from '@/modules/draw/components/DrawLayersPanel.vue'
 import DrawPalettePanel from '@/modules/draw/components/DrawPalettePanel.vue'
+import DrawLayerNameModal from '@/modules/draw/components/DrawLayerNameModal.vue'
 import DrawShortcutsModal from '@/modules/draw/components/DrawShortcutsModal.vue'
 import DrawToolsPanel from '@/modules/draw/components/DrawToolsPanel.vue'
 import DrawWorkspacePanel from '@/modules/draw/components/DrawWorkspacePanel.vue'
@@ -46,6 +47,10 @@ const zoom = ref(16)
 const showGrid = ref(true)
 const onionSkin = ref(false)
 const showShortcuts = ref(false)
+const layerNameModalOpen = ref(false)
+const layerNameModalMode = ref<'create' | 'rename'>('create')
+const layerNameModalIndex = ref<number | null>(null)
+const layerNameModalInitialName = ref('')
 const showSecondaryPopover = ref(false)
 const showAnimationModal = ref(false)
 const isAnimationPlaying = ref(true)
@@ -172,15 +177,6 @@ const {
   requestRender,
 })
 
-const historyRedoCount = computed(() => {
-  const n = undoStack.value.length
-  const s = historySelectedIndex.value
-  if (n === 0) {
-    return 0
-  }
-  return Math.max(0, n - 1 - s)
-})
-
 const { inBounds, onPointerDown, onPointerMove, onPointerUp, onPointerLeave } = useDrawPainting({
   canvasRef,
   canvasWidth,
@@ -252,7 +248,7 @@ const {
   addLayer,
   duplicateLayer,
   duplicateLayerAt,
-  renameLayer,
+  applyLayerRename,
   removeLayerAt,
   reorderLayer,
   toggleLayerVisibility,
@@ -285,6 +281,38 @@ const {
     void saveDraft()
   },
 })
+
+function openCreateLayerModal() {
+  layerNameModalMode.value = 'create'
+  layerNameModalIndex.value = null
+  layerNameModalInitialName.value = `Слой ${activeFrame.value.layers.length + 1}`
+  layerNameModalOpen.value = true
+}
+
+function openRenameLayerModal(index: number) {
+  const layer = activeFrame.value.layers[index]
+  if (!layer) {
+    return
+  }
+  layerNameModalMode.value = 'rename'
+  layerNameModalIndex.value = index
+  layerNameModalInitialName.value = layer.name
+  layerNameModalOpen.value = true
+}
+
+function closeLayerNameModal() {
+  layerNameModalOpen.value = false
+}
+
+function submitLayerName(name: string) {
+  if (layerNameModalMode.value === 'create') {
+    addLayer(name)
+  }
+  else if (layerNameModalIndex.value !== null) {
+    applyLayerRename(layerNameModalIndex.value, name)
+  }
+  closeLayerNameModal()
+}
 
 const {
   exportPNG,
@@ -368,7 +396,7 @@ watch(fitZoom, (f) => {
 })
 
 const drawOverlayOpen = computed(
-  () => showShortcuts.value || showAnimationModal.value || showSecondaryPopover.value,
+  () => showShortcuts.value || showAnimationModal.value || showSecondaryPopover.value || layerNameModalOpen.value,
 )
 
 useDrawIdleAutoClose({
@@ -378,6 +406,7 @@ useDrawIdleAutoClose({
     showShortcuts.value = false
     showAnimationModal.value = false
     showSecondaryPopover.value = false
+    layerNameModalOpen.value = false
   },
 })
 
@@ -668,16 +697,15 @@ watch(
           :layers="activeFrame.layers"
           :active-layer-index="activeLayerIndex"
           :undo-stack="undoStack"
-          :redo-count="historyRedoCount"
           :history-selected-index="historySelectedIndex"
           :primary-color="primaryColor"
           :secondary-color="secondaryColor"
           :project-colors="projectPaletteColors"
           @update:active-layer-index="activeLayerIndex = $event"
-          @add-layer="addLayer"
+          @add-layer="openCreateLayerModal"
           @duplicate-layer-at="duplicateLayerAt"
           @remove-layer-at="removeLayerAt"
-          @rename-layer="renameLayer"
+          @rename-layer="openRenameLayerModal"
           @toggle-layer-visibility="toggleLayerVisibility"
           @reorder-layer="reorderLayer"
           @merge-layers="mergeLayers"
@@ -701,6 +729,14 @@ watch(
     </DrawAnimationPreviewModal>
 
     <DrawShortcutsModal :visible="showShortcuts" :tool-options="toolOptions" @close="showShortcuts = false" />
+
+    <DrawLayerNameModal
+      :visible="layerNameModalOpen"
+      :mode="layerNameModalMode"
+      :initial-name="layerNameModalInitialName"
+      @close="closeLayerNameModal"
+      @submit="submitLayerName"
+    />
   </div>
 </template>
 

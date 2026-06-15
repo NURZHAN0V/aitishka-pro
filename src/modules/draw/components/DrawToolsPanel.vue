@@ -26,14 +26,14 @@ function penGradient(penSize: number) {
 </script>
 
 <template>
-  <div class="draw-panel">
+  <div class="draw-panel draw-panel--tools">
     <div class="draw-tools-stack">
       <button
         type="button"
         class="draw-btn draw-tools-shortcuts"
         @click="emit('openShortcuts')"
       >
-        <BaseIcon name="draw-question" size="1rem" />
+        <BaseIcon name="draw-question" size="1.125rem" />
         <span>Горячие клавиши</span>
       </button>
       <div class="draw-tool-grid">
@@ -47,7 +47,7 @@ function penGradient(penSize: number) {
           @click="emit('setTool', tool.id)"
         >
           <BaseTooltip :text="`${tool.label} (${tool.hotkey})`" position="bottom">
-            <BaseIcon :name="toolIconById[tool.id]" size="1rem" />
+            <BaseIcon :name="toolIconById[tool.id]" size="1.375rem" />
           </BaseTooltip>
         </button>
         <button
@@ -60,13 +60,13 @@ function penGradient(penSize: number) {
           @click="emit('setTool', tool.id)"
         >
           <BaseTooltip :text="`${tool.label} (${tool.hotkey})`" position="bottom">
-            <BaseIcon :name="toolIconById[tool.id]" size="1rem" />
+            <BaseIcon :name="toolIconById[tool.id]" size="1.375rem" />
           </BaseTooltip>
         </button>
       </div>
       <div class="draw-range">
         <label class="draw-sr-only">Размер пера</label>
-        <p class="draw-panel__hint" style="margin-top: 0; margin-bottom: 0.25rem">
+        <p class="draw-range__title">
           Размер пера
         </p>
         <div class="draw-range__labels">
@@ -85,10 +85,6 @@ function penGradient(penSize: number) {
           :style="penGradient(penSize)"
           @input="emit('update:penSize', Number(($event.target as HTMLInputElement).value))"
         >
-        <div class="draw-range__hint">
-          <span>Точность</span>
-          <span>Покрытие</span>
-        </div>
       </div>
     </div>
   </div>

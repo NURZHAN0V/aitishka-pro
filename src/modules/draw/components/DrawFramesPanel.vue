@@ -50,7 +50,7 @@ function onDragEnd() {
 </script>
 
 <template>
-  <div class="draw-panel draw-panel--wide">
+  <div class="draw-panel draw-panel--wide draw-panel--frames">
     <div
       class="draw-frames-drop draw-scrollbar"
       :class="{ 'draw-frames-drop--dragging': isDragging }"
@@ -124,8 +124,7 @@ function onDragEnd() {
 @use '@/modules/draw/styles/draw';
 
 .draw-frame-add {
-  width: 88px;
+  width: 100%;
   height: 3rem;
-  margin-inline: auto;
 }
 </style>

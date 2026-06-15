@@ -78,9 +78,11 @@ export function useDrawSpriteDocument(options: {
     options.pushHistory(DRAW_HISTORY_DOCUMENT_LABEL.reorderFrames)
   }
 
-  const addLayer = () => {
+  const addLayer = (name?: string) => {
+    const trimmed = name?.trim()
+    const layerName = trimmed || `Слой ${options.activeFrame.value.layers.length + 1}`
     options.activeFrame.value.layers.push(
-      createDrawLayer(`Слой ${options.activeFrame.value.layers.length + 1}`, options.canvasWidth.value, options.canvasHeight.value),
+      createDrawLayer(layerName, options.canvasWidth.value, options.canvasHeight.value),
     )
     options.activeLayerIndex.value = options.activeFrame.value.layers.length - 1
     options.requestRender()
@@ -106,17 +108,12 @@ export function useDrawSpriteDocument(options: {
 
   const duplicateLayer = () => duplicateLayerAt(options.activeLayerIndex.value)
 
-  const renameLayer = (index: number) => {
+  const applyLayerRename = (index: number, name: string) => {
     const target = options.activeFrame.value.layers[index]
     if (!target) {
       return
     }
-    // eslint-disable-next-line no-alert -- переименование слоя через prompt
-    const nextName = window.prompt('Введите новое имя слоя', target.name)
-    if (!nextName) {
-      return
-    }
-    const trimmed = nextName.trim()
+    const trimmed = name.trim()
     if (!trimmed || trimmed === target.name) {
       return
     }
@@ -341,7 +338,7 @@ export function useDrawSpriteDocument(options: {
     addLayer,
     duplicateLayer,
     duplicateLayerAt,
-    renameLayer,
+    applyLayerRename,
     removeLayerAt,
     reorderLayer,
     toggleLayerVisibility,
