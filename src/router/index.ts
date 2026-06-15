@@ -22,7 +22,7 @@ const router = createRouter({
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('@/modules/home/views/NotFoundView.vue'),
-      meta: { title: 'Страница не найдена' },
+      meta: { title: 'Страница не найдена', description: 'Айтишка заблудилась в коде — страница не найдена.' },
     },
   ],
   scrollBehavior(to, from) {
