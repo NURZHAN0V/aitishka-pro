@@ -2,6 +2,7 @@
 import type { DrawFrame } from '@/modules/draw/types/draw-editor'
 import { ref } from 'vue'
 import BaseIcon from '@/core/components/BaseIcon.vue'
+import BaseTooltip from '@/core/components/BaseTooltip.vue'
 
 defineProps<{
   frames: DrawFrame[]
@@ -84,22 +85,26 @@ function onDragEnd() {
             class="draw-frame-thumb__actions"
             :style="{ opacity: activeFrameIndex === frameIndex ? 1 : undefined }"
           >
-            <button
-              type="button"
-              class="draw-btn draw-btn--icon draw-btn--sm"
-              title="Дублировать кадр"
-              @click.stop="emit('duplicateFrameFrom', frameIndex)"
-            >
-              <BaseIcon name="draw-copy" size="0.875rem" />
-            </button>
-            <button
-              type="button"
-              class="draw-btn draw-btn--icon draw-btn--sm draw-btn--danger"
-              title="Удалить кадр"
-              @click.stop="emit('removeFrameAt', frameIndex)"
-            >
-              <BaseIcon name="draw-delete" size="0.875rem" />
-            </button>
+            <BaseTooltip text="Дублировать кадр">
+              <button
+                type="button"
+                aria-label="Дублировать кадр"
+                class="draw-btn draw-btn--icon draw-btn--sm"
+                @click.stop="emit('duplicateFrameFrom', frameIndex)"
+              >
+                <BaseIcon name="draw-copy" size="0.875rem" />
+              </button>
+            </BaseTooltip>
+            <BaseTooltip text="Удалить кадр">
+              <button
+                type="button"
+                aria-label="Удалить кадр"
+                class="draw-btn draw-btn--icon draw-btn--sm draw-btn--danger"
+                @click.stop="emit('removeFrameAt', frameIndex)"
+              >
+                <BaseIcon name="draw-delete" size="0.875rem" />
+              </button>
+            </BaseTooltip>
           </div>
           <canvas
             :ref="(el) => setThumbRef(frame.id, el as HTMLCanvasElement | null)"
