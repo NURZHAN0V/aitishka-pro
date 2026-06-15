@@ -141,7 +141,6 @@ export interface SiteConfig {
   title: string
   url: string
   description: string
-  vkCommunityId?: number
   navigation: NavItem[]
   benefits: Benefit[]
   technologies: Technology[]
