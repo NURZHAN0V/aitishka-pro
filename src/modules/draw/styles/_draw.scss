@@ -391,8 +391,8 @@ $color-border: var(--color-border);
 
 .draw-palette-picker {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.5rem;
   border: 1px solid $color-border;
   border-radius: $radius-sm;
@@ -438,21 +438,30 @@ $color-border: var(--color-border);
 
 .draw-palette-picker__actions {
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
-  gap: 0.0625rem;
+  justify-content: center;
+  gap: 0.375rem;
+  margin-left: auto;
 
   .draw-btn--sm {
-    width: 1.25rem;
-    min-width: 1.25rem;
-    min-height: 1.25rem;
+    width: 1.5rem;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
     padding: 0;
     border-color: transparent;
     background: transparent;
     box-shadow: none;
+    color: color-mix(in srgb, $color-on-inverse 82%, transparent);
 
     &:hover:not(:disabled) {
       border-color: transparent;
       background: transparent;
+      color: $color-primary;
+    }
+
+    &.draw-btn--danger:hover:not(:disabled) {
+      color: var(--color-error);
     }
   }
 }

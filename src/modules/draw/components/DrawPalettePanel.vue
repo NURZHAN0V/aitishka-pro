@@ -134,7 +134,7 @@ onBeforeUnmount(() => {
             class="draw-btn draw-btn--icon draw-btn--sm"
             @click="emit('swapColors')"
           >
-            <BaseIcon name="draw-exchange" size="1rem" />
+            <BaseIcon name="draw-exchange" size="0.875rem" />
           </button>
         </BaseTooltip>
         <BaseTooltip text="Сбросить цвета к стандартным">
@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
             class="draw-btn draw-btn--icon draw-btn--sm"
             @click="emit('resetColors')"
           >
-            <BaseIcon name="draw-reset" size="1rem" />
+            <BaseIcon name="draw-reset" size="0.875rem" />
           </button>
         </BaseTooltip>
       </div>
