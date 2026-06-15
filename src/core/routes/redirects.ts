@@ -1,5 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
+import { TIMEWEB_AFFILIATE_URLS } from '@/core/affiliates/timewebBanners'
+
 export const redirectRoutes: RouteRecordRaw[] = [
   {
     path: '/twcloud',
@@ -7,7 +9,7 @@ export const redirectRoutes: RouteRecordRaw[] = [
     component: () => import('@/core/views/ExternalRedirectView.vue'),
     meta: {
       title: 'Timeweb Cloud',
-      redirectUrl: 'https://timeweb.cloud/?i=142338',
+      redirectUrl: TIMEWEB_AFFILIATE_URLS.cloud,
     },
   },
   {
@@ -16,7 +18,7 @@ export const redirectRoutes: RouteRecordRaw[] = [
     component: () => import('@/core/views/ExternalRedirectView.vue'),
     meta: {
       title: 'Timeweb',
-      redirectUrl: 'https://timeweb.com/ru/?i=142338',
+      redirectUrl: TIMEWEB_AFFILIATE_URLS.host,
     },
   },
 ]

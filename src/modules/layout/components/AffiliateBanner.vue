@@ -21,9 +21,10 @@ const fallback = computed(() => assets.value.find(asset => !asset.media) ?? asse
     :class="`affiliate-banner--${format}`"
   >
     <a
-      :href="partnerData.shortUrl"
+      :href="partnerData.externalUrl"
       class="affiliate-banner__link"
-      rel="noopener sponsored"
+      target="_blank"
+      rel="noopener noreferrer sponsored"
       :aria-label="partnerData.ariaLabel"
     >
       <picture v-if="sources.length">

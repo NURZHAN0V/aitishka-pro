@@ -9,9 +9,14 @@ export interface BannerAsset {
   media?: string
 }
 
+export const TIMEWEB_AFFILIATE_URLS = {
+  cloud: 'https://timeweb.cloud/?i=142338',
+  host: 'https://timeweb.com/ru/?i=142338',
+} as const
+
 export interface AffiliatePartner {
   id: AffiliatePartnerId
-  shortUrl: string
+  externalUrl: string
   label: string
   alt: string
   ariaLabel: string
@@ -22,7 +27,7 @@ export const TIMEWEB_BANNERS_CDN = 'https://wm.timeweb.ru/images/posters'
 
 export const TIMEWEB_CLOUD: AffiliatePartner = {
   id: 'cloud',
-  shortUrl: '/twcloud',
+  externalUrl: TIMEWEB_AFFILIATE_URLS.cloud,
   label: 'Timeweb Cloud',
   alt: 'Timeweb Cloud — облачный хостинг',
   ariaLabel: 'Timeweb Cloud — перейти на сайт',
@@ -42,7 +47,7 @@ export const TIMEWEB_CLOUD: AffiliatePartner = {
 
 export const TIMEWEB_HOST: AffiliatePartner = {
   id: 'host',
-  shortUrl: '/twhost',
+  externalUrl: TIMEWEB_AFFILIATE_URLS.host,
   label: 'Timeweb',
   alt: 'Timeweb — виртуальный хостинг',
   ariaLabel: 'Timeweb — перейти на сайт',
