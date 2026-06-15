@@ -32,6 +32,7 @@
     "@types/node": "^25.9.3",
     "@vitejs/plugin-vue": "^5.2.3",
     "eslint": "^9.23.0",
+    "png-to-ico": "^3.0.1",
     "sass": "^1.86.3",
     "sharp": "^0.35.1",
     "typescript": "~5.8.2",
