@@ -51,11 +51,6 @@ function onDragEnd() {
 
 <template>
   <div class="draw-panel draw-panel--wide">
-    <div class="draw-panel__head">
-      <p class="draw-panel__title">
-        <span>Кадры</span>
-      </p>
-    </div>
     <div
       class="draw-frames-drop draw-scrollbar"
       :class="{ 'draw-frames-drop--dragging': isDragging }"
@@ -114,18 +109,23 @@ function onDragEnd() {
           />
         </button>
       </div>
+      <button
+        type="button"
+        class="draw-btn draw-btn--dashed draw-frame-add"
+        @click="emit('addFrame')"
+      >
+        Добавить кадр
+      </button>
     </div>
-    <button
-      type="button"
-      class="draw-btn draw-btn--dashed"
-      style="margin-top: 0.5rem; height: 3rem"
-      @click="emit('addFrame')"
-    >
-      Добавить кадр
-    </button>
   </div>
 </template>
 
 <style scoped lang="scss">
 @use '@/modules/draw/styles/draw';
+
+.draw-frame-add {
+  width: 88px;
+  height: 3rem;
+  margin-inline: auto;
+}
 </style>

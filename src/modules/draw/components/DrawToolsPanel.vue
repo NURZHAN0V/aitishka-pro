@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { DrawTool, ToolOption } from '@/modules/draw/types/draw-editor'
 import BaseIcon from '@/core/components/BaseIcon.vue'
-import BaseTooltip from '@/core/components/BaseTooltip.vue'
 import { toolIconById } from '@/modules/draw/types/draw-editor'
 
 defineProps<{
@@ -27,21 +26,14 @@ function penGradient(penSize: number) {
 
 <template>
   <div class="draw-panel">
-    <div class="draw-panel__head">
-      <p class="draw-panel__title">
-        <span>Инструменты</span>
-      </p>
-      <BaseTooltip text="Шпаргалка горячих клавиш (?)">
-        <button
-          type="button"
-          aria-label="Открыть шпаргалку горячих клавиш"
-          class="draw-btn draw-btn--icon draw-btn--sm"
-          @click="emit('openShortcuts')"
-        >
-          <BaseIcon name="draw-question" size="1rem" />
-        </button>
-      </BaseTooltip>
-    </div>
+    <button
+      type="button"
+      class="draw-btn draw-tools-shortcuts"
+      @click="emit('openShortcuts')"
+    >
+      <BaseIcon name="draw-question" size="1rem" />
+      <span>Горячие клавиши</span>
+    </button>
     <div class="draw-tool-grid">
       <button
         v-for="tool in primaryToolOptions"
@@ -101,4 +93,9 @@ function penGradient(penSize: number) {
 
 <style scoped lang="scss">
 @use '@/modules/draw/styles/draw';
+
+.draw-tools-shortcuts {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
 </style>
