@@ -6,6 +6,7 @@ export interface PageMetaOptions {
   ogTitle?: string
   ogDescription?: string
   ogImage?: string
+  ogType?: 'website' | 'article'
   canonical?: string
 }
 
@@ -42,7 +43,7 @@ export function applyPageMeta(options: PageMetaOptions) {
   setMetaTag('property', 'og:description', ogDescription)
   setMetaTag('property', 'og:image', ogImage)
   setMetaTag('property', 'og:url', options.canonical ? toAbsoluteUrl(options.canonical) : window.location.href)
-  setMetaTag('property', 'og:type', 'article')
+  setMetaTag('property', 'og:type', options.ogType || 'article')
   setMetaTag('name', 'twitter:card', 'summary_large_image')
   setMetaTag('name', 'twitter:title', ogTitle)
   setMetaTag('name', 'twitter:description', ogDescription)

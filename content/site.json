@@ -1,7 +1,7 @@
 {
   "title": "AITISHKAPRO",
   "url": "https://aitishka.pro",
-  "description": "Обучение разработке с нуля — статьи, видео и практика для взрослых и детей.",
+  "description": "Образовательная платформа «Айтишка» (AITISHKAPRO): статьи, видео и практика по программированию. Раньше — pluspixel.ru.",
   "navigation": [
     {
       "label": "Новости",
@@ -14,6 +14,10 @@
     {
       "label": "Видео",
       "to": "/media"
+    },
+    {
+      "label": "Рисовалка",
+      "to": "/draw"
     }
   ],
   "benefits": [

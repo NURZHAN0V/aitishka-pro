@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const siteUrl = 'https://aitishka.pro'
 
-const staticRoutes = ['/', '/articles', '/media', '/news']
+const staticRoutes = ['/', '/articles', '/media', '/news', '/draw']
 
 function collectVideoSlugs(data) {
   if (Array.isArray(data))

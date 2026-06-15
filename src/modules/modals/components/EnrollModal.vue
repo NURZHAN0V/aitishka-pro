@@ -3,10 +3,12 @@ import type { Ref } from 'vue'
 import { inject, ref, watch } from 'vue'
 import BaseButton from '@/core/components/BaseButton.vue'
 import BaseIcon from '@/core/components/BaseIcon.vue'
+import FormConsentCheckbox from '@/core/components/FormConsentCheckbox.vue'
 
 const enrollModalOpen = inject<Ref<boolean>>('enrollModalOpen', ref(false))
 const name = ref('')
 const phone = ref('')
+const consentAccepted = ref(false)
 const submitted = ref(false)
 
 watch(enrollModalOpen, (open) => {
@@ -14,6 +16,7 @@ watch(enrollModalOpen, (open) => {
   if (!open) {
     name.value = ''
     phone.value = ''
+    consentAccepted.value = false
     submitted.value = false
   }
 })
@@ -23,7 +26,7 @@ function close() {
 }
 
 function submit() {
-  if (!name.value.trim() || !phone.value.trim())
+  if (!name.value.trim() || !phone.value.trim() || !consentAccepted.value)
     return
   submitted.value = true
 }
@@ -69,7 +72,11 @@ function submit() {
                     placeholder="+7 (999) 999-99-99"
                   >
                 </div>
-                <BaseButton type="submit" block>
+                <FormConsentCheckbox
+                  id="enroll-consent"
+                  v-model="consentAccepted"
+                />
+                <BaseButton type="submit" block :disabled="!consentAccepted">
                   Отправить
                 </BaseButton>
               </form>

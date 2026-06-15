@@ -1,4 +1,6 @@
-const icons: Record<string, string> = {
+import { drawIcons } from '@/modules/draw/icons/draw-icons'
+
+const siteIcons: Record<string, string> = {
   'arrow-right': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.172 12 8.222 7.05l1.415-1.414L16 12l-6.364 6.364-1.414-1.415z"/></svg>',
   'arrow-down': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.172 7.05 8.222 5.636 9.636 12 16l6.364-6.364-1.414-1.414z"/></svg>',
   'arrow-right-drop': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 8.586 13.293 12 10 15.414 11.414 16.828 16 12.243l-4.586-4.586z"/></svg>',
@@ -29,6 +31,11 @@ const icons: Record<string, string> = {
   'news': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1m1 2v14h14V5zm3 2h8v2H8zm0 4h8v2H8zm0 4h5v2H8z"/></svg>',
   'code': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="m8 8-4 4 4 4 1.414-1.414L6.829 12l2.585-2.586zm8 0-1.414 1.414L17.171 12l-2.585 2.586L16 16l4-4z"/></svg>',
   'play': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v14.72a1 1 0 0 0 1.5.86l11.986-7.36a1 1 0 0 0 0-1.72L9.5 4.28A1 1 0 0 0 8 5.14"/></svg>',
+}
+
+const icons: Record<string, string> = {
+  ...siteIcons,
+  ...drawIcons,
 }
 
 export function getIcon(name: string): string {

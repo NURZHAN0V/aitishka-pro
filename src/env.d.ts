@@ -12,6 +12,16 @@ declare module '*.scss' {
   export default css
 }
 
+declare module 'gifenc' {
+  export function GIFEncoder(): {
+    writeFrame: (...args: unknown[]) => void
+    finish: () => void
+    bytes: () => Uint8Array
+  }
+  export function quantize(data: Uint8ClampedArray, maxColors: number, options?: Record<string, unknown>): number[][]
+  export function applyPalette(data: Uint8ClampedArray, palette: number[][], format?: string): Uint8Array
+}
+
 declare module 'markdown-it-container' {
   import type MarkdownIt from 'markdown-it'
   import type ContainerToken from 'markdown-it/lib/token.mjs'

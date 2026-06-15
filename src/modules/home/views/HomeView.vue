@@ -6,13 +6,22 @@ import { RouterLink } from 'vue-router'
 import { api } from '@/core/api'
 import BaseButton from '@/core/components/BaseButton.vue'
 import BaseIcon from '@/core/components/BaseIcon.vue'
+import { applyPageMeta } from '@/core/composables/usePageMeta'
 import { useWhenVisible } from '@/core/composables/useWhenVisible'
+import { HOME_PAGE_DESCRIPTION, HOME_PAGE_TITLE } from '@/modules/home/routes'
 
 const enrollModalOpen = inject<Ref<boolean>>('enrollModalOpen', ref(false))
 const benefits = ref<Benefit[]>([])
 const { target: benefitsRef, visible: benefitsVisible } = useWhenVisible()
 
 onMounted(async () => {
+  applyPageMeta({
+    title: HOME_PAGE_TITLE,
+    description: HOME_PAGE_DESCRIPTION,
+    ogType: 'website',
+    canonical: '/',
+  })
+
   const site = await api.getSite()
   benefits.value = site.benefits
 })
@@ -31,6 +40,12 @@ function openEnrollModal() {
       </h1>
       <p class="home__lead">
         Статьи, видео и практика по Git, HTML, CSS, JavaScript. Структурированные материалы для новичков и тех, кто хочет закрепить навыки.
+      </p>
+      <p class="home__rebrand">
+        Образовательная платформа «Айтишка» (AITISHKAPRO). Раньше сайт был на pluspixel.ru — материалы переехали сюда.
+        <RouterLink to="/articles/novosti/platforma/pereehali-s-pluspixel-ru" class="home__rebrand-link">
+          Подробнее о переезде
+        </RouterLink>
       </p>
       <div class="home__hero-actions">
         <BaseButton @click="openEnrollModal">
@@ -124,6 +139,32 @@ function openEnrollModal() {
   @include sm {
     margin-top: 1.5rem;
     font-size: $text-xl;
+  }
+}
+
+.home__rebrand {
+  margin-top: 0.75rem;
+  font-size: $text-sm;
+  line-height: 1.6;
+  color: $color-secondary;
+  max-width: 42rem;
+  margin-inline: auto;
+  text-wrap: pretty;
+
+  @include sm {
+    margin-top: 1rem;
+    font-size: $text-base;
+  }
+}
+
+.home__rebrand-link {
+  display: inline;
+  margin-left: 0.25rem;
+  color: $color-primary;
+  text-decoration: underline;
+
+  &:hover {
+    color: $color-primary-hover;
   }
 }
 

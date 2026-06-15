@@ -4,7 +4,9 @@ import { redirectRoutes } from '@/core/routes/redirects'
 import { aboutRoutes } from '@/modules/about/routes'
 import { articlesRoutes } from '@/modules/articles/routes'
 import { contactRoutes } from '@/modules/contact/routes'
+import { drawRoutes } from '@/modules/draw/routes'
 import { homeRoutes } from '@/modules/home/routes'
+import { legalRoutes } from '@/modules/legal/routes'
 import { mediaRoutes } from '@/modules/media/routes'
 import { newsRoutes } from '@/modules/news/routes'
 
@@ -17,6 +19,8 @@ const router = createRouter({
     ...articlesRoutes,
     ...mediaRoutes,
     ...newsRoutes,
+    ...drawRoutes,
+    ...legalRoutes,
     ...redirectRoutes,
     {
       path: '/:pathMatch(.*)*',
