@@ -118,7 +118,7 @@ $color-border: var(--color-border);
 
 .draw-panel {
   width: 100%;
-  max-width: 170px;
+  max-width: 100%;
   padding: 0.625rem;
   border: 1px solid $color-border;
   border-radius: $radius-md;
@@ -414,14 +414,14 @@ $color-border: var(--color-border);
 
 .draw-swatch-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.25rem;
 }
 
 .draw-swatch {
   aspect-ratio: 1;
-  min-width: 1.5rem;
-  min-height: 1.5rem;
+  width: 100%;
+  min-height: 0;
   padding: 0;
   border: 1px solid $color-border;
   border-radius: 0.375rem;
@@ -1363,6 +1363,10 @@ $color-border: var(--color-border);
   gap: 0.75rem;
   min-width: 0;
   min-height: 0;
+
+  &--tools {
+    overflow-y: auto;
+  }
 
   @media (min-width: $bp-md) and (max-width: ($bp-lg - 1px)) {
     &--tools {
