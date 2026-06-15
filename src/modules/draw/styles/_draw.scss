@@ -1,0 +1,1438 @@
+@use '@/core/styles/variables' as *;
+
+$color-surface: var(--color-surface);
+$color-border: var(--color-border);
+
+// Inverse-tinted blocks (range, palette picker) — readable text on dark tint
+.draw-surface-muted {
+  background: color-mix(in srgb, $color-surface-inverse 80%, transparent);
+  color: $color-on-inverse;
+
+  .draw-range__labels,
+  .draw-range__hint,
+  .draw-panel__hint {
+    color: color-mix(in srgb, $color-on-inverse 82%, transparent);
+  }
+}
+
+// ─── Scrollbar ───────────────────────────────────────────────────────────────
+
+.draw-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: $color-gray-400 transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: $color-gray-400;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+// ─── Buttons ─────────────────────────────────────────────────────────────────
+
+.draw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-height: 2.5rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: $color-surface;
+  color: $color-default;
+  font-size: $text-xs;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    border-color: $color-primary-alpha-35;
+    color: $color-primary;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  @include focus-ring;
+}
+
+.draw-btn--icon {
+  width: 2.5rem;
+  min-width: 2.5rem;
+  padding: 0.25rem;
+}
+
+.draw-btn--sm {
+  min-height: 2rem;
+  min-width: 2rem;
+  padding: 0.125rem;
+}
+
+.draw-btn--xs {
+  min-height: 1.5rem;
+  padding: 0.125rem 0.375rem;
+  font-size: $text-xs;
+}
+
+.draw-btn--active {
+  border-color: $color-primary-alpha-35;
+  background: $color-primary-alpha-10;
+  color: $color-primary;
+  box-shadow: inset 0 1px 2px $color-primary-alpha-8;
+}
+
+.draw-btn--accent {
+  border-color: $color-primary-alpha-35;
+  background: $color-primary-alpha-10;
+  color: $color-primary;
+
+  &:hover:not(:disabled) {
+    border-color: $color-primary;
+    background: $color-primary-alpha-12;
+  }
+}
+
+.draw-btn--dashed {
+  width: 100%;
+  border-style: dashed;
+  background: color-mix(in srgb, $color-surface 40%, transparent);
+}
+
+.draw-btn--danger:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--color-error) 60%, transparent);
+  color: var(--color-error);
+}
+
+// ─── Panels ──────────────────────────────────────────────────────────────────
+
+.draw-panel {
+  width: 100%;
+  max-width: 170px;
+  padding: 0.625rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background: color-mix(in srgb, $color-surface 70%, transparent);
+  box-shadow: $shadow-md;
+}
+
+.draw-panel--wide {
+  max-width: none;
+}
+
+.draw-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.draw-panel__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: $text-sm;
+  font-weight: 600;
+}
+
+.draw-panel__hint {
+  margin: 0.5rem 0 0;
+  font-size: $text-xs;
+  line-height: 1.4;
+  color: $color-secondary;
+}
+
+.draw-panel-icon-sm {
+  width: clamp(0.65rem, 2.5vmin, 0.875rem);
+  height: clamp(0.65rem, 2.5vmin, 0.875rem);
+  flex-shrink: 0;
+
+  :deep(svg) {
+    display: block;
+  }
+}
+
+.draw-panel-icon-md {
+  width: clamp(0.75rem, 3vmin, 1rem);
+  height: clamp(0.75rem, 3vmin, 1rem);
+  flex-shrink: 0;
+  color: $color-primary;
+
+  :deep(svg) {
+    display: block;
+  }
+}
+
+.draw-panel-icon-xs {
+  width: clamp(0.55rem, 2vmin, 0.7rem);
+  height: clamp(0.55rem, 2vmin, 0.7rem);
+  flex-shrink: 0;
+
+  :deep(svg) {
+    display: block;
+    stroke-width: 2;
+  }
+}
+
+// ─── Header ──────────────────────────────────────────────────────────────────
+
+.draw-header {
+  border-bottom: 1px solid $color-border;
+  background: color-mix(in srgb, $color-surface 80%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.draw-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+}
+
+.draw-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.draw-header__tool-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: $color-surface;
+  font-size: $text-xs;
+  color: $color-secondary;
+
+  @include sm {
+    font-size: $text-sm;
+  }
+}
+
+.draw-header__tool-label {
+  font-weight: 500;
+  color: $color-primary;
+}
+
+.draw-header__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: $text-xs;
+
+  @include sm {
+    font-size: $text-sm;
+  }
+}
+
+// ─── Chips ───────────────────────────────────────────────────────────────────
+
+.draw-chip {
+  padding: 0.25rem 0.625rem;
+  border: 1px solid $color-border;
+  border-radius: 999px;
+  background: $color-surface;
+  color: $color-secondary;
+}
+
+.draw-chip--ready {
+  border-color: $color-success-alpha-22;
+  background: $color-success-alpha-8;
+  color: $color-success;
+}
+
+.draw-chip--init {
+  border-color: color-mix(in srgb, var(--color-warning) 40%, transparent);
+  background: color-mix(in srgb, var(--color-warning) 10%, transparent);
+  color: var(--color-warning);
+}
+
+.draw-chip--dirty {
+  border-color: color-mix(in srgb, var(--color-warning) 40%, transparent);
+  background: color-mix(in srgb, var(--color-warning) 10%, transparent);
+  color: var(--color-warning);
+}
+
+// ─── Tools grid ──────────────────────────────────────────────────────────────
+
+.draw-tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.draw-tool-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid $color-border;
+  border-radius: 0.375rem;
+  background: $color-surface;
+  color: $color-secondary;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    border-color: $color-gray-400;
+    background: color-mix(in srgb, $color-surface 60%, $color-gray-200);
+  }
+
+  @include focus-ring(1px);
+
+  &--active {
+    border-color: $color-primary-alpha-35;
+    background: $color-primary-alpha-10;
+    color: $color-primary;
+    box-shadow: inset 0 1px 2px $color-primary-alpha-8;
+  }
+}
+
+// ─── Range slider ────────────────────────────────────────────────────────────
+
+.draw-range {
+  padding: 0.625rem 0.5rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+
+  @extend .draw-surface-muted;
+}
+
+.draw-range__labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: $text-xs;
+  color: color-mix(in srgb, $color-on-inverse 82%, transparent);
+}
+
+.draw-range__value {
+  padding: 0.125rem 0.5rem;
+  border: 1px solid $color-primary-alpha-28;
+  border-radius: 0.375rem;
+  background: $color-primary-alpha-10;
+  font-size: $text-xs;
+  font-weight: 500;
+  color: $color-primary;
+}
+
+.draw-range__input {
+  width: 100%;
+  height: 0.625rem;
+  appearance: none;
+  border: 1px solid $color-border;
+  border-radius: 999px;
+  background: $color-surface;
+  accent-color: $color-primary;
+  cursor: pointer;
+}
+
+.draw-range__hint {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.375rem;
+  font-size: $text-xs;
+  color: color-mix(in srgb, $color-on-inverse 82%, transparent);
+}
+
+// ─── Palette ─────────────────────────────────────────────────────────────────
+
+.draw-palette-picker {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: color-mix(in srgb, $color-surface-inverse 70%, transparent);
+  color: $color-on-inverse;
+}
+
+.draw-palette-picker__stack {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+}
+
+.draw-palette-picker__color {
+  position: absolute;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 2px solid $color-border;
+  border-radius: 0.5rem;
+  cursor: pointer;
+
+  &--primary {
+    top: 0;
+    left: 0;
+    border-color: color-mix(in srgb, $color-surface 80%, $color-border);
+  }
+
+  &--secondary {
+    right: 0;
+    bottom: 0;
+  }
+
+  input[type='color'] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+.draw-palette-picker__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.draw-swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.25rem;
+}
+
+.draw-swatch {
+  aspect-ratio: 1;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  padding: 0;
+  border: 1px solid $color-border;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    border-color: $color-gray-400;
+  }
+
+  @include focus-ring(1px);
+
+  &--primary {
+    border-color: $color-primary;
+    box-shadow: inset 0 0 0 2px $color-primary-alpha-35;
+  }
+
+  &--secondary {
+    border-color: color-mix(in srgb, $color-surface 80%, $color-border);
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, $color-surface 90%, transparent);
+  }
+}
+
+.draw-palette-section__label {
+  margin: 0 0 0.5rem;
+  font-size: $text-xs;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: $color-secondary;
+}
+
+.draw-palette-scroll {
+  max-height: min(22rem, 55vh);
+  padding: 0.375rem 0.5rem 0.375rem 0.375rem;
+  scroll-padding: 2px;
+}
+
+// ─── Frames ──────────────────────────────────────────────────────────────────
+
+.draw-frames-drop {
+  padding: 2px;
+  margin: -2px;
+  border-radius: 0.5rem;
+  transition: outline 0.15s ease, background 0.15s ease;
+
+  &--dragging {
+    outline: 2px dashed $color-primary;
+    outline-offset: 2px;
+    background: $color-primary-alpha-5;
+  }
+}
+
+.draw-frame-thumb {
+  position: relative;
+  display: block;
+  width: 88px;
+  height: 88px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid $color-border;
+  border-radius: 0.5rem;
+  background: linear-gradient(45deg, color-mix(in srgb, $color-surface-inverse 90%, transparent) 25%, color-mix(in srgb, $color-surface-inverse 70%, transparent) 25%, color-mix(in srgb, $color-surface-inverse 70%, transparent) 50%, color-mix(in srgb, $color-surface-inverse 90%, transparent) 50%, color-mix(in srgb, $color-surface-inverse 90%, transparent) 75%, color-mix(in srgb, $color-surface-inverse 70%, transparent) 75%, color-mix(in srgb, $color-surface-inverse 70%, transparent) 100%);
+  background-size: 10px 10px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    border-color: $color-gray-400;
+  }
+
+  &--active {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 1px $color-primary-alpha-35;
+  }
+}
+
+.draw-frame-thumb__index {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  z-index: 1;
+  padding: 0 0.25rem;
+  border-radius: 0.25rem;
+  background: color-mix(in srgb, $color-surface-inverse 75%, transparent);
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: $color-white;
+}
+
+.draw-frame-thumb__actions {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  z-index: 10;
+  display: flex;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+
+  .draw-frame-thumb--active &,
+  .draw-frame-thumb:hover & {
+    opacity: 1;
+  }
+}
+
+.draw-frame-thumb__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  background: transparent;
+  image-rendering: pixelated;
+}
+
+// ─── Tabs (layers panel) ─────────────────────────────────────────────────────
+
+.draw-tabs {
+  position: relative;
+  display: flex;
+  gap: 0.125rem;
+  padding: 0.25rem;
+  border-bottom: 1px solid $color-border;
+}
+
+.draw-tabs__pill {
+  position: absolute;
+  z-index: 0;
+  border-radius: $radius-sm;
+  background: $color-gray-200;
+  pointer-events: none;
+  transition: left 0.2s ease, top 0.2s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.draw-tabs__btn {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+  padding: 0.5rem 0.375rem;
+  border: none;
+  border-radius: $radius-sm;
+  background: transparent;
+  font-size: $text-xs;
+  font-weight: 500;
+  color: $color-secondary;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  @media (min-width: 400px) {
+    padding-inline: 0.5rem;
+  }
+
+  &--active {
+    color: $color-default;
+  }
+
+  @include focus-ring;
+}
+
+// ─── Layers ──────────────────────────────────────────────────────────────────
+
+.draw-layers-drop {
+  padding: 2px;
+  margin: -2px;
+  max-height: 11rem;
+  overflow: auto;
+  border-radius: 0.5rem;
+  transition: outline 0.15s ease, background 0.15s ease;
+
+  &--dragging {
+    outline: 2px dashed $color-primary;
+    outline-offset: 2px;
+    background: $color-primary-alpha-5;
+  }
+}
+
+.draw-layer-row {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.125rem;
+  border: 1px solid $color-border;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, $color-surface-inverse 70%, transparent);
+  cursor: grab;
+
+  @media (min-width: 480px) {
+    gap: 0.25rem;
+    padding: 0.25rem;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &--active {
+    box-shadow: 0 0 0 1px $color-primary-alpha-35;
+  }
+}
+
+.draw-layer-row__name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  font-size: 0.6875rem;
+
+  @media (min-width: 480px) {
+    font-size: $text-xs;
+  }
+}
+
+.draw-layer-row__actions {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+
+  &--visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .draw-layer-row:hover &,
+  .draw-layer-row:focus-within & {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.draw-layers-footer {
+  display: flex;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid color-mix(in srgb, $color-border 70%, transparent);
+
+  @media (min-width: 480px) {
+    gap: 0.5rem;
+  }
+}
+
+.draw-layers-footer__btn {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-width: 0;
+  min-height: 1.5rem;
+  padding: 0.125rem 0.375rem;
+  border: 1px solid $color-border;
+  border-radius: 0.375rem;
+  background: color-mix(in srgb, $color-surface-inverse 40%, transparent);
+  font-size: $text-xs;
+  color: $color-secondary;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    border-color: $color-primary-alpha-35;
+    color: $color-primary;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
+// ─── History list ────────────────────────────────────────────────────────────
+
+.draw-history-list {
+  max-height: 12rem;
+  min-height: 120px;
+  overflow: auto;
+  border: 1px solid $color-border;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, $color-surface-inverse 40%, transparent);
+}
+
+.draw-history-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.5rem;
+  border: none;
+  background: transparent;
+  font-size: $text-xs;
+  text-align: left;
+  color: $color-secondary;
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+
+  &:hover {
+    background: color-mix(in srgb, $color-gray-200 80%, transparent);
+  }
+
+  &--dimmed {
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &--selected {
+    opacity: 1;
+    background: $color-primary-alpha-10;
+    color: $color-primary;
+    box-shadow: inset 0 0 0 1px $color-primary-alpha-28;
+  }
+}
+
+.draw-history-empty {
+  padding: 1.5rem 0.5rem;
+  text-align: center;
+  font-size: $text-xs;
+  color: $color-secondary;
+}
+
+.draw-history-notice {
+  margin-bottom: 0.5rem;
+  padding: 0.375rem 0.5rem;
+  border: 1px solid color-mix(in srgb, $color-border 80%, transparent);
+  border-radius: 0.5rem;
+
+  @extend .draw-surface-muted;
+
+  font-size: $text-xs;
+  color: color-mix(in srgb, $color-on-inverse 82%, transparent);
+}
+
+// ─── Workspace ───────────────────────────────────────────────────────────────
+
+.draw-workspace {
+  isolation: isolate;
+  padding: 0.75rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background: color-mix(in srgb, $color-surface 70%, transparent);
+  box-shadow: $shadow-md;
+}
+
+.draw-workspace__toolbar {
+  position: relative;
+  z-index: 200;
+}
+
+.draw-workspace__toolbar-scroll {
+  margin-bottom: 0.5rem;
+  overflow-x: auto;
+}
+
+.draw-workspace__toolbar-row {
+  display: flex;
+  min-width: max-content;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.draw-workspace__toolbar-divider {
+  margin-left: auto;
+  padding-left: 0.5rem;
+  border-left: 1px solid color-mix(in srgb, $color-border 80%, transparent);
+}
+
+.draw-workspace__viewport {
+  position: relative;
+  z-index: 0;
+  height: 520px;
+  overflow: auto;
+  padding: 0.5rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
+}
+
+.draw-workspace__zoom-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: $text-xs;
+}
+
+.draw-workspace__zoom-label {
+  display: inline-flex;
+  min-width: 5rem;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.75rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  color: $color-secondary;
+  cursor: help;
+}
+
+// ─── Popover ─────────────────────────────────────────────────────────────────
+
+.draw-popover {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 210;
+  width: 100%;
+  max-width: 32rem;
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid color-mix(in srgb, $color-border 90%, transparent);
+  border-radius: $radius-md;
+  background: $color-surface;
+  box-shadow: $shadow-xl;
+}
+
+.draw-popover__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid color-mix(in srgb, $color-border 80%, transparent);
+}
+
+.draw-popover__title {
+  margin: 0;
+  font-size: $text-sm;
+  font-weight: 600;
+}
+
+.draw-popover__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: $text-xs;
+}
+
+.draw-popover__hint {
+  margin: 0;
+  font-size: $text-xs;
+  line-height: 1.45;
+  color: $color-secondary;
+}
+
+.draw-popover__grid {
+  display: grid;
+  gap: 0.5rem;
+
+  &--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.draw-popover__field label {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: $color-secondary;
+}
+
+.draw-input {
+  width: 100%;
+  height: 2.5rem;
+  padding: 0 0.5rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
+  font-size: $text-xs;
+  color: $color-default;
+
+  &::placeholder {
+    color: $color-secondary;
+  }
+
+  @include focus-ring;
+}
+
+.draw-textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
+  font-size: $text-xs;
+  color: $color-default;
+  resize: vertical;
+
+  &::placeholder {
+    color: $color-secondary;
+  }
+
+  @include focus-ring;
+}
+
+.draw-popover__toggle {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+  padding: 0.5rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
+  text-align: left;
+  color: $color-secondary;
+  cursor: pointer;
+
+  &--active {
+    border-color: $color-primary-alpha-35;
+    background: $color-primary-alpha-10;
+    color: $color-primary;
+  }
+}
+
+.draw-popover__stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
+  color: $color-secondary;
+
+  span:last-child {
+    margin-left: auto;
+    font-family: $font-mono;
+    font-size: $text-xs;
+    color: $color-primary;
+  }
+}
+
+.draw-popover__load-btn {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  height: 4rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
+  font-size: $text-xs;
+  line-height: 1.2;
+  color: $color-default;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $color-primary-alpha-35;
+  }
+}
+
+// ─── Modal ───────────────────────────────────────────────────────────────────
+
+.draw-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  background: color-mix(in srgb, $color-surface-inverse 80%, transparent);
+  backdrop-filter: blur(4px);
+
+  @include sm {
+    padding: 1.25rem;
+  }
+}
+
+.draw-modal-panel {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  justify-content: center;
+  outline: none;
+}
+
+.draw-modal-card {
+  width: 100%;
+  max-width: 28rem;
+  padding: 1rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background: $color-surface;
+  box-shadow: $shadow-xl;
+}
+
+.draw-modal-card--wide {
+  display: flex;
+  max-width: min(92rem, calc(100vw - 1.5rem));
+  max-height: min(90vh, 920px);
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+
+.draw-modal-card__head {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid $color-border;
+
+  @include sm {
+    padding: 0.75rem 1.25rem;
+  }
+}
+
+.draw-modal-card__body {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1rem;
+
+  @include sm {
+    padding: 1.25rem;
+  }
+}
+
+.draw-modal-preview {
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
+}
+
+.draw-modal-playback {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+// ─── Shortcuts ───────────────────────────────────────────────────────────────
+
+.draw-shortcuts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.375rem;
+
+  @include sm {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1280px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 1536px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.draw-shortcut-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, $color-gray-200 90%, transparent);
+}
+
+.draw-shortcut-key {
+  display: inline-flex;
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 0.125rem 0.375rem;
+  border: 1px solid $color-gray-400;
+  border-radius: 0.375rem;
+  background: color-mix(in srgb, $color-surface-inverse 95%, transparent);
+  font-size: $text-xs;
+  font-weight: 600;
+  line-height: 1.2;
+  color: $color-default;
+}
+
+.draw-shortcuts-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  @include lg {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
+
+.draw-shortcuts-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  @include lg {
+    width: min(100%, 24rem);
+    max-width: 28rem;
+    flex-shrink: 0;
+  }
+}
+
+.draw-shortcuts-section {
+  padding: 0.75rem 1rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: color-mix(in srgb, $color-surface-inverse 50%, transparent);
+
+  @include sm {
+    padding: 1rem;
+  }
+}
+
+// ─── Toast ───────────────────────────────────────────────────────────────────
+
+.draw-toast-stack {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1400;
+  display: flex;
+  max-width: 24rem;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.draw-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-left: 4px solid $color-border;
+  border-radius: $radius-sm;
+  background: color-mix(in srgb, $color-surface 75%, transparent);
+  backdrop-filter: blur(12px) saturate(150%);
+  box-shadow: $shadow-md;
+  color: $color-default;
+
+  &--success {
+    border-left-color: $color-success;
+    background: color-mix(in srgb, $color-success-alpha-8 75%, $color-surface);
+  }
+
+  &--warning {
+    border-left-color: var(--color-warning);
+    background: color-mix(in srgb, var(--color-warning) 8%, $color-surface);
+  }
+
+  &--error {
+    border-left-color: var(--color-error);
+    background: color-mix(in srgb, $color-error-alpha-10 75%, $color-surface);
+  }
+
+  &--info {
+    border-left-color: $color-primary;
+    background: color-mix(in srgb, $color-primary-alpha-8 75%, $color-surface);
+  }
+}
+
+.draw-toast__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.draw-toast__title {
+  margin: 0 0 0.25rem;
+  font-size: $text-sm;
+  font-weight: 600;
+}
+
+.draw-toast__message {
+  margin: 0;
+  font-size: $text-sm;
+  opacity: 0.9;
+}
+
+.draw-toast__close {
+  flex-shrink: 0;
+  padding: 0.25rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: $color-secondary;
+  cursor: pointer;
+
+  &:hover {
+    background: color-mix(in srgb, $color-default 10%, transparent);
+  }
+
+  @include focus-ring;
+}
+
+// ─── Transitions ─────────────────────────────────────────────────────────────
+
+.draw-popover-panel-enter-active,
+.draw-popover-panel-leave-active {
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.draw-popover-panel-enter-from,
+.draw-popover-panel-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.draw-modal-backdrop-enter-active,
+.draw-modal-backdrop-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.draw-modal-backdrop-enter-from,
+.draw-modal-backdrop-leave-to {
+  opacity: 0;
+}
+
+.draw-modal-backdrop-enter-active .draw-modal-panel,
+.draw-modal-backdrop-leave-active .draw-modal-panel {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.draw-modal-backdrop-enter-from .draw-modal-panel,
+.draw-modal-backdrop-leave-to .draw-modal-panel {
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+}
+
+.draw-toast-enter-active,
+.draw-toast-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.draw-toast-enter-from,
+.draw-toast-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.draw-toast-move {
+  transition: transform 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .draw-popover-panel-enter-active,
+  .draw-popover-panel-leave-active,
+  .draw-modal-backdrop-enter-active,
+  .draw-modal-backdrop-leave-active,
+  .draw-modal-backdrop-enter-active .draw-modal-panel,
+  .draw-modal-backdrop-leave-active .draw-modal-panel,
+  .draw-toast-enter-active,
+  .draw-toast-leave-active,
+  .draw-toast-move {
+    transition: none;
+  }
+}
+
+// ─── Utilities ───────────────────────────────────────────────────────────────
+
+.draw-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.draw-image-pixelated {
+  image-rendering: pixelated;
+}
+
+// ─── Page layout ─────────────────────────────────────────────────────────────
+
+.draw-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: $color-background;
+  color: $color-default;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.draw-view {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.draw-view__grid {
+  display: grid;
+  flex: 1;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 100rem;
+  margin-inline: auto;
+  padding: 0.75rem;
+  min-height: 0;
+
+  @media (min-width: $bp-lg) {
+    grid-template-columns: 10.625rem 6.875rem minmax(0, 1fr) 20rem;
+    padding: 0.75rem 1rem;
+  }
+
+  @media (min-width: $bp-md) and (max-width: ($bp-lg - 1px)) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    grid-template-rows: auto 1fr;
+  }
+}
+
+.draw-view__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+  min-height: 0;
+
+  @media (min-width: $bp-md) and (max-width: ($bp-lg - 1px)) {
+    &--tools {
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+
+    &--frames {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    &--workspace {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    &--layers {
+      grid-column: 1;
+      grid-row: 2;
+    }
+  }
+}
+
+.draw-view__mobile-tabs {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0 0.75rem 0.5rem;
+  border-bottom: 1px solid $color-border;
+
+  @media (min-width: $bp-md) {
+    display: none;
+  }
+}
+
+.draw-view__mobile-tab {
+  flex: 1;
+  min-height: 2.75rem;
+  border: 1px solid transparent;
+  border-radius: $radius-sm;
+  background: transparent;
+  color: $color-secondary;
+  font-size: $text-xs;
+  font-weight: 500;
+  cursor: pointer;
+
+  &--active {
+    border-color: $color-primary-alpha-28;
+    background: $color-primary-alpha-8;
+    color: $color-primary;
+  }
+
+  @include focus-ring;
+}
+
+@media (max-width: ($bp-md - 1px)) {
+  .draw-view__col--hidden-mobile {
+    display: none;
+  }
+
+  .draw-view__col--workspace {
+    order: -1;
+  }
+}
+
+.draw-view__canvas {
+  display: block;
+  margin-inline: auto;
+  cursor: crosshair;
+  touch-action: none;
+  background: #d4d4d8;
+  image-rendering: pixelated;
+}
