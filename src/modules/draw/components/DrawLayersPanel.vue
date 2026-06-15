@@ -218,6 +218,13 @@ function layerRowActionsClass(layerIndex: number) {
   }
   return 'draw-layer-row__actions'
 }
+
+function layerDeleteTooltip(): string {
+  if (props.layers.length <= 1) {
+    return 'Нельзя удалить единственный слой — в кадре должен остаться хотя бы один'
+  }
+  return 'Удалить слой'
+}
 </script>
 
 <template>
@@ -358,16 +365,18 @@ function layerRowActionsClass(layerIndex: number) {
             >
               <BaseIcon name="draw-copy" class="draw-panel-icon-sm" />
             </button>
-            <button
-              type="button"
-              class="draw-btn draw-btn--xs draw-btn--danger"
-              :class="layerRowActionsClass(layerIndex)"
-              :disabled="layers.length <= 1"
-              title="Удалить слой"
-              @click.stop="emit('removeLayerAt', layerIndex)"
-            >
-              <BaseIcon name="draw-delete" class="draw-panel-icon-sm" />
-            </button>
+            <BaseTooltip :text="layerDeleteTooltip()" position="bottom">
+              <button
+                type="button"
+                class="draw-btn draw-btn--xs draw-btn--danger"
+                :class="layerRowActionsClass(layerIndex)"
+                :disabled="layers.length <= 1"
+                :aria-label="layerDeleteTooltip()"
+                @click.stop="emit('removeLayerAt', layerIndex)"
+              >
+                <BaseIcon name="draw-delete" class="draw-panel-icon-sm" />
+              </button>
+            </BaseTooltip>
           </div>
         </div>
       </div>
