@@ -12,6 +12,7 @@ export interface BannerAsset {
 export const TIMEWEB_AFFILIATE_URLS = {
   cloud: 'https://timeweb.cloud/?i=142338',
   host: 'https://timeweb.com/ru/?i=142338',
+  aitun: 'https://aitunnel.ru?r=37109',
 } as const
 
 export interface AffiliatePartner {

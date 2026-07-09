@@ -21,4 +21,13 @@ export const redirectRoutes: RouteRecordRaw[] = [
       redirectUrl: TIMEWEB_AFFILIATE_URLS.host,
     },
   },
+  {
+    path: '/aitun',
+    name: 'redirect-twhost',
+    component: () => import('@/core/views/ExternalRedirectView.vue'),
+    meta: {
+      title: 'AUTUNNEL',
+      redirectUrl: TIMEWEB_AFFILIATE_URLS.aitun,
+    },
+  },
 ]
