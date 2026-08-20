@@ -23,11 +23,20 @@ export const redirectRoutes: RouteRecordRaw[] = [
   },
   {
     path: '/aitun',
-    name: 'redirect-twhost',
+    name: 'redirect-aitun',
     component: () => import('@/core/views/ExternalRedirectView.vue'),
     meta: {
       title: 'AUTUNNEL',
       redirectUrl: TIMEWEB_AFFILIATE_URLS.aitun,
+    },
+  },
+  {
+    path: '/max',
+    name: 'redirect-max',
+    component: () => import('@/core/views/ExternalRedirectView.vue'),
+    meta: {
+      title: 'MAX',
+      redirectUrl: 'https://max.ru/join/MnmYbwZYJBbjSr6uAIc_Fero_JOxXO066R1TKCjvOSs',
     },
   },
 ]
