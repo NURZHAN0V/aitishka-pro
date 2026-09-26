@@ -35,8 +35,7 @@ export function initTheme() {
   else
     themeRef.value = theme
 
-  if (stored)
-    applyTheme(stored)
+  applyTheme(theme)
 
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
     if (readStoredTheme())
@@ -44,6 +43,7 @@ export function initTheme() {
 
     const next = event.matches ? 'dark' : 'light'
     themeRef!.value = next
+    applyTheme(next)
   })
 }
 

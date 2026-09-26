@@ -53,6 +53,7 @@
   --color-success-rgb: 21 128 61;
   --color-success-alpha-8: rgb(var(--color-success-rgb) / 8%);
   --color-success-alpha-22: rgb(var(--color-success-rgb) / 22%);
+  --color-warning: #b45309;
   --color-error: #dc2626;
   --color-error-rgb: 220 38 38;
   --color-error-alpha-10: rgb(var(--color-error-rgb) / 10%);
@@ -118,6 +119,7 @@
   // Semantic
   --color-success: #4ade80;
   --color-success-rgb: 74 222 128;
+  --color-warning: #fbbf24;
   --color-error: #f87171;
   --color-error-rgb: 248 113 113;
 
@@ -181,6 +183,7 @@
     // Semantic
     --color-success: #4ade80;
     --color-success-rgb: 74 222 128;
+    --color-warning: #fbbf24;
     --color-error: #f87171;
     --color-error-rgb: 248 113 113;
 

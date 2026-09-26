@@ -64,42 +64,37 @@
     </script>
     <script>
       (function () {
-        var theme = localStorage.getItem('aitishka-theme')
-        if (theme === 'light' || theme === 'dark')
-          document.documentElement.dataset.theme = theme
+        var stored = localStorage.getItem('aitishka-theme')
+        var theme = stored === 'light' || stored === 'dark'
+          ? stored
+          : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        document.documentElement.dataset.theme = theme
       })()
     </script>
     <style>
       :root,
       [data-theme='light'] {
         --boot-bg: #f0f8ff;
-        --boot-surface: #fff;
+        --boot-surface: #ffffff;
         --boot-base: #c4daf0;
-        --boot-highlight: #e6f2fc;
+        --boot-highlight: #ffffff;
         --boot-accent: #1461cd;
+        --boot-card-border: #c4daf0;
       }
 
       [data-theme='dark'] {
         --boot-bg: #070b14;
         --boot-surface: #0f1524;
         --boot-base: #1a2840;
-        --boot-highlight: #151d30;
+        --boot-highlight: #243552;
         --boot-accent: #5b9beb;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        :root:not([data-theme]) {
-          --boot-bg: #070b14;
-          --boot-surface: #0f1524;
-          --boot-base: #1a2840;
-          --boot-highlight: #151d30;
-          --boot-accent: #5b9beb;
-        }
+        --boot-card-border: #243552;
       }
 
       #app-boot {
         min-height: 100dvh;
         background: var(--boot-bg);
+        color-scheme: light dark;
       }
 
       #app-boot.is-hidden {
@@ -121,7 +116,12 @@
 
       .boot-skeleton__bone {
         border-radius: 0.75rem;
-        background: linear-gradient(90deg, var(--boot-base) 0%, var(--boot-highlight) 50%, var(--boot-base) 100%);
+        background: linear-gradient(
+          90deg,
+          var(--boot-base) 0%,
+          var(--boot-highlight) 45%,
+          var(--boot-base) 100%
+        );
         background-size: 200% 100%;
         animation: boot-shimmer 1.5s ease-in-out infinite;
       }
@@ -162,8 +162,15 @@
       .boot-skeleton__card {
         height: 8rem;
         border-radius: 1.5rem;
-        background: var(--boot-surface);
-        border: 1px solid var(--boot-base);
+        border: 1px solid var(--boot-card-border);
+        background: linear-gradient(
+          90deg,
+          var(--boot-base) 0%,
+          var(--boot-highlight) 45%,
+          var(--boot-base) 100%
+        );
+        background-size: 200% 100%;
+        animation: boot-shimmer 1.5s ease-in-out infinite;
       }
 
       @media (min-width: 640px) {
@@ -188,7 +195,8 @@
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .boot-skeleton__bone {
+        .boot-skeleton__bone,
+        .boot-skeleton__card {
           animation: none;
         }
       }
