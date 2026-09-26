@@ -1,0 +1,80 @@
+/**
+ * Site UI icons from Hugeicons free set (@hugeicons/core-free-icons).
+ * Keys match BaseIcon names used across the app (outside draw editor).
+ */
+import {
+  ArrowDown01Icon,
+  ArrowLeft01Icon,
+  ArrowRight01Icon,
+  ArrowUp01Icon,
+  ArrowUpDoubleIcon,
+  Calendar03Icon,
+  Call02Icon,
+  Cancel01Icon,
+  Chat01Icon,
+  Clock01Icon,
+  CustomerSupportIcon,
+  Folder02Icon,
+  Home01Icon,
+  ImageNotFound01Icon,
+  Link01Icon,
+  Location01Icon,
+  Mail01Icon,
+  Menu01Icon,
+  Moon02Icon,
+  MortarboardIcon,
+  News01Icon,
+  PlayIcon,
+  Search01Icon,
+  Share08Icon,
+  SourceCodeIcon,
+  Sun03Icon,
+  TelegramIcon,
+  Video01Icon,
+  VideoOffIcon,
+  VkIcon,
+  YoutubeIcon,
+} from '@hugeicons/core-free-icons'
+import { hugeiconToSvg } from '@/core/icons/hugeiconToSvg'
+
+type HugeIconNode = Parameters<typeof hugeiconToSvg>[0]
+
+function svg(icon: unknown) {
+  return hugeiconToSvg(icon as HugeIconNode)
+}
+
+export const siteHugeicons: Record<string, string> = {
+  'arrow-right': svg(ArrowRight01Icon),
+  'arrow-down': svg(ArrowDown01Icon),
+  'arrow-right-drop': svg(ArrowRight01Icon),
+  'arrow-left-drop': svg(ArrowLeft01Icon),
+  'menu': svg(Menu01Icon),
+  'close': svg(Cancel01Icon),
+  'article': svg(News01Icon),
+  'video': svg(Video01Icon),
+  'graduation': svg(MortarboardIcon),
+  'support': svg(CustomerSupportIcon),
+  'phone': svg(Call02Icon),
+  'mail': svg(Mail01Icon),
+  'map-pin': svg(Location01Icon),
+  'calendar': svg(Calendar03Icon),
+  'clock': svg(Clock01Icon),
+  'share': svg(Share08Icon),
+  'links': svg(Link01Icon),
+  'chevron-up': svg(ArrowUp01Icon),
+  'arrow-up-double': svg(ArrowUpDoubleIcon),
+  'image-off': svg(ImageNotFound01Icon),
+  'video-off': svg(VideoOffIcon),
+  'sun': svg(Sun03Icon),
+  'moon': svg(Moon02Icon),
+  'search': svg(Search01Icon),
+  'home': svg(Home01Icon),
+  'folder': svg(Folder02Icon),
+  'news': svg(News01Icon),
+  'code': svg(SourceCodeIcon),
+  'play': svg(PlayIcon),
+  'vk': svg(VkIcon),
+  'telegram': svg(TelegramIcon),
+  'youtube': svg(YoutubeIcon),
+  'max': svg(Chat01Icon),
+}
