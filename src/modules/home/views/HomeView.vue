@@ -14,6 +14,13 @@ const enrollModalOpen = inject<Ref<boolean>>('enrollModalOpen', ref(false))
 const benefits = ref<Benefit[]>([])
 const { target: benefitsRef, visible: benefitsVisible } = useWhenVisible()
 
+const heroStats = [
+  { icon: 'rocket', tone: 'blue', title: '100+', text: 'полезных статей' },
+  { icon: 'play', tone: 'violet', title: '50+', text: 'видеоуроков' },
+  { icon: 'code', tone: 'green', title: 'Практика', text: 'с реальными примерами' },
+  { icon: 'users', tone: 'sky', title: 'Для всех', text: 'от новичков до уверенных' },
+] as const
+
 onMounted(async () => {
   applyPageMeta({
     title: HOME_PAGE_TITLE,
@@ -33,22 +40,62 @@ function openEnrollModal() {
 
 <template>
   <div class="home">
-    <section class="home__hero">
-      <h1 class="home__title">
-        Обучение разработке
-        <span class="home__title-accent"> с нуля</span>
-      </h1>
-      <p class="home__lead">
-        Статьи, видео и практика по Git, HTML, CSS, JavaScript. Структурированные материалы для новичков и тех, кто хочет закрепить навыки.
-      </p>
-      <div class="home__hero-actions">
-        <BaseButton @click="openEnrollModal">
-          Начать обучение
-        </BaseButton>
-        <RouterLink to="/articles" class="btn btn--outline btn--block">
-          Смотреть материалы
-        </RouterLink>
+    <section class="home__hero" aria-labelledby="home-hero-title">
+      <div class="home__hero-grid">
+        <div class="home__hero-copy">
+          <p class="home__badge">
+            <BaseIcon name="graduation" size="1rem" />
+            <span>IT для новичков и не только</span>
+          </p>
+          <h1 id="home-hero-title" class="home__title">
+            Обучение разработке
+            <span class="home__title-accent">с нуля</span>
+          </h1>
+          <p class="home__lead">
+            Статьи, видео и практика по Git, HTML, CSS, JavaScript. Структурированные материалы для новичков и тех, кто хочет закрепить навыки.
+          </p>
+          <div class="home__hero-actions">
+            <BaseButton class="home__cta-primary" @click="openEnrollModal">
+              <BaseIcon name="play" size="1.125rem" />
+              <span>Начать обучение</span>
+              <BaseIcon name="arrow-right" size="1.125rem" />
+            </BaseButton>
+            <RouterLink to="/articles" class="btn btn--outline home__cta-secondary">
+              <BaseIcon name="book" size="1.125rem" />
+              <span>Смотреть материалы</span>
+            </RouterLink>
+          </div>
+        </div>
+
+        <div class="home__hero-visual" aria-hidden="true">
+          <div class="home__hero-glow" />
+          <img
+            class="home__hero-image"
+            src="/images/hero-illustration.png"
+            width="1024"
+            height="668"
+            alt=""
+            decoding="async"
+            fetchpriority="high"
+          >
+        </div>
       </div>
+
+      <ul class="home__stats">
+        <li
+          v-for="stat in heroStats"
+          :key="stat.title"
+          class="home__stat"
+        >
+          <span class="home__stat-icon" :class="`home__stat-icon--${stat.tone}`">
+            <BaseIcon :name="stat.icon" size="1.25rem" />
+          </span>
+          <span class="home__stat-text">
+            <strong>{{ stat.title }}</strong>
+            <span>{{ stat.text }}</span>
+          </span>
+        </li>
+      </ul>
     </section>
 
     <section ref="benefitsRef" class="home__section">
@@ -94,45 +141,74 @@ function openEnrollModal() {
 
 <style scoped lang="scss">
 .home__hero {
-  padding-block: 2.5rem 3.5rem;
-  text-align: center;
+  padding-block: 1.5rem 2.5rem;
 
   @include lg {
-    padding-block: 5rem;
+    padding-block: 2.5rem 3.5rem;
   }
+}
+
+.home__hero-grid {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+
+  @include lg {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 2.5rem;
+  }
+}
+
+.home__hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.home__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1.25rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, $color-primary 10%, transparent);
+  color: $color-primary;
+  font-size: $text-sm;
+  font-weight: 500;
+  line-height: 1.2;
+  animation: home-fade-up 0.55s ease both;
 }
 
 .home__title {
+  margin: 0;
   font-family: $font-display;
-  font-size: $text-3xl;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
   font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
   text-wrap: balance;
-  max-width: 48rem;
-  margin-inline: auto;
-
-  @include sm {
-    font-size: $text-4xl;
-  }
+  max-width: 14ch;
+  animation: home-fade-up 0.6s ease 0.05s both;
 }
 
 .home__title-accent {
+  display: block;
   color: $color-primary;
 }
 
 .home__lead {
-  margin-top: 1rem;
-  font-size: $text-lg;
-  line-height: 1.6;
+  margin: 1.25rem 0 0;
+  max-width: 36rem;
+  font-size: $text-base;
+  line-height: 1.65;
   color: $color-secondary;
-  max-width: 42rem;
-  margin-inline: auto;
   text-wrap: pretty;
+  animation: home-fade-up 0.65s ease 0.1s both;
 
   @include sm {
-    margin-top: 1.5rem;
-    font-size: $text-xl;
+    font-size: $text-lg;
   }
 }
 
@@ -140,12 +216,141 @@ function openEnrollModal() {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  margin-top: 2rem;
-  align-items: center;
+  width: 100%;
+  margin-top: 1.75rem;
+  animation: home-fade-up 0.7s ease 0.15s both;
 
   @include sm {
     flex-direction: row;
-    justify-content: center;
+    flex-wrap: wrap;
+    width: auto;
+  }
+}
+
+.home__cta-primary,
+.home__cta-secondary {
+  min-height: 3rem;
+}
+
+.home__hero-visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 16rem;
+  animation: home-fade-up 0.75s ease 0.12s both;
+
+  @include lg {
+    min-height: 22rem;
+  }
+}
+
+.home__hero-glow {
+  position: absolute;
+  inset: 12% 8% 18%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    color-mix(in srgb, $color-primary 22%, transparent) 0%,
+    color-mix(in srgb, $color-primary 8%, transparent) 45%,
+    transparent 72%
+  );
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.home__hero-image {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 34rem);
+  height: auto;
+  animation: home-float 5.5s ease-in-out infinite;
+}
+
+.home__stats {
+  display: grid;
+  gap: 0.75rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+  animation: home-fade-up 0.7s ease 0.2s both;
+
+  @include sm {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  @include lg {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 2.75rem;
+  }
+}
+
+.home__stat {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1rem 1.125rem;
+  border: 1px solid $color-gray-200;
+  border-radius: $radius-lg;
+  background: $color-white;
+  box-shadow: $shadow-sm;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    border-color: $color-primary-alpha-30;
+    transform: translateY(-2px);
+  }
+}
+
+.home__stat-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: $radius-sm;
+
+  &--blue {
+    background: $color-primary-alpha-10;
+    color: $color-primary;
+  }
+
+  &--violet {
+    background: color-mix(in srgb, #7c5cbf 14%, transparent);
+    color: #6a4db0;
+  }
+
+  &--green {
+    background: color-mix(in srgb, #22a06b 14%, transparent);
+    color: #1b8a5a;
+  }
+
+  &--sky {
+    background: color-mix(in srgb, #3b9eff 14%, transparent);
+    color: #2a7fd4;
+  }
+}
+
+.home__stat-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+
+  strong {
+    font-family: $font-display;
+    font-size: $text-lg;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: $color-default;
+  }
+
+  span {
+    font-size: $text-sm;
+    line-height: 1.35;
+    color: $color-secondary;
   }
 }
 
@@ -154,13 +359,25 @@ function openEnrollModal() {
 }
 
 .home__section-title {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto 2rem;
   font-family: $font-display;
   font-size: $text-2xl;
   font-weight: 600;
   letter-spacing: -0.02em;
   text-wrap: balance;
   text-align: center;
-  margin-bottom: 2rem;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 0.2rem;
+    margin: 0.75rem auto 0;
+    border-radius: 999px;
+    background: $color-primary;
+  }
 
   @include sm {
     font-size: $text-3xl;
@@ -249,6 +466,41 @@ function openEnrollModal() {
   p {
     margin-block: 0.75rem 1.5rem;
     color: $color-secondary;
+  }
+}
+
+@keyframes home-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-0.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home__badge,
+  .home__title,
+  .home__lead,
+  .home__hero-actions,
+  .home__hero-visual,
+  .home__stats,
+  .home__hero-image {
+    animation: none;
   }
 }
 </style>
