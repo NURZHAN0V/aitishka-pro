@@ -53,25 +53,6 @@ export const TIMEWEB_HOST: AffiliatePartner = {
   alt: 'Timeweb — виртуальный хостинг',
   ariaLabel: 'Timeweb — перейти на сайт',
   assets: {
-    leaderboard: [
-      {
-        src: `${TIMEWEB_BANNERS_CDN}/728x90/728x90-14.jpg`,
-        width: 728,
-        height: 90,
-        media: '(min-width: 1024px)',
-      },
-      {
-        src: `${TIMEWEB_BANNERS_CDN}/600x90/600x90-7.jpg`,
-        width: 600,
-        height: 90,
-        media: '(min-width: 768px)',
-      },
-      {
-        src: `${TIMEWEB_BANNERS_CDN}/468x60/468x60-7.jpg`,
-        width: 468,
-        height: 60,
-      },
-    ],
     badge: {
       src: `${TIMEWEB_BANNERS_CDN}/168x31/168x31-1.jpg`,
       width: 168,
