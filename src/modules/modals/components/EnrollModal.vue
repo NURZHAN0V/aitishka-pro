@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
 import { inject, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { api } from '@/core/api'
+import { ApiError } from '@/core/api/http'
 import BaseButton from '@/core/components/BaseButton.vue'
 import BaseIcon from '@/core/components/BaseIcon.vue'
 import FormConsentCheckbox from '@/core/components/FormConsentCheckbox.vue'
 
 const enrollModalOpen = inject<Ref<boolean>>('enrollModalOpen', ref(false))
+const route = useRoute()
 const name = ref('')
 const phone = ref('')
 const consentAccepted = ref(false)
 const submitted = ref(false)
+const submitting = ref(false)
+const errorMessage = ref('')
 
 watch(enrollModalOpen, (open) => {
   document.body.style.overflow = open ? 'hidden' : ''
@@ -18,6 +24,8 @@ watch(enrollModalOpen, (open) => {
     phone.value = ''
     consentAccepted.value = false
     submitted.value = false
+    submitting.value = false
+    errorMessage.value = ''
   }
 })
 
@@ -25,10 +33,34 @@ function close() {
   enrollModalOpen.value = false
 }
 
-function submit() {
-  if (!name.value.trim() || !phone.value.trim() || !consentAccepted.value)
+async function submit() {
+  if (!name.value.trim() || !phone.value.trim() || !consentAccepted.value || submitting.value)
     return
-  submitted.value = true
+
+  submitting.value = true
+  errorMessage.value = ''
+
+  try {
+    const siteUrl = (import.meta.env.VITE_SITE_URL || window.location.origin).replace(/\/$/, '')
+    await api.createRequest({
+      kind: 'callback',
+      name: name.value.trim(),
+      phone: phone.value.trim(),
+      consent: true,
+      sourceUrl: `${siteUrl}${route.fullPath}`,
+      title: 'Заявка на обучение',
+    })
+    submitted.value = true
+  }
+  catch (error) {
+    if (error instanceof ApiError)
+      errorMessage.value = error.message || 'Не удалось отправить заявку. Попробуйте позже.'
+    else
+      errorMessage.value = 'Не удалось отправить заявку. Попробуйте позже.'
+  }
+  finally {
+    submitting.value = false
+  }
 }
 </script>
 
@@ -59,6 +91,7 @@ function submit() {
                     required
                     class="form-field__input"
                     placeholder="Ваше имя"
+                    :disabled="submitting"
                   >
                 </div>
                 <div class="form-field">
@@ -70,14 +103,26 @@ function submit() {
                     required
                     class="form-field__input"
                     placeholder="+7 (999) 999-99-99"
+                    :disabled="submitting"
                   >
                 </div>
                 <FormConsentCheckbox
                   id="enroll-consent"
                   v-model="consentAccepted"
                 />
-                <BaseButton type="submit" block :disabled="!consentAccepted">
-                  Отправить
+                <p
+                  v-if="errorMessage"
+                  class="modal__error"
+                  role="alert"
+                >
+                  {{ errorMessage }}
+                </p>
+                <BaseButton
+                  type="submit"
+                  block
+                  :disabled="!consentAccepted || submitting"
+                >
+                  {{ submitting ? 'Отправка…' : 'Отправить' }}
                 </BaseButton>
               </form>
             </template>
@@ -133,6 +178,12 @@ function submit() {
   margin-bottom: 1rem;
   font-size: 0.875rem;
   color: $color-secondary;
+}
+
+.modal__error {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  color: #b42318;
 }
 
 .modal__success {

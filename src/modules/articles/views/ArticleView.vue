@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { Post } from '@/index.d'
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { api } from '@/core/api'
+import CmsBlockRenderer from '@/core/cms/CmsBlockRenderer.vue'
 import { useMarkdown } from '@/core/composables/useMarkdown'
 import { usePageBreadcrumbs } from '@/core/composables/usePageBreadcrumbs'
 import { applyPageMeta } from '@/core/composables/usePageMeta'
@@ -22,12 +23,16 @@ const loading = ref(true)
 const articleRef = ref<HTMLElement | null>(null)
 const { sections, activeId, scrollToSection } = useArticleToc(articleRef, html)
 
+const useBlocks = computed(() => Boolean(post.value?.contentBlocks?.blocks?.length))
+
 async function loadPost() {
   loading.value = true
   const slug = route.params.slug as string
   post.value = await api.getPost(slug)
   if (post.value) {
-    html.value = render(post.value.body)
+    html.value = useBlocks.value
+      ? ''
+      : render(post.value.body)
     setPageBreadcrumbs(buildArticleBreadcrumbs(post.value))
     applyPageMeta({
       title: post.value.title,
@@ -68,7 +73,14 @@ watch(() => route.params.slug, loadPost)
           @click="handleArticleCodeBlockClick"
         >
           <h1>{{ post.title }}</h1>
-          <div v-html="html" />
+          <CmsBlockRenderer
+            v-if="useBlocks"
+            :document="post.contentBlocks"
+          />
+          <div
+            v-else
+            v-html="html"
+          />
         </article>
       </div>
 

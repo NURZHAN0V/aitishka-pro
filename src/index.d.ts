@@ -29,8 +29,35 @@ export interface PostSummary {
   views: number
 }
 
+export interface CmsBlock {
+  type: string
+  attrs?: Record<string, unknown>
+}
+
+export interface CmsBlockDocument {
+  version: number
+  blocks: CmsBlock[]
+}
+
 export interface Post extends PostSummary {
   body: string
+  contentBlocks?: CmsBlockDocument
+  excerpt?: string
+}
+
+export interface CreateRequestPayload {
+  kind: 'callback' | 'access' | string
+  name: string
+  phone: string
+  consent: boolean
+  sourceUrl: string
+  title: string
+}
+
+export interface CreateRequestResult {
+  id: number
+  number: string
+  status: string
 }
 
 export interface VideoItem {

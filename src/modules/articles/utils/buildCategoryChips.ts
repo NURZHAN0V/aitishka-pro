@@ -18,10 +18,11 @@ export function buildCategoryChips(categories: Category[]): CategoryChip[] {
   const articleCategories = categories.filter(c => c.slug !== NEWS_CATEGORY_SLUG)
 
   for (const category of articleCategories) {
+    const hasSubs = category.subcategories.length > 0
     chips.push({
       id: `cat-${category.slug}`,
       label: category.name,
-      to: `/articles/${category.slug}`,
+      to: hasSubs ? `/articles/${category.slug}` : `/articles/category/${category.slug}`,
       kind: 'category',
     })
   }
@@ -39,11 +40,15 @@ export function isCategoryChipActive(
     return routeName === 'articles'
 
   if (chip.kind === 'category') {
-    const categorySlug = chip.to.split('/').filter(Boolean)[1]
-    return routeParams.category === categorySlug
+    const parts = chip.to.split('/').filter(Boolean)
+    const categorySlug = parts[parts.length - 1]
+    const paramCategory = routeParams.category
+    const paramSlug = routeParams.slug
+    return (paramCategory === categorySlug || paramSlug === categorySlug)
       && (routeName === 'articles-category'
         || routeName === 'articles-subcategory'
-        || routeName === 'article')
+        || routeName === 'article'
+        || routeName === 'article-legacy')
   }
 
   return false

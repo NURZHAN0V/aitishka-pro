@@ -10,8 +10,12 @@ export function buildArticleBreadcrumbs(post: Post): BreadcrumbItem[] {
   else {
     items.push({ label: 'Статьи', to: '/articles' })
 
-    if (post.category?.slug)
-      items.push({ label: post.category.name, to: `/articles/${post.category.slug}` })
+    if (post.category?.slug) {
+      const categoryTo = post.subcategory?.slug
+        ? `/articles/${post.category.slug}`
+        : `/articles/category/${post.category.slug}`
+      items.push({ label: post.category.name, to: categoryTo })
+    }
 
     if (post.subcategory?.slug)
       items.push({ label: post.subcategory.name, to: `/articles/${post.category.slug}/${post.subcategory.slug}` })

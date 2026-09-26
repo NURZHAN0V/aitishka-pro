@@ -214,7 +214,11 @@ const email = 'info@aitishka.pro'
       <ul>
         <li>телефон: <a :href="`tel:${phone.replace(/\D/g, '')}`">{{ phone }}</a>;</li>
         <li>электронная почта: <a :href="`mailto:${email}`">{{ email }}</a>;</li>
-        <li>страница контактов: <RouterLink to="/contact">aitishka.pro/contact</RouterLink>.</li>
+        <li>
+          страница контактов: <RouterLink to="/contact">
+            aitishka.pro/contact
+          </RouterLink>.
+        </li>
       </ul>
     </div>
   </article>

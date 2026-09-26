@@ -6,10 +6,16 @@ export const articlesRoutes = [
     meta: { title: 'Статьи', description: 'Учебные материалы и полезные статьи по веб-разработке.' },
   },
   {
-    path: '/articles/:category',
+    path: '/articles/category/:category',
     name: 'articles-category',
     component: () => import('@/modules/articles/views/CategoryView.vue'),
     meta: { title: 'Статьи' },
+  },
+  {
+    path: '/articles/:category/:subcategory/:slug',
+    name: 'article-legacy',
+    component: () => import('@/modules/articles/views/ArticleView.vue'),
+    meta: { title: 'Статья' },
   },
   {
     path: '/articles/:category/:subcategory',
@@ -18,9 +24,9 @@ export const articlesRoutes = [
     meta: { title: 'Статьи' },
   },
   {
-    path: '/articles/:category/:subcategory/:slug',
+    path: '/articles/:slug',
     name: 'article',
-    component: () => import('@/modules/articles/views/ArticleView.vue'),
-    meta: { title: 'Статья' },
+    component: () => import('@/modules/articles/views/ArticlesSlugView.vue'),
+    meta: { title: 'Статьи' },
   },
 ]

@@ -9,6 +9,7 @@ import { homeRoutes } from '@/modules/home/routes'
 import { legalRoutes } from '@/modules/legal/routes'
 import { mediaRoutes } from '@/modules/media/routes'
 import { newsRoutes } from '@/modules/news/routes'
+import { pagesRoutes } from '@/modules/pages/routes'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +18,7 @@ const router = createRouter({
     ...aboutRoutes,
     ...contactRoutes,
     ...articlesRoutes,
+    ...pagesRoutes,
     ...mediaRoutes,
     ...newsRoutes,
     ...drawRoutes,

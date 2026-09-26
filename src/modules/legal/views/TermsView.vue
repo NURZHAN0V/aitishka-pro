@@ -58,7 +58,9 @@ const email = 'info@aitishka.pro'
       <p>
         3.1. Для отправки заявки на обучение или обратной связи Пользователь указывает достоверные контактные данные
         и подтверждает согласие с Соглашением и
-        <RouterLink to="/privacy">Политикой конфиденциальности</RouterLink>.
+        <RouterLink to="/privacy">
+          Политикой конфиденциальности
+        </RouterLink>.
       </p>
       <p>
         3.2. Пользователь несёт ответственность за точность предоставленных данных и за сохранность
@@ -135,7 +137,9 @@ const email = 'info@aitishka.pro'
       <h2>8. Персональные данные</h2>
       <p>
         Обработка персональных данных Пользователя регулируется
-        <RouterLink to="/privacy">Политикой конфиденциальности</RouterLink>,
+        <RouterLink to="/privacy">
+          Политикой конфиденциальности
+        </RouterLink>,
         являющейся неотъемлемой частью настоящего Соглашения.
       </p>
 
@@ -168,7 +172,11 @@ const email = 'info@aitishka.pro'
       <ul>
         <li>телефон: <a :href="`tel:${phone.replace(/\D/g, '')}`">{{ phone }}</a>;</li>
         <li>электронная почта: <a :href="`mailto:${email}`">{{ email }}</a>;</li>
-        <li>страница контактов: <RouterLink to="/contact">aitishka.pro/contact</RouterLink>.</li>
+        <li>
+          страница контактов: <RouterLink to="/contact">
+            aitishka.pro/contact
+          </RouterLink>.
+        </li>
       </ul>
     </div>
   </article>

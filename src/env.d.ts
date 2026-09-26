@@ -38,6 +38,9 @@ declare module 'markdown-it-container' {
 
 interface ImportMetaEnv {
   readonly VITE_SITE_URL: string
+  readonly VITE_CONTENT_SOURCE?: string
+  readonly VITE_COMERS_API_URL?: string
+  readonly VITE_COMERS_STOREFRONT_KEY?: string
 }
 
 interface ImportMeta {

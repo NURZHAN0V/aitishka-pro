@@ -33,6 +33,11 @@ jobs:
         run: pnpm install
 
       - name: Build
+        env:
+          VITE_SITE_URL: ${{ vars.VITE_SITE_URL || 'https://aitishka.pro' }}
+          VITE_CONTENT_SOURCE: ${{ vars.VITE_CONTENT_SOURCE || 'local' }}
+          VITE_COMERS_API_URL: ${{ secrets.VITE_COMERS_API_URL }}
+          VITE_COMERS_STOREFRONT_KEY: ${{ secrets.VITE_COMERS_STOREFRONT_KEY }}
         run: pnpm build
 
       - name: SPA fallback for GitHub Pages

@@ -19,10 +19,13 @@ export function buildSubcategoryBreadcrumbs(
 ): BreadcrumbItem[] {
   const category = taxonomy.categories.find(c => c.slug === categorySlug)
   const subcategory = category?.subcategories.find(s => s.slug === subcategorySlug)
+  const categoryTo = category?.subcategories.length
+    ? `/articles/${categorySlug}`
+    : `/articles/category/${categorySlug}`
 
   return [
     { label: 'Статьи', to: '/articles' },
-    { label: category?.name || categorySlug, to: `/articles/${categorySlug}` },
+    { label: category?.name || categorySlug, to: categoryTo },
     { label: subcategory?.name || subcategorySlug },
   ]
 }
