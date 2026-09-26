@@ -253,6 +253,92 @@ export function useDrawSpriteDocument(options: {
     options.pushHistory(DRAW_HISTORY_DOCUMENT_LABEL.flipVertical)
   }
 
+  const flipActiveLayerHorizontal = () => {
+    for (const row of options.activeLayer.value.pixels) {
+      row.reverse()
+    }
+    options.requestRender()
+    options.pushHistory(DRAW_HISTORY_DOCUMENT_LABEL.flipActiveLayerHorizontal)
+  }
+
+  const flipActiveLayerVertical = () => {
+    options.activeLayer.value.pixels.reverse()
+    options.requestRender()
+    options.pushHistory(DRAW_HISTORY_DOCUMENT_LABEL.flipActiveLayerVertical)
+  }
+
+  const dismissSelection = () => {
+    if (!options.selection.value) {
+      return
+    }
+    options.selection.value = null
+    options.requestRender()
+  }
+
+  const clearSelectionOnActiveLayer = () => {
+    const sel = options.selection.value
+    if (!sel) {
+      return
+    }
+    const { x, y, width, height } = sel
+    const layer = options.activeLayer.value
+    for (let yy = 0; yy < height; yy += 1) {
+      for (let xx = 0; xx < width; xx += 1) {
+        const px = x + xx
+        const py = y + yy
+        if (options.inBounds(px, py)) {
+          layer.pixels[py]![px] = ''
+        }
+      }
+    }
+    options.requestRender()
+    options.pushHistory(DRAW_HISTORY_DOCUMENT_LABEL.clearSelection)
+  }
+
+  const moveSelectionContent = (dx: number, dy: number) => {
+    const sel = options.selection.value
+    if (!sel || (dx === 0 && dy === 0)) {
+      return
+    }
+    const { x, y, width, height } = sel
+    const layer = options.activeLayer.value
+    const clip: string[][] = []
+    for (let yy = 0; yy < height; yy += 1) {
+      const row: string[] = []
+      for (let xx = 0; xx < width; xx += 1) {
+        const px = x + xx
+        const py = y + yy
+        const value = options.inBounds(px, py) ? layer.pixels[py]![px]! : ''
+        row.push(value)
+        if (options.inBounds(px, py)) {
+          layer.pixels[py]![px] = ''
+        }
+      }
+      clip.push(row)
+    }
+    for (let yy = 0; yy < height; yy += 1) {
+      for (let xx = 0; xx < width; xx += 1) {
+        const value = clip[yy]![xx]!
+        if (!value) {
+          continue
+        }
+        const nx = x + xx + dx
+        const ny = y + yy + dy
+        if (options.inBounds(nx, ny)) {
+          layer.pixels[ny]![nx] = value
+        }
+      }
+    }
+    options.selection.value = {
+      x: x + dx,
+      y: y + dy,
+      width,
+      height,
+    }
+    options.requestRender()
+    options.pushHistory(DRAW_HISTORY_DOCUMENT_LABEL.moveSelection)
+  }
+
   const cropToSelection = () => {
     if (!options.selection.value) {
       return
@@ -347,6 +433,11 @@ export function useDrawSpriteDocument(options: {
     rotateRight,
     flipHorizontal,
     flipVertical,
+    flipActiveLayerHorizontal,
+    flipActiveLayerVertical,
+    dismissSelection,
+    clearSelectionOnActiveLayer,
+    moveSelectionContent,
     cropToSelection,
     onResizeWidthInput,
     onResizeHeightInput,

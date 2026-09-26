@@ -9,6 +9,8 @@ import { toolIconById } from '@/modules/draw/types/draw-editor'
 defineProps<{
   activeTool: DrawTool
   activeToolLabel: string
+  activeFrameLabel: string
+  activeLayerLabel: string
   isReady: boolean
   isDirty: boolean
   lastSavedLabel: string
@@ -52,39 +54,43 @@ onUnmounted(() => {
 <template>
   <section class="draw-header">
     <div class="draw-header__inner">
-      <div class="draw-header__actions">
-        <BaseTooltip text="Вернуться на сайт">
-          <RouterLink to="/" aria-label="Вернуться на сайт" class="draw-btn draw-btn--icon">
-            <BaseIcon name="draw-back" size="1rem" />
-          </RouterLink>
-        </BaseTooltip>
-        <BaseTooltip text="Открыть редактор в новой вкладке">
-          <button
-            type="button"
-            aria-label="Открыть редактор в новой вкладке"
-            class="draw-btn draw-btn--icon"
-            @click="emit('openInNewTab')"
-          >
-            <BaseIcon name="draw-external" size="1rem" />
-          </button>
-        </BaseTooltip>
-        <BaseTooltip :text="isFullscreen ? 'Выйти из полноэкранного режима' : 'Развернуть на весь экран'">
-          <button
-            type="button"
-            class="draw-btn draw-btn--icon"
-            :aria-label="isFullscreen ? 'Выйти из полноэкранного режима' : 'Развернуть на весь экран'"
-            :aria-pressed="isFullscreen"
-            @click="toggleFullscreen"
-          >
-            <BaseIcon :name="isFullscreen ? 'draw-fullscreen-exit' : 'draw-fullscreen'" size="1rem" />
-          </button>
-        </BaseTooltip>
-      </div>
-      <div class="draw-header__tool-badge">
-        <BaseIcon :name="toolIconById[activeTool]" size="1rem" class="draw-panel-icon-md" />
-        <p>
-          Активный инструмент: <span class="draw-header__tool-label">{{ activeToolLabel }}</span>
-        </p>
+      <div class="draw-header__start">
+        <div class="draw-header__actions">
+          <BaseTooltip text="Вернуться на сайт">
+            <RouterLink to="/" aria-label="Вернуться на сайт" class="draw-btn draw-btn--icon">
+              <BaseIcon name="draw-back" size="1rem" />
+            </RouterLink>
+          </BaseTooltip>
+          <BaseTooltip text="Открыть редактор в новой вкладке">
+            <button
+              type="button"
+              aria-label="Открыть редактор в новой вкладке"
+              class="draw-btn draw-btn--icon"
+              @click="emit('openInNewTab')"
+            >
+              <BaseIcon name="draw-external" size="1rem" />
+            </button>
+          </BaseTooltip>
+          <BaseTooltip :text="isFullscreen ? 'Выйти из полноэкранного режима' : 'Развернуть на весь экран'">
+            <button
+              type="button"
+              class="draw-btn draw-btn--icon"
+              :aria-label="isFullscreen ? 'Выйти из полноэкранного режима' : 'Развернуть на весь экран'"
+              :aria-pressed="isFullscreen"
+              @click="toggleFullscreen"
+            >
+              <BaseIcon :name="isFullscreen ? 'draw-fullscreen-exit' : 'draw-fullscreen'" size="1rem" />
+            </button>
+          </BaseTooltip>
+        </div>
+        <div class="draw-header__context" aria-live="polite">
+          <span class="draw-header__tool" :title="activeToolLabel">
+            <BaseIcon :name="toolIconById[activeTool]" size="1rem" />
+            <span class="draw-header__tool-name">{{ activeToolLabel }}</span>
+          </span>
+          <span class="draw-header__meta">{{ activeFrameLabel }}</span>
+          <span class="draw-header__meta">{{ activeLayerLabel }}</span>
+        </div>
       </div>
       <div class="draw-header__status">
         <span class="draw-chip" :class="isReady ? 'draw-chip--ready' : 'draw-chip--init'">

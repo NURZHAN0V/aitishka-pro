@@ -1,5 +1,3 @@
-import type { DrawIconName } from '@/modules/draw/icons/draw-icons'
-
 export type DrawTool
   = | 'pencil'
     | 'mirror-pencil'
@@ -81,7 +79,11 @@ export const DRAW_HISTORY_DOCUMENT_LABEL = {
   rotateCanvas: 'Повернуть холст на 90°',
   flipHorizontal: 'Отразить по горизонтали',
   flipVertical: 'Отразить по вертикали',
+  flipActiveLayerHorizontal: 'Отразить слой по горизонтали',
+  flipActiveLayerVertical: 'Отразить слой по вертикали',
   cropToSelection: 'Обрезать по выделению',
+  clearSelection: 'Очистить выделение',
+  moveSelection: 'Перенести выделение',
   resizeCanvas: 'Изменить размер холста',
   importImage: 'Импорт изображения в слой',
 } as const
@@ -151,9 +153,9 @@ export const toolLabelById: Record<DrawTool, string> = toolOptions.reduce(
   {} as Record<DrawTool, string>,
 )
 
-export const toolIconById: Record<DrawTool, DrawIconName> = {
+export const toolIconById: Record<DrawTool, string> = {
   'pencil': 'draw-pencil',
-  'mirror-pencil': 'draw-brush',
+  'mirror-pencil': 'draw-flip-h',
   'fill': 'draw-fill',
   'replace-color': 'draw-exchange',
   'eraser': 'draw-eraser',
@@ -162,7 +164,7 @@ export const toolIconById: Record<DrawTool, DrawIconName> = {
   'circle': 'draw-circle',
   'move': 'draw-move',
   'shape-select': 'draw-magic',
-  'rect-select': 'draw-crop',
+  'rect-select': 'draw-rect-select',
   'lasso': 'draw-lasso',
   'lighten': 'draw-lighten',
   'dither': 'draw-dither',
@@ -179,4 +181,13 @@ export const primaryToolIds: DrawTool[] = [
   'mirror-pencil',
   'move',
   'eyedropper',
+]
+
+export const secondaryToolIds: DrawTool[] = [
+  'rect-select',
+  'lasso',
+  'shape-select',
+  'replace-color',
+  'lighten',
+  'dither',
 ]

@@ -36,6 +36,9 @@ export function useDrawPainting(options: {
   /** Кнопка, с которой начали штрих (ПКМ — цвет из вторичного слота, как в палитре). */
   let strokeUsesSecondary = false
 
+  /** Перенос пикселей внутри прямоугольного выделения инструментом «Перемещение». */
+  let movingSelectionContent = false
+
   /** Последняя закрашенная клетка сетки при активном штрихе — для интерполяции при быстром движении. */
   let lastStrokeGridPoint: DrawPoint | null = null
 
@@ -77,6 +80,55 @@ export function useDrawPainting(options: {
 
   const inBounds = (x: number, y: number): boolean =>
     x >= 0 && y >= 0 && x < options.canvasWidth.value && y < options.canvasHeight.value
+
+  const pointInSelection = (point: DrawPoint, sel: DrawSelectionRect): boolean =>
+    point.x >= sel.x
+    && point.y >= sel.y
+    && point.x < sel.x + sel.width
+    && point.y < sel.y + sel.height
+
+  const applyMoveSelectionContent = (dx: number, dy: number) => {
+    const sel = options.selection.value
+    if (!sel || (dx === 0 && dy === 0)) {
+      return false
+    }
+    const { x, y, width, height } = sel
+    const layer = options.activeLayer.value
+    const clip: string[][] = []
+    for (let yy = 0; yy < height; yy += 1) {
+      const row: string[] = []
+      for (let xx = 0; xx < width; xx += 1) {
+        const px = x + xx
+        const py = y + yy
+        const value = inBounds(px, py) ? layer.pixels[py]![px]! : ''
+        row.push(value)
+        if (inBounds(px, py)) {
+          layer.pixels[py]![px] = ''
+        }
+      }
+      clip.push(row)
+    }
+    for (let yy = 0; yy < height; yy += 1) {
+      for (let xx = 0; xx < width; xx += 1) {
+        const value = clip[yy]![xx]!
+        if (!value) {
+          continue
+        }
+        const nx = x + xx + dx
+        const ny = y + yy + dy
+        if (inBounds(nx, ny)) {
+          layer.pixels[ny]![nx] = value
+        }
+      }
+    }
+    options.selection.value = {
+      x: x + dx,
+      y: y + dy,
+      width,
+      height,
+    }
+    return true
+  }
 
   const setPixel = (x: number, y: number, color: string) => {
     if (!inBounds(x, y)) {
@@ -300,6 +352,13 @@ export function useDrawPainting(options: {
       options.pushHistory(toolLabelById.lighten)
       return
     }
+    if (tool === 'move') {
+      const sel = options.selection.value
+      movingSelectionContent = Boolean(sel && pointInSelection(point, sel))
+      options.moveOffset.value = { x: 0, y: 0 }
+      options.requestRender()
+      return
+    }
 
     if (tool === 'line' || tool === 'rectangle' || tool === 'circle') {
       if ((event.button === 0 || event.button === 2) && options.canvasRef.value && Number.isFinite(event.pointerId)) {
@@ -478,23 +537,30 @@ export function useDrawPainting(options: {
       }
     }
     else if (options.activeTool.value === 'move' && (options.moveOffset.value.x !== 0 || options.moveOffset.value.y !== 0)) {
-      const next = createEmptyPixels(options.canvasWidth.value, options.canvasHeight.value)
-      for (let y = 0; y < options.canvasHeight.value; y += 1) {
-        for (let x = 0; x < options.canvasWidth.value; x += 1) {
-          const value = options.activeLayer.value.pixels[y]![x]!
-          if (!value) {
-            continue
-          }
-          const nx = x + options.moveOffset.value.x
-          const ny = y + options.moveOffset.value.y
-          if (inBounds(nx, ny)) {
-            next[ny]![nx] = value
+      const dx = options.moveOffset.value.x
+      const dy = options.moveOffset.value.y
+      if (movingSelectionContent && options.selection.value) {
+        didMoveLayer = applyMoveSelectionContent(dx, dy)
+      }
+      else {
+        const next = createEmptyPixels(options.canvasWidth.value, options.canvasHeight.value)
+        for (let y = 0; y < options.canvasHeight.value; y += 1) {
+          for (let x = 0; x < options.canvasWidth.value; x += 1) {
+            const value = options.activeLayer.value.pixels[y]![x]!
+            if (!value) {
+              continue
+            }
+            const nx = x + dx
+            const ny = y + dy
+            if (inBounds(nx, ny)) {
+              next[ny]![nx] = value
+            }
           }
         }
+        options.activeLayer.value.pixels = next
+        didMoveLayer = true
       }
-      options.activeLayer.value.pixels = next
       options.moveOffset.value = { x: 0, y: 0 }
-      didMoveLayer = true
     }
 
     if (toolAtUp === 'pencil' || toolAtUp === 'eraser' || toolAtUp === 'mirror-pencil') {
@@ -512,12 +578,10 @@ export function useDrawPainting(options: {
       options.pushHistory(toolLabelById[toolAtUp])
     }
     else if (toolAtUp === 'move' && didMoveLayer) {
-      options.pushHistory(toolLabelById.move)
-    }
-    else if (toolAtUp === 'rect-select' || toolAtUp === 'shape-select' || toolAtUp === 'lasso') {
-      options.pushHistory(toolLabelById[toolAtUp])
+      options.pushHistory(movingSelectionContent ? 'Перенести выделение' : toolLabelById.move)
     }
 
+    movingSelectionContent = false
     options.pointerStart.value = null
     strokeUsesSecondary = false
     lastStrokeGridPoint = null
@@ -537,6 +601,7 @@ export function useDrawPainting(options: {
     }
     options.mouseDown.value = false
     strokeUsesSecondary = false
+    movingSelectionContent = false
     options.pointerStart.value = null
     options.hoverPoint.value = null
     lastStrokeGridPoint = null

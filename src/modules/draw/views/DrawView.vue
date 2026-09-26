@@ -6,9 +6,9 @@ import { useScreenWidth } from '@/core/composables/useScreenWidth'
 import DrawAnimationPreviewModal from '@/modules/draw/components/DrawAnimationPreviewModal.vue'
 import DrawEditorHeader from '@/modules/draw/components/DrawEditorHeader.vue'
 import DrawFramesPanel from '@/modules/draw/components/DrawFramesPanel.vue'
+import DrawLayerNameModal from '@/modules/draw/components/DrawLayerNameModal.vue'
 import DrawLayersPanel from '@/modules/draw/components/DrawLayersPanel.vue'
 import DrawPalettePanel from '@/modules/draw/components/DrawPalettePanel.vue'
-import DrawLayerNameModal from '@/modules/draw/components/DrawLayerNameModal.vue'
 import DrawShortcutsModal from '@/modules/draw/components/DrawShortcutsModal.vue'
 import DrawToolsPanel from '@/modules/draw/components/DrawToolsPanel.vue'
 import DrawWorkspacePanel from '@/modules/draw/components/DrawWorkspacePanel.vue'
@@ -25,7 +25,7 @@ import { useDrawPainting } from '@/modules/draw/composables/draw/useDrawPainting
 import { collectUniqueColorsFromFrames } from '@/modules/draw/composables/draw/useDrawProjectPalette'
 import { useDrawSpriteDocument } from '@/modules/draw/composables/draw/useDrawSpriteDocument'
 import { useDrawViewportGuards } from '@/modules/draw/composables/draw/useDrawViewportGuards'
-import { primaryToolIds, toolLabelById, toolOptions } from '@/modules/draw/types/draw-editor'
+import { primaryToolIds, secondaryToolIds, toolLabelById, toolOptions } from '@/modules/draw/types/draw-editor'
 
 type MobilePanelTab = 'tools' | 'frames' | 'layers'
 
@@ -36,8 +36,16 @@ const { screenClass } = useScreenWidth()
 const isMobile = computed(() => screenClass.value === 'mobile')
 const mobilePanelTab = ref<MobilePanelTab>('tools')
 
-const primaryToolOptions = computed(() => toolOptions.filter(tool => primaryToolIds.includes(tool.id)))
-const secondaryToolOptions = computed(() => toolOptions.filter(tool => !primaryToolIds.includes(tool.id)))
+const primaryToolOptions = computed(() =>
+  primaryToolIds
+    .map(id => toolOptions.find(tool => tool.id === id))
+    .filter((tool): tool is NonNullable<typeof tool> => Boolean(tool)),
+)
+const secondaryToolOptions = computed(() =>
+  secondaryToolIds
+    .map(id => toolOptions.find(tool => tool.id === id))
+    .filter((tool): tool is NonNullable<typeof tool> => Boolean(tool)),
+)
 
 const primaryColor = ref('#1461cd')
 const secondaryColor = ref('#0a1628')
@@ -257,6 +265,10 @@ const {
   rotateRight,
   flipHorizontal,
   flipVertical,
+  flipActiveLayerHorizontal,
+  flipActiveLayerVertical,
+  dismissSelection,
+  clearSelectionOnActiveLayer,
   cropToSelection,
   onResizeWidthInput,
   onResizeHeightInput,
@@ -420,6 +432,9 @@ const { handleKeyboard } = useDrawEditorKeyboard({
   showSecondaryPopover,
   penSize,
   activeTool,
+  selection,
+  dismissSelection,
+  clearSelectionOnActiveLayer,
 })
 
 let previewTimer: ReturnType<typeof setInterval> | null = null
@@ -549,6 +564,8 @@ watch(
     <DrawEditorHeader
       :active-tool="activeTool"
       :active-tool-label="toolLabelById[activeTool]"
+      :active-frame-label="`Кадр ${activeFrameIndex + 1}`"
+      :active-layer-label="activeLayer.name"
       :is-ready="isReady"
       :is-dirty="isDirty"
       :last-saved-label="lastSavedLabel"
@@ -709,6 +726,8 @@ watch(
           @toggle-layer-visibility="toggleLayerVisibility"
           @reorder-layer="reorderLayer"
           @merge-layers="mergeLayers"
+          @flip-layer-horizontal="(index) => { activeLayerIndex = index; flipActiveLayerHorizontal() }"
+          @flip-layer-vertical="(index) => { activeLayerIndex = index; flipActiveLayerVertical() }"
           @history-jump="goToHistoryCheckpoint"
           @history-delete="deleteHistoryCheckpointFrom"
           @update:primary-color="setPrimaryColorHex"

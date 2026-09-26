@@ -33,7 +33,7 @@ const emit = defineEmits<{
 
       <div class="draw-modal-card__body draw-scrollbar">
         <div class="draw-shortcuts-layout">
-          <section class="draw-shortcuts-section" style="flex: 1; border: none; background: transparent; padding: 0" aria-labelledby="draw-shortcuts-title">
+          <section class="draw-shortcuts-section draw-shortcuts-section--tools" aria-labelledby="draw-shortcuts-title">
             <p class="draw-palette-section__label">
               Инструменты
             </p>
@@ -44,8 +44,12 @@ const emit = defineEmits<{
                 class="draw-shortcut-row"
               >
                 <span class="draw-shortcut-key">{{ tool.hotkey }}</span>
-                <BaseIcon :name="toolIconById[tool.id]" size="1rem" style="margin-top: 0.125rem; flex-shrink: 0; color: var(--color-text-secondary)" />
-                <span style="min-width: 0; flex: 1; font-size: 0.6875rem; line-height: 1.4; color: var(--color-text)">{{ tool.label }}</span>
+                <BaseIcon
+                  :name="toolIconById[tool.id]"
+                  size="1rem"
+                  class="draw-shortcut-row__icon"
+                />
+                <span class="draw-shortcut-row__label">{{ tool.label }}</span>
               </div>
             </div>
           </section>
@@ -55,26 +59,26 @@ const emit = defineEmits<{
               <p class="draw-palette-section__label">
                 Общие
               </p>
-              <div style="display: flex; flex-direction: column; gap: 0.5rem">
+              <div class="draw-shortcuts-list">
                 <div class="draw-shortcut-row">
                   <span class="draw-shortcut-key">Ctrl+S</span>
-                  <span style="min-width: 0; flex: 1; font-size: 0.6875rem; line-height: 1.4">Сохранить черновик</span>
+                  <span class="draw-shortcut-row__label">Сохранить черновик</span>
                 </div>
                 <div class="draw-shortcut-row">
                   <span class="draw-shortcut-key">Ctrl+Z</span>
-                  <span style="min-width: 0; flex: 1; font-size: 0.6875rem; line-height: 1.4">Отменить действие</span>
+                  <span class="draw-shortcut-row__label">Отменить действие</span>
                 </div>
                 <div class="draw-shortcut-row">
                   <span class="draw-shortcut-key">Ctrl+Y</span>
-                  <span style="min-width: 0; flex: 1; font-size: 0.6875rem; line-height: 1.4">Повторить действие</span>
+                  <span class="draw-shortcut-row__label">Повторить действие</span>
                 </div>
                 <div class="draw-shortcut-row">
                   <span class="draw-shortcut-key">[ / ]</span>
-                  <span style="min-width: 0; flex: 1; font-size: 0.6875rem; line-height: 1.4">Уменьшить / увеличить размер пера</span>
+                  <span class="draw-shortcut-row__label">Уменьшить / увеличить размер пера</span>
                 </div>
                 <div class="draw-shortcut-row">
                   <span class="draw-shortcut-key">?</span>
-                  <span style="min-width: 0; flex: 1; font-size: 0.6875rem; line-height: 1.4">Открыть / закрыть эту шпаргалку</span>
+                  <span class="draw-shortcut-row__label">Открыть / закрыть эту шпаргалку</span>
                 </div>
               </div>
             </section>
@@ -83,18 +87,22 @@ const emit = defineEmits<{
               <p class="draw-palette-section__label">
                 Выделение и слои
               </p>
-              <div style="display: flex; flex-direction: column; gap: 0.5rem">
+              <div class="draw-shortcuts-list">
                 <div class="draw-shortcut-row">
                   <span class="draw-shortcut-key">Ctrl+J</span>
-                  <span style="min-width: 0; flex: 1; font-size: 0.6875rem; line-height: 1.4">Дублировать активный слой</span>
+                  <span class="draw-shortcut-row__label">Дублировать активный слой</span>
                 </div>
                 <div class="draw-shortcut-row">
                   <span class="draw-shortcut-key">Del</span>
-                  <span style="min-width: 0; flex: 1; font-size: 0.6875rem; line-height: 1.4">Очистить выделение (инструменты выделения)</span>
+                  <span class="draw-shortcut-row__label">Очистить пиксели в выделении (активный слой)</span>
                 </div>
                 <div class="draw-shortcut-row">
-                  <span class="draw-shortcut-key">Enter</span>
-                  <span style="min-width: 0; flex: 1; font-size: 0.6875rem; line-height: 1.4">Применить трансформацию / выделение</span>
+                  <span class="draw-shortcut-key">Esc</span>
+                  <span class="draw-shortcut-row__label">Снять прямоугольное выделение</span>
+                </div>
+                <div class="draw-shortcut-row">
+                  <span class="draw-shortcut-key">M + drag</span>
+                  <span class="draw-shortcut-row__label">Перенести содержимое выделения (клик внутри рамки)</span>
                 </div>
               </div>
             </section>

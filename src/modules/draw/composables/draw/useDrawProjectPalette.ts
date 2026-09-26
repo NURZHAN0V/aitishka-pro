@@ -77,8 +77,32 @@ export const DRAW_PALETTE_PRESETS: readonly string[] = [
   '#fed7aa',
 ]
 
-/** Быстрые образцы в левой панели «Цвета» (первые слоты пресета). */
-export const DRAW_PALETTE_QUICK_SWATCHES: readonly string[] = DRAW_PALETTE_PRESETS.slice(0, 18)
+/**
+ * Быстрые образцы в левой панели «Цвета»:
+ * нейтрали + по одному-двум оттенкам основных рядов (не первые 18 пресета — там только серые).
+ */
+export const DRAW_PALETTE_QUICK_SWATCHES: readonly string[] = [
+  '#000000',
+  '#44403c',
+  '#a8a29e',
+  '#ffffff',
+  '#ef4444',
+  '#b91c1c',
+  '#fb923c',
+  '#ea580c',
+  '#eab308',
+  '#ca8a04',
+  '#22c55e',
+  '#15803d',
+  '#14b8a6',
+  '#0d9488',
+  '#3b82f6',
+  '#1d4ed8',
+  '#7c3aed',
+  '#6d28d9',
+  '#db2777',
+  '#d97757',
+]
 
 export function normalizeDrawHex(raw: string): string {
   let v = raw.trim()

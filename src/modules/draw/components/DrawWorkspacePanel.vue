@@ -205,7 +205,7 @@ function secondaryBtnClass(tab: SecondaryTab) {
               <BaseIcon name="draw-folder" size="1.25rem" />
             </button>
           </BaseTooltip>
-          <div class="draw-workspace__toolbar-divider">
+          <div class="draw-workspace__toolbar-end">
             <BaseTooltip text="Открыть просмотр анимации">
               <button
                 type="button"

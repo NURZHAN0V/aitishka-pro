@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { DrawTool } from '@/modules/draw/types/draw-editor'
+import type { DrawSelectionRect, DrawTool } from '@/modules/draw/types/draw-editor'
 
 /** Привязка по физической клавише (`KeyboardEvent.code`), не зависит от языка раскладки. */
 export const drawEditorToolCodeBindings: Partial<Record<string, DrawTool>> = {
@@ -49,6 +49,9 @@ export interface DrawEditorKeyboardDeps {
   showSecondaryPopover: Ref<boolean>
   penSize: Ref<number>
   activeTool: Ref<DrawTool>
+  selection: Ref<DrawSelectionRect | null>
+  dismissSelection: () => void
+  clearSelectionOnActiveLayer: () => void
 }
 
 function isTypingInField(target: EventTarget | null): boolean {
@@ -160,6 +163,18 @@ export function useDrawEditorKeyboard(deps: DrawEditorKeyboardDeps) {
       return
     }
     if (typing) {
+      return
+    }
+
+    if (code === 'Escape' && deps.selection.value) {
+      event.preventDefault()
+      deps.dismissSelection()
+      return
+    }
+
+    if ((code === 'Delete' || code === 'Backspace') && deps.selection.value) {
+      event.preventDefault()
+      deps.clearSelectionOnActiveLayer()
       return
     }
 

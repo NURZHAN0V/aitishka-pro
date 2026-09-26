@@ -4,6 +4,11 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import BaseIcon from '@/core/components/BaseIcon.vue'
 import BaseTooltip from '@/core/components/BaseTooltip.vue'
 import { DRAW_PALETTE_PRESETS, normalizeDrawHex } from '@/modules/draw/composables/draw/useDrawProjectPalette'
+import {
+  DRAW_HISTORY_DOCUMENT_LABEL,
+  toolIconById,
+  toolOptions,
+} from '@/modules/draw/types/draw-editor'
 
 const props = defineProps<{
   layers: DrawLayer[]
@@ -24,6 +29,8 @@ const emit = defineEmits<{
   'toggleLayerVisibility': [index: number]
   'reorderLayer': [from: number, to: number]
   'mergeLayers': []
+  'flipLayerHorizontal': [index: number]
+  'flipLayerVertical': [index: number]
   'historyJump': [checkpointIndex: number]
   'historyDelete': [checkpointIndex: number]
   'update:primaryColor': [hex: string]
@@ -212,6 +219,48 @@ function historyEntryLabel(checkpointIndex: number) {
   return props.undoStack[checkpointIndex]?.label ?? 'Состояние'
 }
 
+function historyEntryIcon(checkpointIndex: number): string {
+  const label = historyEntryLabel(checkpointIndex)
+  const fromTool = toolOptions.find(t => t.label === label)
+  if (fromTool) {
+    return toolIconById[fromTool.id]
+  }
+  const byLabel: Record<string, string> = {
+    [DRAW_HISTORY_DOCUMENT_LABEL.newFrame]: 'draw-add',
+    [DRAW_HISTORY_DOCUMENT_LABEL.duplicateFrame]: 'draw-copy',
+    [DRAW_HISTORY_DOCUMENT_LABEL.deleteFrame]: 'draw-delete',
+    [DRAW_HISTORY_DOCUMENT_LABEL.reorderFrames]: 'draw-stack',
+    [DRAW_HISTORY_DOCUMENT_LABEL.newLayer]: 'draw-add',
+    [DRAW_HISTORY_DOCUMENT_LABEL.duplicateLayer]: 'draw-copy',
+    [DRAW_HISTORY_DOCUMENT_LABEL.renameLayer]: 'draw-edit',
+    [DRAW_HISTORY_DOCUMENT_LABEL.deleteLayer]: 'draw-delete',
+    [DRAW_HISTORY_DOCUMENT_LABEL.reorderLayers]: 'draw-stack',
+    [DRAW_HISTORY_DOCUMENT_LABEL.mergeLayers]: 'draw-merge',
+    [DRAW_HISTORY_DOCUMENT_LABEL.clearAnimation]: 'draw-reset',
+    [DRAW_HISTORY_DOCUMENT_LABEL.rotateCanvas]: 'draw-rotate',
+    [DRAW_HISTORY_DOCUMENT_LABEL.flipHorizontal]: 'draw-flip-h',
+    [DRAW_HISTORY_DOCUMENT_LABEL.flipVertical]: 'draw-flip-v',
+    [DRAW_HISTORY_DOCUMENT_LABEL.flipActiveLayerHorizontal]: 'draw-flip-h',
+    [DRAW_HISTORY_DOCUMENT_LABEL.flipActiveLayerVertical]: 'draw-flip-v',
+    [DRAW_HISTORY_DOCUMENT_LABEL.cropToSelection]: 'draw-crop',
+    [DRAW_HISTORY_DOCUMENT_LABEL.clearSelection]: 'draw-delete',
+    [DRAW_HISTORY_DOCUMENT_LABEL.moveSelection]: 'draw-move',
+    [DRAW_HISTORY_DOCUMENT_LABEL.resizeCanvas]: 'draw-resize',
+    [DRAW_HISTORY_DOCUMENT_LABEL.importImage]: 'draw-image',
+  }
+  return byLabel[label] ?? 'draw-history'
+}
+
+function historyItemClass(checkpointIndex: number) {
+  if (checkpointIndex === props.historySelectedIndex) {
+    return 'draw-history-item draw-history-item--selected'
+  }
+  if (checkpointIndex > props.historySelectedIndex) {
+    return 'draw-history-item draw-history-item--future'
+  }
+  return 'draw-history-item'
+}
+
 function layerRowActionsClass(layerIndex: number) {
   if (props.activeLayerIndex === layerIndex) {
     return 'draw-layer-row__actions draw-layer-row__actions--visible'
@@ -233,7 +282,7 @@ function layerDeleteTooltip(): string {
       <div class="draw-side-panel__scroll draw-scrollbar draw-palette-scroll">
         <section>
           <p class="draw-palette-section__label">
-            Готовые
+            Цветовая палитра
           </p>
           <div class="draw-swatch-grid">
             <button
@@ -314,125 +363,154 @@ function layerDeleteTooltip(): string {
       </div>
 
       <div v-show="panelTab === 'layers'" class="draw-layers-tab">
-      <div
-        class="draw-layers-drop draw-scrollbar"
-        :class="{ 'draw-layers-drop--dragging': isDragging }"
-        style="display: flex; flex-direction: column; gap: 0.25rem"
-        @dragover.prevent
-      >
         <div
-          v-for="(layer, layerIndex) in layers"
-          :key="layer.id"
-          class="group"
-          @dragenter.prevent
+          class="draw-layers-drop draw-scrollbar"
+          :class="{ 'draw-layers-drop--dragging': isDragging }"
+          style="display: flex; flex-direction: column; gap: 0.25rem"
           @dragover.prevent
         >
           <div
-            draggable="true"
-            class="draw-layer-row"
-            :class="{ 'draw-layer-row--active': activeLayerIndex === layerIndex }"
-            @click="emit('update:activeLayerIndex', layerIndex)"
-            @dragstart="onLayerDragStart(layerIndex, $event)"
-            @dragend="onLayerDragEnd"
-            @drop.prevent="onLayerDrop(layerIndex)"
+            v-for="(layer, layerIndex) in layers"
+            :key="layer.id"
+            class="group"
+            @dragenter.prevent
+            @dragover.prevent
           >
-            <BaseIcon name="draw-move" class="draw-panel-icon-sm" style="color: var(--color-text-secondary)" />
-            <span class="draw-layer-row__name">{{ layer.name }}</span>
-            <button
-              type="button"
-              class="draw-btn draw-btn--xs"
-              :class="layerRowActionsClass(layerIndex)"
-              title="Переименовать слой"
-              @click.stop="emit('renameLayer', layerIndex)"
+            <div
+              draggable="true"
+              class="draw-layer-row"
+              :class="{ 'draw-layer-row--active': activeLayerIndex === layerIndex }"
+              :aria-current="activeLayerIndex === layerIndex ? 'true' : undefined"
+              :title="activeLayerIndex === layerIndex ? `Активный слой: ${layer.name}` : layer.name"
+              @click="emit('update:activeLayerIndex', layerIndex)"
+              @dragstart="onLayerDragStart(layerIndex, $event)"
+              @dragend="onLayerDragEnd"
+              @drop.prevent="onLayerDrop(layerIndex)"
             >
-              <BaseIcon name="draw-edit" class="draw-panel-icon-sm" />
-            </button>
-            <button
-              type="button"
-              class="draw-btn draw-btn--xs"
-              :class="layerRowActionsClass(layerIndex)"
-              :title="layer.visible ? 'Скрыть' : 'Показать'"
-              @click.stop="emit('toggleLayerVisibility', layerIndex)"
-            >
-              <BaseIcon :name="layer.visible ? 'draw-eye' : 'draw-eye-off'" class="draw-panel-icon-sm" />
-            </button>
-            <button
-              type="button"
-              class="draw-btn draw-btn--xs"
-              :class="layerRowActionsClass(layerIndex)"
-              title="Дублировать слой"
-              @click.stop="emit('duplicateLayerAt', layerIndex)"
-            >
-              <BaseIcon name="draw-copy" class="draw-panel-icon-sm" />
-            </button>
-            <BaseTooltip :text="layerDeleteTooltip()" position="bottom">
-              <button
-                type="button"
-                class="draw-btn draw-btn--xs draw-btn--danger"
+              <BaseIcon name="draw-move" class="draw-panel-icon-sm" style="color: var(--color-text-secondary)" />
+              <span class="draw-layer-row__name">{{ layer.name }}</span>
+              <BaseTooltip text="Переименовать слой" position="bottom" :class="layerRowActionsClass(layerIndex)">
+                <button
+                  type="button"
+                  class="draw-btn draw-btn--xs"
+                  aria-label="Переименовать слой"
+                  @click.stop="emit('renameLayer', layerIndex)"
+                >
+                  <BaseIcon name="draw-edit" class="draw-panel-icon-sm" />
+                </button>
+              </BaseTooltip>
+              <BaseTooltip
+                :text="layer.visible ? 'Скрыть слой' : 'Показать слой'"
+                position="bottom"
                 :class="layerRowActionsClass(layerIndex)"
-                :disabled="layers.length <= 1"
-                :aria-label="layerDeleteTooltip()"
-                @click.stop="emit('removeLayerAt', layerIndex)"
               >
-                <BaseIcon name="draw-delete" class="draw-panel-icon-sm" />
-              </button>
-            </BaseTooltip>
+                <button
+                  type="button"
+                  class="draw-btn draw-btn--xs"
+                  :aria-label="layer.visible ? 'Скрыть слой' : 'Показать слой'"
+                  @click.stop="emit('toggleLayerVisibility', layerIndex)"
+                >
+                  <BaseIcon :name="layer.visible ? 'draw-eye' : 'draw-eye-off'" class="draw-panel-icon-sm" />
+                </button>
+              </BaseTooltip>
+              <BaseTooltip text="Отразить слой по горизонтали" position="bottom" :class="layerRowActionsClass(layerIndex)">
+                <button
+                  type="button"
+                  class="draw-btn draw-btn--xs"
+                  aria-label="Отразить слой по горизонтали"
+                  @click.stop="emit('flipLayerHorizontal', layerIndex)"
+                >
+                  <BaseIcon name="draw-flip-h" class="draw-panel-icon-sm" />
+                </button>
+              </BaseTooltip>
+              <BaseTooltip text="Отразить слой по вертикали" position="bottom" :class="layerRowActionsClass(layerIndex)">
+                <button
+                  type="button"
+                  class="draw-btn draw-btn--xs"
+                  aria-label="Отразить слой по вертикали"
+                  @click.stop="emit('flipLayerVertical', layerIndex)"
+                >
+                  <BaseIcon name="draw-flip-v" class="draw-panel-icon-sm" />
+                </button>
+              </BaseTooltip>
+              <BaseTooltip text="Дублировать слой" position="bottom" :class="layerRowActionsClass(layerIndex)">
+                <button
+                  type="button"
+                  class="draw-btn draw-btn--xs"
+                  aria-label="Дублировать слой"
+                  @click.stop="emit('duplicateLayerAt', layerIndex)"
+                >
+                  <BaseIcon name="draw-copy" class="draw-panel-icon-sm" />
+                </button>
+              </BaseTooltip>
+              <BaseTooltip :text="layerDeleteTooltip()" position="bottom" :class="layerRowActionsClass(layerIndex)">
+                <button
+                  type="button"
+                  class="draw-btn draw-btn--xs draw-btn--danger"
+                  :disabled="layers.length <= 1"
+                  :aria-label="layerDeleteTooltip()"
+                  @click.stop="emit('removeLayerAt', layerIndex)"
+                >
+                  <BaseIcon name="draw-delete" class="draw-panel-icon-sm" />
+                </button>
+              </BaseTooltip>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="draw-layers-footer">
-        <button type="button" class="draw-layers-footer__btn" title="Новый слой" @click="emit('addLayer')">
-          <BaseIcon name="draw-add" class="draw-panel-icon-xs" />
-          <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Слой</span>
-        </button>
-        <BaseTooltip text="Объединить видимые слои" class="draw-layers-footer__btn" style="padding: 0; border: none; background: transparent">
-          <button
-            type="button"
-            aria-label="Объединить видимые слои"
-            class="draw-layers-footer__btn"
-            style="width: 100%"
-            @click="emit('mergeLayers')"
-          >
-            <BaseIcon name="draw-merge" class="draw-panel-icon-xs" />
-            <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Объединить</span>
-          </button>
-        </BaseTooltip>
-      </div>
+        <div class="draw-layers-footer">
+          <BaseTooltip text="Новый слой" position="top" class="draw-layers-footer__slot">
+            <button type="button" class="draw-layers-footer__btn" aria-label="Новый слой" @click="emit('addLayer')">
+              <BaseIcon name="draw-add" class="draw-panel-icon-xs" />
+              <span>Слой</span>
+            </button>
+          </BaseTooltip>
+          <BaseTooltip text="Объединить видимые слои" position="top" class="draw-layers-footer__slot">
+            <button
+              type="button"
+              aria-label="Объединить видимые слои"
+              class="draw-layers-footer__btn"
+              @click="emit('mergeLayers')"
+            >
+              <BaseIcon name="draw-merge" class="draw-panel-icon-xs" />
+              <span>Объединить</span>
+            </button>
+          </BaseTooltip>
+        </div>
       </div>
 
       <div v-show="panelTab === 'history'" class="draw-history-tab">
         <div class="draw-history-panel">
-          <div class="draw-history-list draw-scrollbar">
+          <div class="draw-history-list draw-scrollbar" role="listbox" aria-label="Шаги истории">
             <template v-if="undoStack.length === 0">
               <p class="draw-history-empty">
-                История появится после первого штриха на холсте.
+                История появится после первого действия на холсте.
               </p>
             </template>
             <button
               v-for="idx in historyIndicesNewestFirst"
               :key="`h-${idx}`"
               type="button"
-              class="draw-history-item"
-              :class="[
-                idx === historySelectedIndex ? 'draw-history-item--selected' : 'draw-history-item--dimmed',
-              ]"
+              role="option"
+              :class="historyItemClass(idx)"
+              :aria-selected="idx === historySelectedIndex"
               @click="emit('historyJump', idx)"
             >
-              <BaseIcon name="draw-brush-tool" class="draw-panel-icon-sm" style="opacity: 0.7" />
-              <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ historyEntryLabel(idx) }}</span>
+              <BaseIcon :name="historyEntryIcon(idx)" class="draw-history-item__icon" />
+              <span class="draw-history-item__label">{{ historyEntryLabel(idx) }}</span>
             </button>
           </div>
-          <button
-            type="button"
-            class="draw-history-delete"
-            title="Удалить выбранный шаг и все более новые"
-            :disabled="!historyDeleteAllowed"
-            aria-label="Удалить выбранную запись истории и более новые шаги"
-            @click="emitHistoryDeleteSelected"
-          >
-            <BaseIcon name="draw-delete" class="draw-panel-icon-xs" />
-            <span>Удалить</span>
-          </button>
+          <BaseTooltip text="Удалить выбранный шаг и все более новые" position="top" style="display: block; width: 100%">
+            <button
+              type="button"
+              class="draw-history-delete"
+              :disabled="!historyDeleteAllowed"
+              aria-label="Удалить выбранную запись истории и более новые шаги"
+              @click="emitHistoryDeleteSelected"
+            >
+              <BaseIcon name="draw-delete" class="draw-panel-icon-xs" />
+              <span>Удалить шаг</span>
+            </button>
+          </BaseTooltip>
         </div>
       </div>
     </section>

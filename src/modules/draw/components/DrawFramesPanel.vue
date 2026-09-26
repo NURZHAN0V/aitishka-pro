@@ -67,6 +67,8 @@ function onDragEnd() {
           type="button"
           class="draw-frame-thumb"
           :class="{ 'draw-frame-thumb--active': activeFrameIndex === frameIndex }"
+          :aria-current="activeFrameIndex === frameIndex ? 'true' : undefined"
+          :title="activeFrameIndex === frameIndex ? `Активный кадр ${frameIndex + 1}` : `Кадр ${frameIndex + 1}`"
           draggable="true"
           @click="emit('update:activeFrameIndex', frameIndex)"
           @dragstart="onDragStart(frameIndex, $event)"
