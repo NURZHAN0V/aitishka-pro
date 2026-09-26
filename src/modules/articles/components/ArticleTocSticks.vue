@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { ArticleTocSection } from '@/modules/articles/composables/useArticleToc'
-import { ref } from 'vue'
+import { computed, onBeforeUnmount, ref } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   sections: ArticleTocSection[]
   activeId: string | null
 }>()
@@ -11,64 +11,113 @@ const emit = defineEmits<{
   navigate: [id: string]
 }>()
 
-const hoveredId = ref<string | null>(null)
+/** Сколько полосок видно в свёрнутом рейле — остальное через панель. */
+const MAX_VISIBLE_STICKS = 8
+const CLOSE_DELAY_MS = 220
 
-function showPanel(id: string) {
-  hoveredId.value = id
+const expanded = ref(false)
+let closeTimer: ReturnType<typeof setTimeout> | null = null
+
+const visibleSections = computed(() => {
+  const all = props.sections
+  if (all.length <= MAX_VISIBLE_STICKS)
+    return all
+
+  const activeIndex = Math.max(0, all.findIndex(s => s.id === props.activeId))
+  const half = Math.floor(MAX_VISIBLE_STICKS / 2)
+  let start = Math.max(0, activeIndex - half)
+  let end = start + MAX_VISIBLE_STICKS
+  if (end > all.length) {
+    end = all.length
+    start = Math.max(0, end - MAX_VISIBLE_STICKS)
+  }
+  return all.slice(start, end)
+})
+
+function clearCloseTimer() {
+  if (closeTimer == null)
+    return
+  clearTimeout(closeTimer)
+  closeTimer = null
 }
 
-function hidePanel() {
-  hoveredId.value = null
+function openPanel() {
+  clearCloseTimer()
+  expanded.value = true
+}
+
+function scheduleClosePanel() {
+  clearCloseTimer()
+  closeTimer = setTimeout(() => {
+    expanded.value = false
+    closeTimer = null
+  }, CLOSE_DELAY_MS)
 }
 
 function handleNavigate(id: string) {
   emit('navigate', id)
+  clearCloseTimer()
+  expanded.value = false
 }
+
+onBeforeUnmount(() => {
+  clearCloseTimer()
+})
 </script>
 
 <template>
   <nav
     v-if="sections.length > 0"
     class="article-toc-sticks"
+    :class="{ 'article-toc-sticks--expanded': expanded }"
     aria-label="Содержание статьи"
+    @mouseenter="openPanel"
+    @mouseleave="scheduleClosePanel"
+    @focusin="openPanel"
+    @focusout="scheduleClosePanel"
   >
-    <ol class="article-toc-sticks__list">
+    <div
+      v-show="expanded"
+      class="article-toc-sticks__panel"
+      role="navigation"
+      aria-label="Разделы статьи"
+    >
+      <p class="article-toc-sticks__panel-heading">
+        Содержание
+      </p>
+      <ul class="article-toc-sticks__panel-scroll">
+        <li
+          v-for="section in sections"
+          :key="section.id"
+          class="article-toc-sticks__panel-item"
+          :class="`article-toc-sticks__panel-item--h${section.level}`"
+        >
+          <button
+            type="button"
+            class="article-toc-sticks__panel-link"
+            :class="{ 'article-toc-sticks__panel-link--active': activeId === section.id }"
+            :aria-current="activeId === section.id ? 'location' : undefined"
+            @click="handleNavigate(section.id)"
+          >
+            {{ section.title }}
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <ol class="article-toc-sticks__list" aria-hidden="true">
       <li
-        v-for="section in sections"
+        v-for="section in visibleSections"
         :key="section.id"
         class="article-toc-sticks__item"
         :class="`article-toc-sticks__item--h${section.level}`"
-        @mouseenter="showPanel(section.id)"
-        @mouseleave="hidePanel"
       >
-        <button
-          type="button"
+        <span
           class="article-toc-sticks__stick"
           :class="{ 'article-toc-sticks__stick--active': activeId === section.id }"
-          :aria-label="section.title"
-          :aria-current="activeId === section.id ? 'location' : undefined"
-          @focus="showPanel(section.id)"
-          @blur="hidePanel"
-          @click="handleNavigate(section.id)"
         >
-          <span class="article-toc-sticks__line" aria-hidden="true" />
-        </button>
-
-        <div
-          v-if="hoveredId === section.id"
-          class="article-toc-sticks__panel"
-          role="tooltip"
-        >
-          <p class="article-toc-sticks__panel-title">
-            {{ section.title }}
-          </p>
-          <p
-            v-if="section.previewText"
-            class="article-toc-sticks__panel-preview"
-          >
-            {{ section.previewText }}
-          </p>
-        </div>
+          <span class="article-toc-sticks__line" />
+        </span>
       </li>
     </ol>
   </nav>
@@ -80,8 +129,12 @@ function handleNavigate(id: string) {
   top: 50%;
   right: 1.5rem;
   z-index: 30;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
   transform: translateY(-50%);
-  pointer-events: none;
+  pointer-events: auto;
 
   @media (max-width: $bp-lg) {
     display: none;
@@ -92,17 +145,16 @@ function handleNavigate(id: string) {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  flex-shrink: 0;
   gap: 0.625rem;
   margin: 0;
-  padding: 0;
+  padding: 0.25rem 0;
   list-style: none;
 }
 
 .article-toc-sticks__item {
-  position: relative;
   display: flex;
   justify-content: flex-end;
-  pointer-events: auto;
 
   &--h3 {
     padding-right: 0.375rem;
@@ -115,12 +167,6 @@ function handleNavigate(id: string) {
   justify-content: flex-end;
   width: 2rem;
   height: 1.25rem;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-
-  @include focus-ring;
 }
 
 .article-toc-sticks__line {
@@ -140,11 +186,8 @@ function handleNavigate(id: string) {
   width: 1rem;
 }
 
-.article-toc-sticks__stick:hover .article-toc-sticks__line,
-.article-toc-sticks__stick:focus-visible .article-toc-sticks__line {
-  width: 1.5rem;
-  opacity: 0.85;
-  background: var(--color-text-secondary);
+.article-toc-sticks--expanded .article-toc-sticks__line {
+  opacity: 0.7;
 }
 
 .article-toc-sticks__stick--active .article-toc-sticks__line {
@@ -154,38 +197,93 @@ function handleNavigate(id: string) {
 }
 
 .article-toc-sticks__panel {
-  position: absolute;
-  top: 50%;
-  right: calc(100% + 0.75rem);
-  z-index: 1;
-  width: min(17.5rem, calc(100vw - 6rem));
-  padding: 0.75rem 0.875rem;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: min(18rem, calc(100vw - 6rem));
+  max-height: min(22rem, 60vh);
   border: 1px solid var(--color-border-subtle);
   border-radius: $radius-sm;
   background: var(--color-surface-elevated);
   box-shadow: $shadow-md;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.article-toc-sticks__panel-title {
-  margin: 0;
-  color: var(--color-text);
-  font-family: $font-display;
-  font-size: $text-sm;
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-.article-toc-sticks__panel-preview {
-  display: -webkit-box;
-  margin: 0.375rem 0 0;
   overflow: hidden;
+}
+
+.article-toc-sticks__panel-heading {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0.75rem 0.875rem 0.5rem;
   color: var(--color-text-secondary);
   font-size: $text-xs;
-  line-height: 1.45;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.article-toc-sticks__panel-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0 0.375rem 0.5rem;
+  list-style: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gray-400) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: var(--color-gray-400);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+.article-toc-sticks__panel-item {
+  margin: 0;
+
+  &--h3 .article-toc-sticks__panel-link {
+    padding-left: 1.25rem;
+    font-size: $text-xs;
+  }
+}
+
+.article-toc-sticks__panel-link {
+  display: block;
+  width: 100%;
+  padding: 0.4375rem 0.5rem;
+  border: none;
+  border-radius: $radius-sm;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: $text-sm;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  &--active {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  &--active:hover {
+    color: var(--color-on-primary);
+  }
+
+  @include focus-ring;
 }
 </style>
