@@ -7,7 +7,7 @@
   "author": "Nurzhanov Oleg",
   "homepage": "https://aitishka.pro",
   "engines": {
-    "node": ">=20"
+    "node": ">=22.13"
   },
   "scripts": {
     "dev": "node scripts/copy-content.mjs && vite",
