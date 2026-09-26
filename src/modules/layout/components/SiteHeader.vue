@@ -36,7 +36,7 @@ onMounted(async () => {
   hasMoreArticleCategories.value = hasMore
 
   navigation.value = site.navigation.map((item) => {
-    if (item.label === 'Статьи' && item.to === '/articles')
+    if (item.to === '/articles' || item.label === 'Статьи')
       return { ...item, children: items }
     return item
   })
@@ -275,6 +275,10 @@ function handleViewportChange() {
   &:hover {
     background: $color-primary;
     color: $color-on-primary;
+
+    .site-header__dropdown-icon {
+      color: $color-on-primary;
+    }
   }
 
   &--active {
